@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="universalpreferences-0.0.4">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/d473a27e0edcfe10594a42bfe0cbf3cd260d6a2a/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/d473a27e0edcfe10594a42bfe0cbf3cd260d6a2a/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.zookey/universalpreferences/0.0.4/209c06703edf167f3f88d282a7fa7480d7a8d5cc/universalpreferences-0.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

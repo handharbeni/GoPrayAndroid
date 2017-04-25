@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="aescrypt-0.0.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/bc6c2d0b0bb909fc6e137766f0b4cb6b7810845b/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/bc6c2d0b0bb909fc6e137766f0b4cb6b7810845b/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.scottyab/aescrypt/0.0.1/2f504dc749c5adc64c118d0ccef57c184dfa171f/aescrypt-0.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

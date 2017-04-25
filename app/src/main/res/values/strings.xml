@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">GoPrayMurid</string>
+    <string name="nama">Nama</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="noConnection">Tidak Ada Koneksi</string>
+    <string name="KeyPassword">SATULIMAKALI</string>
+    <string name="server">http://ce149084.ngrok.io</string>
+    <string name="vServer">v1</string>
+    <string name="signin">Signin</string>
+    <string name="signup">Signup</string>
+    <string name="loginFailed">LOGIN GAGAL!!</string>
+    <string name="prosesLogin">PROSES LOGIN!!</string>
+    <string name="prosesDaftar">PROSES DAFTAR!!</string>
+    <string name="signupSuccess">DAFTAR BERHASIL!!</string>
 </resources>
