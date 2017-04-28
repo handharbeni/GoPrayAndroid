@@ -1,58 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/imageView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="138dp"
-        app:srcCompat="@mipmap/skype"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="138dp"
+            app:srcCompat="@drawable/ic_logo"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/email"/>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            app:met_baseColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            app:met_floatingLabel="normal"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="39dp"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/txtEmail" />
 
-    <EditText
-        android:id="@+id/txtPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/txtEmail"
-        android:layout_alignRight="@+id/txtEmail"
-        android:layout_below="@+id/txtEmail"
-        android:layout_marginTop="22dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="@string/password"/>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            app:met_baseColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:layout_below="@+id/txtEmail"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/txtPassword" />
 
-    <Button
-        android:id="@+id/btnSignin"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassword"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
-        android:text="@string/signin" />
+        <Button
+            android:id="@+id/btnSignin"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/signin"
+            android:textSize="15sp"
+            android:layout_below="@+id/txtPassword"
+            android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:id="@+id/txtScreenSignup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSignin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:text="@string/signup"
-        tools:text="@string/signup" />
-</RelativeLayout>
+        <RelativeLayout
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_below="@+id/btnSignin"
+            android:layout_centerHorizontal="true">
+
+        <TextView
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/txtScreenSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signup"
+            tools:text="@string/signup"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/askaccount"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/txtScreenSignup"
+            android:layout_toStartOf="@+id/txtScreenSignup" />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

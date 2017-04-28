@@ -5,12 +5,20 @@
     <string name="password">Password</string>
     <string name="noConnection">Tidak Ada Koneksi</string>
     <string name="KeyPassword">SATULIMAKALI</string>
-    <string name="server">http://ce149084.ngrok.io</string>
+    <string name="server">http://192.168.1.22/GoPrayAPI</string>
     <string name="vServer">v1</string>
-    <string name="signin">Signin</string>
-    <string name="signup">Signup</string>
-    <string name="loginFailed">LOGIN GAGAL!!</string>
-    <string name="prosesLogin">PROSES LOGIN!!</string>
-    <string name="prosesDaftar">PROSES DAFTAR!!</string>
-    <string name="signupSuccess">DAFTAR BERHASIL!!</string>
+    <string name="signin">Masuk</string>
+    <string name="signup">Daftar</string>
+    <string name="loginFailed">Login Gagal!!</string>
+    <string name="prosesLogin">Proses Login..</string>
+    <string name="prosesDaftar">Proses Daftar..</string>
+    <string name="signupSuccess">Daftar Berhasil!!</string>
+    <string name="askaccount">Belum Punya Akun?</string>
+    <string name="asklogin">Sudah Punya Akun?</string>
+    <string name="sholat">Sholat</string>
+    <string name="bersama">bersama</string>
+    <string name="tempat">di</string>
+    <string name="mengaji">Mengaji</string>
+    <string name="sedekah">Sedekah</string>
+    <string name="freetext">Free Text</string>
 </resources>

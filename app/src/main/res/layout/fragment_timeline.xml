@@ -1,15 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:arc="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
+    <RelativeLayout
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:background="@android:color/white"
+        android:elevation="2dp"
+        android:outlineProvider="bounds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:textColor="@android:color/black"
+            android:id="@+id/txtNamaSholat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="75dp"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="10dp"
+            android:text="TextView" />
+
+        <TextView
+            android:textColor="@color/line"
+            android:id="@+id/txtRemainTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txtNamaSholat"
+            android:layout_alignStart="@+id/txtNamaSholat"
+            android:layout_below="@+id/txtNamaSholat"
+            android:layout_marginTop="10dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/txtPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/common_google_signin_btn_icon_dark_pressed"
+            app:civ_border_width="0dp"
+            app:civ_border_color="#FF000000"/>
+
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:padding="2dp"
+            android:id="@+id/imgTropi1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:srcCompat="@drawable/ic_trophy"
+            android:background="@drawable/ic_trophy"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/txtPoint"
+            android:layout_toStartOf="@+id/txtPoint" />
+
+        <ImageView
+            android:id="@+id/imgTropi2"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/ic_trophy"
+            android:padding="2dp"
+            app:srcCompat="@drawable/ic_trophy"
+            android:layout_marginRight="11dp"
+            android:layout_marginEnd="11dp"
+            android:layout_centerVertical="true"
+            android:layout_alignTop="@+id/imgTropi1"
+            android:layout_toLeftOf="@+id/imgTropi1"
+            android:layout_toStartOf="@+id/imgTropi1" />
+
+    </RelativeLayout>
+
+    <ListView
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:id="@+id/listViewTimeline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout" />
+    <com.bvapp.arcmenulibrary.ArcMenu
+        android:id="@+id/arcMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="TIMELINE"
-        tools:text="TIMELINE" />
+        arc:menuType="normal"
+        arc:menuChildSize="56dp"
+        arc:menuGravity="Bottom_middle"
+        arc:menuClickAnim="true"
+        arc:menuChildAnim="false"
+        arc:menuShadowElevation="true"
+        arc:menuNormalColor="@color/colorPrimary"
+        arc:menuImage="@mipmap/tools"
+        android:layout_gravity="center_vertical|bottom"
+        >
+    </com.bvapp.arcmenulibrary.ArcMenu>
+
 </RelativeLayout>

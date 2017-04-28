@@ -6,7 +6,8 @@
     android:contentInsetStart="0dp"
     android:contentInsetLeft="0dp"
     app:contentInsetLeft="0dp"
-    app:contentInsetStart="0dp">
+    app:contentInsetStart="0dp"
+    android:elevation="10dp">
 
     <RelativeLayout
         android:paddingTop="15dp"

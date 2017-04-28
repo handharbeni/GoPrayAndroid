@@ -16,6 +16,16 @@ public class Timeline extends RealmObject {
     public int point;
     public String date;
     public String jam;
+    public int status;
+
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public int getId() {
         return id;

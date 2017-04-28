@@ -1,6 +1,7 @@
 package mhandharbeni.illiyin.gopraymurid;
 
 import android.Manifest;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -34,6 +35,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Family;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Meme;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Setting;
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // permission
         String[] permissions = new String[11];
         permissions[0] = Manifest.permission.CAMERA;
@@ -127,7 +131,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         // 1 : register
         // 2 : main layout
         String loggedin = encryptedPreferences.getString(STAT, "1");
+//        String loggedin = "1";
         setView(Integer.valueOf(loggedin));
+
     }
     public void setSession(String key, String nama, String email, String picture, String pos){
         String encryptedApiKey = encryptedPreferences.getUtils().encryptStringValue(key);
@@ -170,10 +176,10 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         final TabLayout.Tab meme = tabLayout.newTab();
         final TabLayout.Tab setting = tabLayout.newTab();
 
-        timeline.setIcon(R.drawable.ic_tab_timeline);
-        family.setIcon(R.drawable.ic_tab_pray_circle);
-        meme.setIcon(R.drawable.ic_tab_ibadah_daily);
-        setting.setIcon(R.drawable.ic_tab_setting);
+        timeline.setIcon(R.drawable.tab_timeline_inactive);
+        family.setIcon(R.drawable.tab_ortu_inactive);
+        meme.setIcon(R.drawable.tab_meme_inactive);
+        setting.setIcon(R.drawable.tab_settings_inactive);
 
 
         tabLayout.addTab(timeline, 0);
@@ -187,13 +193,44 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Drawable icon = null;
+                switch (tab.getPosition()){
+                    case 0:
+                        icon = getResources().getDrawable(R.drawable.tab_timeline_active);
+                        break;
+                    case 1:
+                        icon = getResources().getDrawable(R.drawable.tab_ortu_active);
+                        break;
+                    case 2:
+                        icon = getResources().getDrawable(R.drawable.tab_meme_active);
+                        break;
+                    case 3:
+                        icon = getResources().getDrawable(R.drawable.tab_settings_active);
+                        break;
+                }
+                tab.setIcon(icon);
                 chooseFragment(tab.getPosition());
-                showSnackBar(String.valueOf(tab.getPosition()));
+//                showSnackBar(String.valueOf(tab.getPosition()));
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                Drawable icon = null;
+                switch (tab.getPosition()){
+                    case 0:
+                        icon = getResources().getDrawable(R.drawable.tab_timeline_inactive);
+                        break;
+                    case 1:
+                        icon = getResources().getDrawable(R.drawable.tab_ortu_inactive);
+                        break;
+                    case 2:
+                        icon = getResources().getDrawable(R.drawable.tab_meme_inactive);
+                        break;
+                    case 3:
+                        icon = getResources().getDrawable(R.drawable.tab_settings_inactive);
+                        break;
+                }
+                tab.setIcon(icon);
             }
 
             @Override
@@ -259,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                 public void onResponse(Response response) {
                     try {
                         String responses = response.body().string();
+                        Log.d("MAINACTIVITY GOPRAY", "onResponse: "+responses);
                         JSONObject jsonObj = new JSONObject(responses);
                         Boolean returns = jsonObj.getBoolean("return");
                         if(returns){

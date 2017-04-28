@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="25dp"
+    android:orientation="horizontal"
+    android:gravity="top"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <RelativeLayout
+        android:layout_gravity="top"
+        android:gravity="top"
+        android:id="@+id/time_marker"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/vertical_line" />
+
+        <ImageView
+
+            android:id="@+id/imgIcon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/timeline_berdoa"
+            app:srcCompat="@drawable/timeline_berdoa"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/itemSholat"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="top"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtLabelSholat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="@string/sholat" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtSholat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="Dhuhur"
+                    android:layout_toRightOf="@+id/txtLabelSholat"
+                    android:layout_toEndOf="@+id/txtLabelSholat" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtLabelBersama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="@string/bersama"
+                    android:layout_toRightOf="@+id/txtSholat"
+                    android:layout_toEndOf="@+id/txtSholat"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtBersama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="Dia"
+                    android:layout_toRightOf="@+id/txtLabelBersama"
+                    android:layout_toEndOf="@+id/txtLabelBersama" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtLabelTempat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="@string/tempat"
+                    android:layout_toRightOf="@+id/txtBersama"
+                    android:layout_toEndOf="@+id/txtBersama"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtTempat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="Dia"
+                    android:layout_toRightOf="@+id/txtLabelTempat"
+                    android:layout_toEndOf="@+id/txtLabelTempat" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTanggalSholat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/line"
+                android:textSize="12sp"
+                tools:text="24 JAN" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/itemMengaji"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtLabelMengaji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="@string/mengaji" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtMengaji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="Dhuhur"
+                    android:layout_toRightOf="@+id/txtLabelMengaji"
+                    android:layout_toEndOf="@+id/txtLabelMengaji" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtLabelTempatMengaji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="@string/tempat"
+                    android:layout_toRightOf="@+id/txtMengaji"
+                    android:layout_toEndOf="@+id/txtMengaji"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtTempatMengaji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="Dia"
+                    android:layout_toRightOf="@+id/txtLabelTempatMengaji"
+                    android:layout_toEndOf="@+id/txtLabelTempatMengaji" />
+            </RelativeLayout>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTanggalMengaji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/line"
+                android:textSize="12sp"
+                tools:text="24 JAN" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/itemSedekah"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtLabelSedekah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="@string/sedekah" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtLabelTempatSedekah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="@string/tempat"
+                    android:layout_toRightOf="@+id/txtLabelSedekah"
+                    android:layout_toEndOf="@+id/txtLabelSedekah"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/txtTempatSedekah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/line"
+                    tools:text="Dia"
+                    android:layout_toRightOf="@+id/txtLabelTempatSedekah"
+                    android:layout_toEndOf="@+id/txtLabelTempatSedekah" />
+            </RelativeLayout>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTanggalSedekah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/line"
+                android:textSize="12sp"
+                tools:text="24 JAN" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/itemBerdoa"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtDoa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/line"
+                tools:text="Mengaji Di" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTanggalDoa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/line"
+                android:textSize="12sp"
+                tools:text="24 JAN" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/itemFreeText"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtFreeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/line"
+                tools:text="@string/freetext" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTanggalFreeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/line"
+                android:textSize="12sp"
+                tools:text="24 JAN" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/itemStiker"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="bottom|end"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/txtStiker"
+                android:background="@drawable/timeline_berdoa"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:maxWidth="100dp"
+                android:maxHeight="100dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/line" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txtTanggalStiker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/line"
+                android:textSize="12sp"
+                tools:text="24 JAN" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>
