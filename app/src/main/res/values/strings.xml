@@ -5,8 +5,9 @@
     <string name="password">Password</string>
     <string name="noConnection">Tidak Ada Koneksi</string>
     <string name="KeyPassword">SATULIMAKALI</string>
-    <string name="server">http://192.168.1.22/GoPrayAPI</string>
-    <string name="vServer">v1</string>
+    <!--<string name="server">http://goprayapi.herokuapp.com</string>-->
+    <string name="server">http://192.168.1.9/GoPrayAPI</string>
+    <string name="vServer"></string>
     <string name="signin">Masuk</string>
     <string name="signup">Daftar</string>
     <string name="loginFailed">Login Gagal!!</string>

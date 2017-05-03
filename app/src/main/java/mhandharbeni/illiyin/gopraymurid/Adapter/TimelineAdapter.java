@@ -1,6 +1,7 @@
 package mhandharbeni.illiyin.gopraymurid.Adapter;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,8 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
     private ArrayList<TimelineModel> dataSet;
     Context mContext;
     private static class ViewHolder {
+        /*Line BOTTOM*/
+        ImageView lineBottom;
         /*Sholat*/
         RelativeLayout itemSholat;
         TextView txtLabelSholat;
@@ -67,6 +70,10 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         TextView txtTanggalStiker;
         /*Stiker*/
         ImageView icon;
+        /*Puasa*/
+        RelativeLayout itemPuasa;
+        TextView txtPuasa;
+        TextView txtTanggalPuasa;
     }
     ViewHolder viewHolder;
     public TimelineAdapter(ArrayList<TimelineModel> data, Context context) {
@@ -88,14 +95,17 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.item_timeline, parent, false);
-
+            viewHolder.lineBottom = (ImageView) convertView.findViewById(R.id.lineBottom);
             viewHolder.itemSholat = (RelativeLayout) convertView.findViewById(R.id.itemSholat);
             viewHolder.itemMengaji = (RelativeLayout) convertView.findViewById(R.id.itemMengaji);
             viewHolder.itemSedekah = (RelativeLayout) convertView.findViewById(R.id.itemSedekah);
             viewHolder.itemBerdoa = (RelativeLayout) convertView.findViewById(R.id.itemBerdoa);
             viewHolder.itemFreeText = (RelativeLayout) convertView.findViewById(R.id.itemFreeText);
             viewHolder.itemStiker = (RelativeLayout) convertView.findViewById(R.id.itemStiker);
+            viewHolder.itemPuasa = (RelativeLayout) convertView.findViewById(R.id.itemPuasa);
 
+            viewHolder.txtPuasa = (TextView) convertView.findViewById(R.id.txtPuasa);
+            viewHolder.txtTanggalPuasa = (TextView) convertView.findViewById(R.id.txtTanggalPuasa);
             viewHolder.txtLabelSholat = (TextView) convertView.findViewById(R.id.txtLabelSholat);
             viewHolder.txtSholat = (TextView) convertView.findViewById(R.id.txtSholat);
             viewHolder.txtLabelBersama = (TextView) convertView.findViewById(R.id.txtLabelBersama);
@@ -130,6 +140,13 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         }
 
         lastPosition = position;
+
+        if(dataModel.getTl().equalsIgnoreCase("start")){
+            viewHolder.lineBottom.setVisibility(View.GONE);
+        }else if(dataModel.getTl().equalsIgnoreCase("content")){
+            viewHolder.lineBottom.setVisibility(View.VISIBLE);
+        }
+
         Glide.with(mContext).load(dataModel.getIcon()).into(viewHolder.icon);
         viewHolder.itemStiker.setVisibility(View.GONE);
         viewHolder.itemFreeText.setVisibility(View.GONE);
@@ -137,10 +154,13 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         viewHolder.itemSedekah.setVisibility(View.GONE);
         viewHolder.itemMengaji.setVisibility(View.GONE);
         viewHolder.itemSholat.setVisibility(View.GONE);
-        if(dataModel.getType() == 1){
+        viewHolder.itemPuasa.setVisibility(View.GONE);
+        if(dataModel.getType() == 3){
             /*sholat*/
             viewHolder.itemSholat.setVisibility(View.VISIBLE);
             viewHolder.txtLabelBersama.setVisibility(View.GONE);
+            viewHolder.txtTempat.setVisibility(View.GONE);
+            viewHolder.txtBersama.setVisibility(View.GONE);
             viewHolder.txtLabelTempat.setVisibility(View.GONE);
             viewHolder.txtSholat.setText(dataModel.getKeterangan());
             /*viewHolder.txtLabelSholat.setText("");*/
@@ -150,10 +170,11 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             }
             if (!dataModel.getDi().equalsIgnoreCase("")){
                 viewHolder.txtLabelTempat.setVisibility(View.VISIBLE);
+                viewHolder.txtLabelTempat.setText("di");
                 viewHolder.txtTempat.setText(dataModel.getDi());
             }
             viewHolder.txtTanggalSholat.setText(dataModel.getTanggal());
-        }else if(dataModel.getType() == 2){
+        }else if(dataModel.getType() == 10/**/){
             /*mengaji*/
             viewHolder.itemMengaji.setVisibility(View.VISIBLE);
             viewHolder.txtLabelTempatMengaji.setVisibility(View.GONE);
@@ -164,7 +185,7 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
                 viewHolder.txtTempatMengaji.setText(dataModel.getDi());
             }
             viewHolder.txtTanggalMengaji.setText(dataModel.getTanggal());
-        }else if(dataModel.getType() == 3){
+        }else if(dataModel.getType() == 4){
             /*sedekah*/
             viewHolder.itemSedekah.setVisibility(View.VISIBLE);
             viewHolder.txtLabelTempatSedekah.setVisibility(View.GONE);
@@ -175,7 +196,7 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             }
 
             viewHolder.txtTanggalSedekah.setText(dataModel.getTanggal());
-        }else if(dataModel.getType() == 4){
+        }else if(dataModel.getType() == 1){
             /*berdoa*/
             viewHolder.itemBerdoa.setVisibility(View.VISIBLE);
             viewHolder.txtDoa.setText(dataModel.getKeterangan());
@@ -190,6 +211,11 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             viewHolder.itemStiker.setVisibility(View.VISIBLE);
             Glide.with(mContext).load(dataModel.getStiker()).into(viewHolder.txtStiker);
             viewHolder.txtTanggalStiker.setText(dataModel.getTanggal());
+        }else if(dataModel.getType() == 2){
+            /*Puasa*/
+            viewHolder.itemPuasa.setVisibility(View.VISIBLE);
+            viewHolder.txtPuasa.setText(dataModel.getKeterangan());
+            viewHolder.txtTanggalPuasa.setText(dataModel.getTanggal());
         }
         return convertView;
     }

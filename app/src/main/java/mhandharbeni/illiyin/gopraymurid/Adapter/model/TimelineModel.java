@@ -13,9 +13,10 @@ public class TimelineModel {
     String bersama;
     String keterangan;
     String tanggal;
+    String tl;
 
     public TimelineModel(int type,  int icon, String stiker,
-                         String keterangan, String bersama, String di, String tanggal){
+                         String keterangan, String bersama, String di, String tanggal, String lineTime){
         this.type = type;
         this.icon = icon;
         this.stiker = stiker;
@@ -23,8 +24,17 @@ public class TimelineModel {
         this.bersama = bersama;
         this.di = di;
         this.tanggal = tanggal;
+        this.tl = lineTime;
     }
 
+
+    public String getTl() {
+        return tl;
+    }
+
+    public void setTl(String tl) {
+        this.tl = tl;
+    }
 
     public int getType() {
         return type;

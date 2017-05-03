@@ -11,13 +11,49 @@ public class Timeline extends RealmObject {
     public int id_user;
     public int id_aktivitas;
     public int id_ibadah;
+    public String nama_aktivitas;
+    public String nama_ibadah;
     public String tempat;
     public String bersama;
+    public String image;
     public int point;
     public String date;
     public String jam;
     public int status;
+    public int nominal;
 
+
+    public String getNama_aktivitas() {
+        return nama_aktivitas;
+    }
+
+    public void setNama_aktivitas(String nama_aktivitas) {
+        this.nama_aktivitas = nama_aktivitas;
+    }
+
+    public String getNama_ibadah() {
+        return nama_ibadah;
+    }
+
+    public void setNama_ibadah(String nama_ibadah) {
+        this.nama_ibadah = nama_ibadah;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getNominal() {
+        return nominal;
+    }
+
+    public void setNominal(int nominal) {
+        this.nominal = nominal;
+    }
 
     public int getStatus() {
         return status;

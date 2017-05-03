@@ -5,6 +5,7 @@ import android.content.Context;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import mhandharbeni.illiyin.gopraymurid.database.Timeline;
 
 /**
@@ -40,18 +41,23 @@ public class TimelineHelper {
         tl.setId_user(tls.getId_user());
         tl.setId_aktivitas(tls.getId_aktivitas());
         tl.setId_ibadah(tls.getId_ibadah());
+        tl.setNominal(tls.getNominal());
+        tl.setImage(tls.getImage());
+        tl.setNama_aktivitas(tls.getNama_aktivitas());
+        tl.setNama_ibadah(tls.getNama_ibadah());
         tl.setTempat(tls.getTempat());
         tl.setBersama(tls.getBersama());
         tl.setPoint(tls.getPoint());
         tl.setDate(tls.getDate());
         tl.setJam(tls.getJam());
+        tl.setStatus(tls.getStatus());
 
         realm.beginTransaction();
         realm.copyToRealm(tl);
         realm.commitTransaction();
     }
     public RealmResults<Timeline> getTimeline(){
-        realmResult = realm.where(Timeline.class).findAll();
+        realmResult = realm.where(Timeline.class).findAllSorted("id", Sort.DESCENDING);
         return realmResult;
     }
     public RealmResults<Timeline> getNoneUploaded(){

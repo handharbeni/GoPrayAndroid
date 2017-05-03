@@ -9,68 +9,68 @@ import io.realm.RealmObject;
  */
 
 public class JadwalSholat extends RealmObject {
-    public Date tanggal;
-    public Date subuh;
-    public Date dhuha;
-    public Date dhuhur;
-    public Date ashar;
-    public Date maghrib;
-    public Date isya;
+    public String tanggal;
+    public String subuh;
+    public String dhuha;
+    public String dhuhur;
+    public String ashar;
+    public String maghrib;
+    public String isya;
 
 
-    public Date getTanggal() {
+    public String getTanggal() {
         return tanggal;
     }
 
-    public void setTanggal(Date tanggal) {
+    public void setTanggal(String tanggal) {
         this.tanggal = tanggal;
     }
 
-    public Date getSubuh() {
+    public String getSubuh() {
         return subuh;
     }
 
-    public void setSubuh(Date subuh) {
+    public void setSubuh(String subuh) {
         this.subuh = subuh;
     }
 
-    public Date getDhuha() {
+    public String getDhuha() {
         return dhuha;
     }
 
-    public void setDhuha(Date dhuha) {
+    public void setDhuha(String dhuha) {
         this.dhuha = dhuha;
     }
 
-    public Date getDhuhur() {
+    public String getDhuhur() {
         return dhuhur;
     }
 
-    public void setDhuhur(Date dhuhur) {
+    public void setDhuhur(String dhuhur) {
         this.dhuhur = dhuhur;
     }
 
-    public Date getAshar() {
+    public String getAshar() {
         return ashar;
     }
 
-    public void setAshar(Date ashar) {
+    public void setAshar(String ashar) {
         this.ashar = ashar;
     }
 
-    public Date getMaghrib() {
+    public String getMaghrib() {
         return maghrib;
     }
 
-    public void setMaghrib(Date maghrib) {
+    public void setMaghrib(String maghrib) {
         this.maghrib = maghrib;
     }
 
-    public Date getIsya() {
+    public String getIsya() {
         return isya;
     }
 
-    public void setIsya(Date isya) {
+    public void setIsya(String isya) {
         this.isya = isya;
     }
 }

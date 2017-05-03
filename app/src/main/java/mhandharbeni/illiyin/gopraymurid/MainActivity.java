@@ -1,6 +1,7 @@
 package mhandharbeni.illiyin.gopraymurid;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ import mhandharbeni.illiyin.gopraymurid.Fragment.Family;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Meme;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Setting;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Timeline;
+import mhandharbeni.illiyin.gopraymurid.service.MainServices;
 import sexy.code.Callback;
 import sexy.code.FormBody;
 import sexy.code.HttPizza;
@@ -123,7 +125,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         signinLayout = (RelativeLayout) findViewById(R.id.signinLayout);
         signupLayout = (RelativeLayout) findViewById(R.id.signupLayout);
-
+        if (MainServices.serviceRunning == false){
+            startService(new Intent(getApplicationContext(), MainServices.class));
+        }
         checkSession();
     }
     public void checkSession(){
