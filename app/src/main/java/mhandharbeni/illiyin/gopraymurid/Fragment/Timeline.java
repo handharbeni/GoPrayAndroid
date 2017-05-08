@@ -14,7 +14,6 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -48,7 +47,6 @@ import sexy.code.HttPizza;
  */
 
 public class Timeline extends Fragment implements View.OnClickListener {
-    public String CURRENTSHOLAT = "false";
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
     private static final int[] ITEM_DRAWABLES = { R.drawable.timeline_sholat,
             R.drawable.timeline_mengai, R.drawable.timeline_sedekah, R.drawable.timeline_puasa, R.drawable.timeline_meme};
@@ -81,6 +79,9 @@ public class Timeline extends Fragment implements View.OnClickListener {
         //init encrypting
         encryptedPreferences = new EncryptedPreferences.Builder(getActivity()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         //init encrypting
+        /*init network*/
+        client = new HttPizza();
+        /*init network*/
 
         v = inflater.inflate(R.layout.fragment_timeline, container, false);
 
@@ -88,7 +89,6 @@ public class Timeline extends Fragment implements View.OnClickListener {
         jsHelper = new JadwalSholatHelper(getActivity().getApplicationContext());
         listView=(ListView) v.findViewById(R.id.listViewTimeline);
         dimView = (RelativeLayout) v.findViewById(R.id.dimScreen);
-        client = new HttPizza();
         endUri = getString(R.string.server)+"/"+getString(R.string.vServer)+"/users/self/timeline?access_token=";
         displayInfo();
         getJadwalSholat();
