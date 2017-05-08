@@ -5,17 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,11 +26,6 @@ import com.bumptech.glide.Glide;
 import com.bvapp.arcmenulibrary.ArcMenu;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,22 +36,18 @@ import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.Adapter.TimelineAdapter;
 import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
 import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.AddSholat;
-import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.helper.JadwalSholatHelper;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
 import mhandharbeni.illiyin.gopraymurid.service.MainServices;
-import sexy.code.Callback;
 import sexy.code.HttPizza;
-import sexy.code.Request;
-import sexy.code.Response;
 
 /**
  * Created by root on 19/04/17.
  */
 
-public class Timeline extends Fragment {
+public class Timeline extends Fragment implements View.OnClickListener {
     public String CURRENTSHOLAT = "false";
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
     private static final int[] ITEM_DRAWABLES = { R.drawable.timeline_sholat,
@@ -74,6 +64,7 @@ public class Timeline extends Fragment {
     JadwalSholatHelper jsHelper;
 
     HttPizza client;
+    ArcMenu menu;
 
     EncryptedPreferences encryptedPreferences;
     @Override
@@ -108,7 +99,7 @@ public class Timeline extends Fragment {
         return v;
     }
     public void initArc(){
-        final ArcMenu menu = (ArcMenu) v.findViewById(R.id.arcMenu);
+        menu = (ArcMenu) v.findViewById(R.id.arcMenu);
         menu.setMenuGravity(ArcMenu.BOTTOM_MIDDLE);
         menu.attachToListView(listView);
         menu.showTooltip(false);
@@ -145,17 +136,7 @@ public class Timeline extends Fragment {
                 }
             });
         }
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), String.valueOf(menu.isOpen()), Toast.LENGTH_SHORT).show();
-                if (menu.isOpen()){
-                    dimView.setVisibility(View.VISIBLE);
-                }else if(menu.isClose()){
-                    dimView.setVisibility(View.GONE);
-                }
-            }
-        });
+        menu.setOnClickListener(this);
     }
     public void addAktivitas(Fragment fragment){
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -424,4 +405,16 @@ public class Timeline extends Fragment {
             adapter.notifyDataSetChanged();
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(getActivity().getApplicationContext(), String.valueOf(v.getId()), Toast.LENGTH_SHORT).show();
+        if(v.getId() == R.id.arcMenu){
+            if(menu.isOpen()){
+                dimView.setVisibility(View.VISIBLE);
+            }else{
+                dimView.setVisibility(View.GONE);
+            }
+        }
+    }
 }

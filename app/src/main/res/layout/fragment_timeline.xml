@@ -5,7 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <RelativeLayout
+        android:translationZ="-10dp"
+        android:visibility="gone"
+        android:id="@+id/dimScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <View
+            android:id="@+id/shadowView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#9A9A9A" />
+    </RelativeLayout>
     <RelativeLayout
         android:paddingTop="10dp"
         android:paddingEnd="10dp"
@@ -98,20 +109,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/relativeLayout" />
+
     <com.bvapp.arcmenulibrary.ArcMenu
+        app:menuType="large"
         android:id="@+id/arcMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        arc:menuType="normal"
-        arc:menuChildSize="56dp"
-        arc:menuGravity="Bottom_middle"
-        arc:menuClickAnim="true"
-        arc:menuChildAnim="false"
-        arc:menuShadowElevation="true"
-        arc:menuNormalColor="@color/colorPrimary"
-        arc:menuImage="@mipmap/tools"
         android:layout_gravity="center_vertical|bottom"
-        >
+        arc:mockup_opacity="@integer/rcv_animationDurationHide"
+        app:menuNormalColor="@color/colorPrimary"
+        app:menuRippleColor="@color/colorPrimary"
+        arc:menuChildAnim="false"
+        arc:menuChildSize="56dp"
+        arc:menuClickAnim="true"
+        arc:menuGravity="Bottom_middle"
+        arc:menuImage="@mipmap/tools"
+        arc:menuNormalColor="@color/colorPrimary"
+        arc:menuShadowElevation="true"
+        arc:menuType="normal">
     </com.bvapp.arcmenulibrary.ArcMenu>
 
 </RelativeLayout>

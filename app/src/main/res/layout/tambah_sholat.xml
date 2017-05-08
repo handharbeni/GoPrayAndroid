@@ -1,81 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="500dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.CardView
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cardView">
+                <TableLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TableRow android:layout_width="match_parent" android:layout_gravity="center_horizontal|center_vertical" android:gravity="center_horizontal|center_vertical">
+                        <com.dunst.check.CheckableImageButton
+                            android:layout_margin="5dp"
+                            android:id="@+id/btnSubuh"
+                            android:layout_width="98dp"
+                            android:layout_height="98dp"
+                            android:adjustViewBounds="false"
+                            android:scaleType="fitCenter"
+                            android:background="@drawable/button_selector"
+                            android:src="@drawable/ic_subuh" />
+                        <com.dunst.check.CheckableImageButton
+                            android:layout_margin="5dp"
+                            android:id="@+id/btnDhuhur"
+                            android:layout_width="98dp"
+                            android:layout_height="98dp"
+                            android:adjustViewBounds="false"
+                            android:scaleType="fitCenter"
+                            android:background="@drawable/button_selector"
+                            android:src="@drawable/ic_dhuhur"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/btnSubuh"
+                            android:layout_toEndOf="@+id/btnSubuh" />
+                        <com.dunst.check.CheckableImageButton
+                            android:layout_margin="5dp"
+                            android:id="@+id/btnAshar"
+                            android:layout_width="98dp"
+                            android:layout_height="98dp"
+                            android:adjustViewBounds="false"
+                            android:scaleType="fitCenter"
+                            android:background="@drawable/button_selector"
+                            android:src="@drawable/ic_ashar"
+                            android:layout_alignParentTop="true"
+                            android:layout_toRightOf="@+id/btnDhuhur"
+                            android:layout_toEndOf="@+id/btnDhuhur" />
+                    </TableRow>
+                    <TableRow android:layout_width="match_parent" android:layout_gravity="center_horizontal|center_vertical" android:gravity="center_horizontal|center_vertical">
+                        <com.dunst.check.CheckableImageButton
+                            android:layout_margin="5dp"
+                            android:id="@+id/btnMaghrib"
+                            android:layout_width="98dp"
+                            android:layout_height="98dp"
+                            android:adjustViewBounds="false"
+                            android:scaleType="fitCenter"
+                            android:background="@drawable/button_selector"
+                            android:src="@drawable/ic_maghrib"
+                            android:layout_below="@+id/btnSubuh"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                        <com.dunst.check.CheckableImageButton
+                            android:layout_margin="5dp"
+                            android:id="@+id/btnIsya"
+                            android:layout_width="98dp"
+                            android:layout_height="98dp"
+                            android:adjustViewBounds="false"
+                            android:background="@drawable/button_selector"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_isya"
+                            android:layout_below="@+id/btnSubuh"
+                            android:layout_toRightOf="@+id/btnSubuh"
+                            android:layout_toEndOf="@+id/btnSubuh" />
+                        <com.dunst.check.CheckableImageButton
+                            android:layout_margin="5dp"
+                            android:id="@+id/btnSunnah"
+                            android:layout_width="98dp"
+                            android:layout_height="98dp"
+                            android:adjustViewBounds="false"
+                            android:background="@drawable/button_selector"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ic_sunnah"
+                            android:layout_below="@+id/btnDhuhur"
+                            android:layout_toRightOf="@+id/btnDhuhur"
+                            android:layout_toEndOf="@+id/btnDhuhur" />
+                    </TableRow>
+                </TableLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_gravity="center_horizontal|center_vertical">
-        <com.dunst.check.CheckableImageButton
-            android:layout_margin="5dp"
-            android:id="@+id/btnSubuh"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:adjustViewBounds="false"
-            android:scaleType="fitCenter"
-            android:background="@drawable/button_selector"
-            android:src="@drawable/ic_subuh" />
-        <com.dunst.check.CheckableImageButton
-            android:layout_margin="5dp"
-            android:id="@+id/btnDhuhur"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:adjustViewBounds="false"
-            android:scaleType="fitCenter"
-            android:background="@drawable/button_selector"
-            android:src="@drawable/ic_dhuhur"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/btnSubuh"
-            android:layout_toEndOf="@+id/btnSubuh" />
-        <com.dunst.check.CheckableImageButton
-            android:layout_margin="5dp"
-            android:id="@+id/btnAshar"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:adjustViewBounds="false"
-            android:scaleType="fitCenter"
-            android:background="@drawable/button_selector"
-            android:src="@drawable/ic_ashar"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/btnDhuhur"
-            android:layout_toEndOf="@+id/btnDhuhur" />
-        <com.dunst.check.CheckableImageButton
-            android:layout_margin="5dp"
-            android:id="@+id/btnMaghrib"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:adjustViewBounds="false"
-            android:scaleType="fitCenter"
-            android:background="@drawable/button_selector"
-            android:src="@drawable/ic_maghrib"
-            android:layout_below="@+id/btnSubuh"
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvketerangan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-        <com.dunst.check.CheckableImageButton
-            android:layout_margin="5dp"
-            android:id="@+id/btnIsya"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:adjustViewBounds="false"
-            android:background="@drawable/button_selector"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_isya"
-            android:layout_below="@+id/btnSubuh"
-            android:layout_toRightOf="@+id/btnSubuh"
-            android:layout_toEndOf="@+id/btnSubuh" />
-        <com.dunst.check.CheckableImageButton
-            android:layout_margin="5dp"
-            android:id="@+id/btnSunnah"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:adjustViewBounds="false"
-            android:background="@drawable/button_selector"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_sunnah"
-            android:layout_below="@+id/btnDhuhur"
-            android:layout_toRightOf="@+id/btnDhuhur"
-            android:layout_toEndOf="@+id/btnDhuhur" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/cardView"
+            android:layout_marginTop="12dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="1dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="20dp">
+
+                <RelativeLayout
+                    android:id="@+id/rlBersama"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@android:drawable/editbox_background">
+
+                    <TextView
+                        android:id="@+id/constant_bersama"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="Bersama"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtBersama"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/constant_bersama"
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="10dp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlTempat"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/rlBersama"
+                    android:background="@android:drawable/editbox_background">
+
+                    <TextView
+                        android:id="@+id/constant_tempat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="Di"
+                        android:textColor="#C0C0C0"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/txtTempat"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@+id/constant_tempat"
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="10dp"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <RelativeLayout
+            android:padding="5dp"
+            android:layout_below="@+id/cvketerangan"
+            android:layout_width="match_parent"
+            android:layout_height="550dp">
+
+            <Button
+                android:background="@drawable/mainbutton_selector"
+                android:id="@+id/btnSimpan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:layout_alignTop="@+id/ibTwitter"
+                android:layout_toRightOf="@+id/ibTwitter"
+                android:layout_marginLeft="43dp"
+                android:layout_marginStart="43dp"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <ImageButton
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/ibTwitter"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/twitter_selector"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ibInstagram"
+                android:layout_toEndOf="@+id/ibInstagram" />
+
+            <ImageButton
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/ibInstagram"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/ig_selector"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ibFacebook"
+                android:layout_toEndOf="@+id/ibFacebook" />
+
+            <ImageButton
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/ibFacebook"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/fb_selector" />
+        </RelativeLayout>
+
     </RelativeLayout>
-</RelativeLayout>
+</ScrollView>

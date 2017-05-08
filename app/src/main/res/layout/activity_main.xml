@@ -48,15 +48,4 @@
             android:layout_height="wrap_content"
             layout="@layout/register"/>
     </RelativeLayout>
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/dimScreen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <View
-            android:id="@+id/shadowView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#9A9A9A" />
-    </RelativeLayout>
 </android.support.design.widget.AppBarLayout>
