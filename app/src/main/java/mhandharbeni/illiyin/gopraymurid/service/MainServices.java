@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
+import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.service.intent.JadwalSholatService;
 import mhandharbeni.illiyin.gopraymurid.service.intent.ServiceTimeline;
 
@@ -22,6 +24,8 @@ public class MainServices extends Service {
     public static final long NOTIFY_INTERVAL = 15 * 1000;
     private Handler handler = new Handler();
     private Timer timer = null;
+    public static final String
+            ACTION_LOCATION_BROADCAST = MainActivity.class.getName();
 
     @Override
     public void onCreate() {
@@ -49,9 +53,7 @@ public class MainServices extends Service {
         serviceRunning = false;
         super.onDestroy();
     }
-
     class TimeDisplayTimerTask extends TimerTask {
-
         @Override
         public void run() {
             handler.post(new Runnable() {

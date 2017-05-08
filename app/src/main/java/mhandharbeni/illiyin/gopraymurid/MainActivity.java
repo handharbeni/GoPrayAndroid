@@ -1,7 +1,10 @@
 package mhandharbeni.illiyin.gopraymurid;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +47,7 @@ import mhandharbeni.illiyin.gopraymurid.Fragment.Meme;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Setting;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Timeline;
 import mhandharbeni.illiyin.gopraymurid.service.MainServices;
+import mhandharbeni.illiyin.gopraymurid.service.TimeService;
 import sexy.code.Callback;
 import sexy.code.FormBody;
 import sexy.code.HttPizza;
@@ -52,7 +57,6 @@ import sexy.code.Response;
 
 public class MainActivity extends AppCompatActivity implements ConnectivityChangeListener {
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
-
 
 
     TabLayout tabLayout;
@@ -127,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         signupLayout = (RelativeLayout) findViewById(R.id.signupLayout);
         if (MainServices.serviceRunning == false){
             startService(new Intent(getApplicationContext(), MainServices.class));
+        }
+        if(TimeService.serviceRunning == false){
+            startService(new Intent(getApplicationContext(), TimeService.class));
         }
         checkSession();
     }

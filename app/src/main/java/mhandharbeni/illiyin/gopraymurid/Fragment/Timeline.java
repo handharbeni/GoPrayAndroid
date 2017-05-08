@@ -1,7 +1,14 @@
 package mhandharbeni.illiyin.gopraymurid.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
@@ -19,7 +26,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bvapp.arcmenulibrary.ArcMenu;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
-import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,10 +41,13 @@ import java.util.Locale;
 import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.Adapter.TimelineAdapter;
 import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
+import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.AddSholat;
+import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.helper.JadwalSholatHelper;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
+import mhandharbeni.illiyin.gopraymurid.service.MainServices;
 import sexy.code.Callback;
 import sexy.code.HttPizza;
 import sexy.code.Request;
@@ -49,6 +58,7 @@ import sexy.code.Response;
  */
 
 public class Timeline extends Fragment {
+    public String CURRENTSHOLAT = "false";
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
     private static final int[] ITEM_DRAWABLES = { R.drawable.timeline_sholat,
             R.drawable.timeline_mengai, R.drawable.timeline_sedekah, R.drawable.timeline_puasa, R.drawable.timeline_meme};
@@ -66,6 +76,14 @@ public class Timeline extends Fragment {
     HttPizza client;
 
     EncryptedPreferences encryptedPreferences;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().registerReceiver(this.receiver, new IntentFilter("UPDATE TIMELINE"));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((receiver),
+                new IntentFilter(MainServices.ACTION_LOCATION_BROADCAST)
+        );
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,14 +92,13 @@ public class Timeline extends Fragment {
         //init encrypting
 
         v = inflater.inflate(R.layout.fragment_timeline, container, false);
+
         tlHelper = new TimelineHelper(getActivity().getApplicationContext());
         jsHelper = new JadwalSholatHelper(getActivity().getApplicationContext());
         listView=(ListView) v.findViewById(R.id.listViewTimeline);
         dimView = (RelativeLayout) v.findViewById(R.id.dimScreen);
         client = new HttPizza();
         endUri = getString(R.string.server)+"/"+getString(R.string.vServer)+"/users/self/timeline?access_token=";
-//        syncData();
-//        insertDummy();
         displayInfo();
         getJadwalSholat();
         getCurrentSholat();
@@ -102,15 +119,32 @@ public class Timeline extends Fragment {
             ImageView item = new ImageView(getActivity().getApplicationContext());
             Glide.with(getActivity().getApplicationContext()).load(ITEM_DRAWABLES[i]).into(item);
             final int position = i;
+            item.setId(i);
             menu.addItem(item, "", new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    //You can access child click in here
-
+                public void onClick(View s) {
+                    switch (s.getId()){
+                        case 0 :
+                            /*sholat*/
+                            Fragment fr = new AddSholat();
+                            addAktivitas(fr);
+                            break;
+                        case 1 :
+                            /*mengaji*/
+                            break;
+                        case 2 :
+                            /*sedekah*/
+                            break;
+                        case 3 :
+                            /*puasa*/
+                            break;
+                        case 4 :
+                            /*freetext*/
+                            break;
+                    }
                 }
             });
         }
-
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,75 +157,11 @@ public class Timeline extends Fragment {
             }
         });
     }
-    public void syncData(){
-        String token = encryptedPreferences.getUtils().decryptStringValue(encryptedPreferences.getString(KEY, "0"));
-        endUri += token;
-        Request request = client.newRequest().url(endUri).get().build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onResponse(Response response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body().string());
-                    Boolean retur = jsonObject.getBoolean("return");
-                    if(retur){
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        if (jsonArray.length() > 0){
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject objectData = jsonArray.getJSONObject(i);
-                                int id = Integer.valueOf(objectData.getString("id_timeline"));
-                                int idUser = Integer.valueOf(objectData.getString("id_user"));
-                                int idAktivitas = Integer.valueOf(objectData.getString("id_aktivitas"));
-                                int idIbadah = Integer.valueOf(objectData.getString("id_ibadah"));
-                                String namaAktivitas = objectData.getString("nama_aktivitas");
-                                String namaIbadah = objectData.getString("ibadah");
-                                String tempat = objectData.getString("tempat");
-                                String bersama = objectData.getString("bersama");
-                                String image = objectData.getString("image");
-                                int nominal = Integer.valueOf(objectData.getString("nominal"));
-                                int poit = Integer.valueOf(objectData.getString("point"));
-                                int status = 3; /*1 not uploaded, 2 uploaded, 3 sync server*/
-                                String tanggal = objectData.getString("tanggal");
-                                String jam = objectData.getString("jam");
-
-                                boolean duplicate = tlHelper.checkDuplicate(id);
-                                if(!duplicate){
-                                    mhandharbeni.illiyin.gopraymurid.database.Timeline tl = new mhandharbeni.illiyin.gopraymurid.database.Timeline();
-                                    tl.setId(id);
-                                    tl.setId_user(idUser);
-                                    tl.setId_aktivitas(idAktivitas);
-                                    tl.setId_ibadah(idIbadah);
-                                    tl.setNama_aktivitas(namaAktivitas);
-                                    tl.setNama_ibadah(namaIbadah);
-                                    tl.setImage(image);
-                                    tl.setTempat(tempat);
-                                    tl.setBersama(bersama);
-                                    tl.setPoint(poit);
-                                    tl.setNominal(nominal);
-                                    tl.setDate(tanggal);
-                                    tl.setJam(jam);
-                                    tl.setStatus(status);
-                                    tlHelper.AddTimeline(tl);
-                                }
-                            }
-                        }else{
-
-                        }
-                    }else{
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
+    public void addAktivitas(Fragment fragment){
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//        ft.setCustomAnimations(R.anim.expand_in, R.anim.fragment_anim);
+        ft.replace(R.id.FrameContainer, fragment);
+        ft.commit();
     }
     public void initData(){
         dataModels= new ArrayList<>();
@@ -312,7 +282,6 @@ public class Timeline extends Fragment {
     public void getCurrentSholat(){
         String tanggal = "2017-04-11";
         String jam = getTime();
-        JadwalSholat js = new JadwalSholat();
         RealmResults<JadwalSholat> rjs = jsHelper.getJadwalSholat(tanggal);
         if (rjs.size() > 0){
 
@@ -322,27 +291,72 @@ public class Timeline extends Fragment {
             String dAshar     = rjs.get(0).getAshar();
             String dMaghrib   = rjs.get(0).getMaghrib();
             String dIsya      = rjs.get(0).getIsya();
-            TextView txtNamaSholat = (TextView) v.findViewById(R.id.txtNamaSholat);
 
-            long[] subuh = calculateTime(jam, dSubuh);
-            long[] dhuha = calculateTime(jam, dDhuha);
-            long[] dhuhur = calculateTime(jam, dDhuhur);
-            long[] ashar = calculateTime(jam, dAshar);
-            long[] maghrib = calculateTime(jam, dMaghrib);
-            long[] isya = calculateTime(jam, dIsya);
+            checkLewatWaktu(jam,dSubuh,dDhuha,dDhuhur,dAshar,dMaghrib,dIsya);
 
-            Log.d("JADWAL SHOLAT", "getCurrentSholat: "+subuh[3]+"-"+subuh[2]+"-"+subuh[1]+"-"+subuh[0]);
-            Log.d("JADWAL SHOLAT", "getCurrentSholat: "+dhuha[3]+"-"+dhuha[2]+"-"+dhuha[1]+"-"+dhuha[0]);
-            Log.d("JADWAL SHOLAT", "getCurrentSholat: "+dhuhur[3]+"-"+dhuhur[2]+"-"+dhuhur[1]+"-"+dhuhur[0]);
-            Log.d("JADWAL SHOLAT", "getCurrentSholat: "+ashar[3]+"-"+ashar[2]+"-"+ashar[1]+"-"+ashar[0]);
-            Log.d("JADWAL SHOLAT", "getCurrentSholat: "+maghrib[3]+"-"+maghrib[2]+"-"+maghrib[1]+"-"+maghrib[0]);
-            Log.d("JADWAL SHOLAT", "getCurrentSholat: "+isya[3]+"-"+isya[2]+"-"+isya[1]+"-"+isya[0]);
-
-            txtNamaSholat.setText(dSubuh);
         }
     }
-    public void checkLewatWaktu(){
+    public void checkLewatWaktu(String waktuSekarang,
+                                String waktuSubuh,
+                                String waktuDhuha,
+                                String waktuDhuhur,
+                                String waktuAshar,
+                                String waktuMaghrib,
+                                String waktuIsya){
 
+        TextView txtNamaSholat = (TextView) v.findViewById(R.id.txtNamaSholat);
+        TextView txtRemainTime = (TextView) v.findViewById(R.id.txtRemainTime);
+
+        long wSekarang = stringToTime(waktuSekarang);
+        long wSubuh = stringToTime(waktuSubuh);
+        long wDhuha = stringToTime(waktuDhuha);
+        long wDhuhur = stringToTime(waktuDhuhur);
+        long wAshar = stringToTime(waktuAshar);
+        long wMaghrib = stringToTime(waktuMaghrib);
+        long wIsya = stringToTime(waktuIsya);
+        String label = "Subuh";
+        long remainTime = 0;
+        if (wSekarang < wSubuh){
+            label = "Subuh";
+            remainTime = wSekarang - wSubuh;
+        }else if(wSekarang < wDhuha){
+            label = "Dhuha";
+            remainTime = wSekarang - wDhuha;
+        }else if(wSekarang < wDhuhur){
+            label = "Dhuhur";
+            remainTime = wSekarang - wDhuhur;
+        }else if(wSekarang < wAshar){
+            label = "Ashar";
+            remainTime = wSekarang - wAshar;
+        }else if(wSekarang < wMaghrib){
+            label = "Maghrib";
+            remainTime = wSekarang - wMaghrib;
+        }else if(wSekarang < wIsya){
+            label = "Isya";
+            remainTime = wSekarang - wIsya;
+        }
+        String remain = getRemainTime(remainTime);
+
+        txtNamaSholat.setText(label);
+        txtRemainTime.setText(remain);
+    }
+    public long stringToTime(String time){
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
+        Date d1 = null;
+        try {
+            d1 = format.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return d1.getTime();
+    }
+    public String getRemainTime(long time){
+        long diffSeconds = (time / 1000)%60;
+        long diffMinutes = (time / (60 * 1000))%60;
+        long diffHours = (time / (60 * 60 * 1000))%60;
+        String remainTime = String.valueOf(Math.abs(diffHours))+" Jam "+String.valueOf(Math.abs(diffMinutes))+" Menit";
+        return remainTime;
     }
     public long[] calculateTime(String time1, String time2){
         // date format
@@ -366,4 +380,48 @@ public class Timeline extends Fragment {
         data = new long[]{diff, diffSeconds, diffMinutes, diffHours};
         return data;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().registerReceiver(this.receiver, new IntentFilter("UPDATE TIMELINE"));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((receiver),
+                new IntentFilter(MainServices.ACTION_LOCATION_BROADCAST)
+        );
+    }
+
+    @Override
+    public void onPause() {
+//        getActivity().unregisterReceiver(this.receiver);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+//        getActivity().unregisterReceiver(this.receiver);
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(this.receiver);
+        super.onDestroy();
+    }
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            getCurrentSholat();
+            initData();
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    TimelineModel dataModel= dataModels.get(position);
+                    }
+            });
+            adapter.notifyDataSetChanged();
+        }
+    };
 }

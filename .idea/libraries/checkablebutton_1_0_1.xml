@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="checkablebutton-1.0.1">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/c3d7f94e48e86d407d471ee156e53a4e6f923728/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c3d7f94e48e86d407d471ee156e53a4e6f923728/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.dunst.check/checkablebutton/1.0.1/b712a05ad9355cf257573557a229afe43fea949f/checkablebutton-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

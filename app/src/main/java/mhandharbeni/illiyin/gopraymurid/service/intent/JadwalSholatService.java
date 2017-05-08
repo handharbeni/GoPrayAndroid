@@ -25,6 +25,7 @@ import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.helper.JadwalSholatHelper;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
+import mhandharbeni.illiyin.gopraymurid.service.MainServices;
 import sexy.code.Callback;
 import sexy.code.HttPizza;
 import sexy.code.Request;
@@ -43,6 +44,9 @@ public class JadwalSholatService extends IntentService implements ConnectivityCh
 
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        if (MainServices.serviceRunning == false){
+            startService(new Intent(getApplicationContext(), MainServices.class));
+        }
         //init encrypting
         encryptedPreferences = new EncryptedPreferences.Builder(getBaseContext()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         //init encrypting

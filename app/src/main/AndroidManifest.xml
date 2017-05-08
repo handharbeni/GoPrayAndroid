@@ -11,7 +11,6 @@
         android:theme="@style/AppThemeNoTitle">
         <service android:name=".service.MainServices" />
         <service android:name=".service.intent.ServiceTimeline" />
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +21,11 @@
 
         <service
             android:name=".service.intent.JadwalSholatService"
-            android:exported="false"></service>
+            android:exported="false" />
+        <service
+            android:name=".service.TimeService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
