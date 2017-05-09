@@ -64,6 +64,7 @@ public class JadwalSholatService extends IntentService implements ConnectivityCh
     protected void onHandleIntent(@Nullable Intent intent) {
         if (encryptedPreferences.getString("NETWORK","0").equalsIgnoreCase("1")){
             syncData();
+            stopSelf();
         }
     }
 

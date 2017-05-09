@@ -17,11 +17,15 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.R;
+import mhandharbeni.illiyin.gopraymurid.database.Timeline;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
 import sexy.code.Callback;
+import sexy.code.FormBody;
 import sexy.code.HttPizza;
 import sexy.code.Request;
+import sexy.code.RequestBody;
 import sexy.code.Response;
 
 /**
@@ -31,6 +35,7 @@ import sexy.code.Response;
 public class ServiceTimeline extends IntentService implements ConnectivityChangeListener {
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
     TimelineHelper tHelper;
+    TimelineHelper tHelper2;
     HttPizza client;
     EncryptedPreferences encryptedPreferences;
 
@@ -52,6 +57,7 @@ public class ServiceTimeline extends IntentService implements ConnectivityChange
         //httppizza
         endUri = getString(R.string.server)+"/"+getString(R.string.vServer)+"/users/self/timeline?access_token=";
         tHelper = new TimelineHelper(getBaseContext());
+        tHelper2 = new TimelineHelper(getBaseContext());
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -59,6 +65,9 @@ public class ServiceTimeline extends IntentService implements ConnectivityChange
     protected void onHandleIntent(Intent intent) {
         if (encryptedPreferences.getString("NETWORK","0").equalsIgnoreCase("1")){
             syncData();
+            stopSelf();
+//            uploadData();
+//            tHelper2.checkContext();
         }
     }
     public void syncData(){
@@ -134,6 +143,26 @@ public class ServiceTimeline extends IntentService implements ConnectivityChange
             });
         }
 
+    }
+    public void uploadData() {
+        String token = encryptedPreferences.getString(KEY, "0");
+        if (!token.equalsIgnoreCase("0")) {
+            final RealmResults<Timeline> tlResult = tHelper.getTimeline(2);
+            if(tlResult.size() > 0){
+                /*upload data*/
+                for (int i = 0; i < tlResult.size(); i++) {
+                }
+                /*upload data*/
+            }
+
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        tHelper.closeRealm();
+        super.onDestroy();
     }
 
     @Override

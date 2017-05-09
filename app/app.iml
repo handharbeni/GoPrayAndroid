@@ -109,8 +109,10 @@
     <orderEntry type="library" exported="" name="play-services-tasks-9.4.0" level="project" />
     <orderEntry type="library" exported="" name="circleimageview-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="easy-android-splash-screen-0.0.1" level="project" />
+    <orderEntry type="library" exported="" name="okio-1.12.0" level="project" />
     <orderEntry type="library" exported="" name="IconHandler-v2.0.0" level="project" />
     <orderEntry type="library" exported="" name="android-easylocation-1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="okhttp-3.7.0" level="project" />
     <orderEntry type="library" exported="" name="Floating-ArcMenu-1.0.8.7" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="javawriter-2.1.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-25.3.1" level="project" />

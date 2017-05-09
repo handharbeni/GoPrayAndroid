@@ -14,6 +14,7 @@ import java.util.TimerTask;
 import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.service.intent.JadwalSholatService;
 import mhandharbeni.illiyin.gopraymurid.service.intent.ServiceTimeline;
+import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
 
 /**
  * Created by root on 02/05/17.
@@ -67,6 +68,10 @@ public class MainServices extends Service {
                     Intent jss = new Intent(getBaseContext(), JadwalSholatService.class);
                     startService(jss);
                     /*TIMELINE SERVICE*/
+                    /*UPLOAD TIMELINE SERVICE*/
+                    Intent uis = new Intent(getApplicationContext(), UploadTimeline.class);
+                    startService(uis);
+                    /*UPLOAD TIMELINE SERVICE*/
                 }
             });
         }

@@ -147,7 +147,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
     public void initData(){
         dataModels= new ArrayList<>();
         RealmResults<mhandharbeni.illiyin.gopraymurid.database.Timeline>
-                result = tlHelper.getTimeline();
+                result = tlHelper.getTimeline(1);
         int z = 0;
         for (int i=0; i<result.size(); i++){
             String tl;
@@ -205,7 +205,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
     public void displayInfo(){
         TextView txtPoint = (TextView) v.findViewById(R.id.txtPoint);
         RealmResults<mhandharbeni.illiyin.gopraymurid.database.Timeline>
-                result = tlHelper.getTimeline();
+                result = tlHelper.getTimeline(1);
         int point = 0;
         for (int i=0;i<result.size();i++){
             point += result.get(i).getPoint();
