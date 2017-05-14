@@ -43,7 +43,7 @@ public class TimeService extends Service {
         super.onDestroy();
     }
     private void sendBroadcastMessage() {
-        this.sendBroadcast(new Intent().setAction("UPDATE TIMELINE"));
+        this.sendBroadcast(new Intent().setAction("UPDATE TIMELINE").putExtra("MODE", "UPDATE TIME"));
     }
 
     class TimeDisplayTimerTask extends TimerTask {

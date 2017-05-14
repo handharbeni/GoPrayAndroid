@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mhandharbeni.illiyin.gopraymurid.MainActivity">
+    <RelativeLayout
+        android:clipToPadding="false"
+        android:visibility="visible"
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:elevation="10dp"
+            android:outlineProvider="bounds"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/toolbar_acivity"
+            android:id="@+id/include" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/FrameContainer"
+            android:layout_below="@+id/include">
+        </FrameLayout>
+    </RelativeLayout>
+</android.support.design.widget.AppBarLayout>

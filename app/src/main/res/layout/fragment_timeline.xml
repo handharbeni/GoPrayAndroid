@@ -80,25 +80,10 @@
             android:id="@+id/imgTropi1"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            app:srcCompat="@drawable/ic_trophy"
-            android:background="@drawable/ic_trophy"
+            android:background="@drawable/trophy_gold"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/txtPoint"
             android:layout_toStartOf="@+id/txtPoint" />
-
-        <ImageView
-            android:id="@+id/imgTropi2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/ic_trophy"
-            android:padding="2dp"
-            app:srcCompat="@drawable/ic_trophy"
-            android:layout_marginRight="11dp"
-            android:layout_marginEnd="11dp"
-            android:layout_centerVertical="true"
-            android:layout_alignTop="@+id/imgTropi1"
-            android:layout_toLeftOf="@+id/imgTropi1"
-            android:layout_toStartOf="@+id/imgTropi1" />
 
     </RelativeLayout>
 

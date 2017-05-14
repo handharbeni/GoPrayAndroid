@@ -1,7 +1,9 @@
 package mhandharbeni.illiyin.gopraymurid.service;
 
+import android.app.ActivityManager;
 import android.app.IntentService;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
@@ -13,6 +15,7 @@ import java.util.TimerTask;
 
 import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.service.intent.JadwalSholatService;
+import mhandharbeni.illiyin.gopraymurid.service.intent.ProfilePictureService;
 import mhandharbeni.illiyin.gopraymurid.service.intent.ServiceTimeline;
 import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
 
@@ -22,7 +25,7 @@ import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
 
 public class MainServices extends Service {
     public static Boolean serviceRunning = false;
-    public static final long NOTIFY_INTERVAL = 15 * 1000;
+    public static final long NOTIFY_INTERVAL = 1 * 1000;
     private Handler handler = new Handler();
     private Timer timer = null;
     public static final String
@@ -54,24 +57,46 @@ public class MainServices extends Service {
         serviceRunning = false;
         super.onDestroy();
     }
+    private boolean checkIsRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager
+                .getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
     class TimeDisplayTimerTask extends TimerTask {
         @Override
         public void run() {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    if (!checkIsRunning(ServiceTimeline.class)){
                     /*TIMELINE SERVICE*/
-                    Intent is = new Intent(getBaseContext(), ServiceTimeline.class);
-                    startService(is);
+                        Intent is = new Intent(getBaseContext(), ServiceTimeline.class);
+                        startService(is);
                     /*TIMELINE SERVICE*/
+                    }
+                    if(!checkIsRunning(JadwalSholatService.class)){
                     /*JADWAL SHOLAT SERVICE*/
-                    Intent jss = new Intent(getBaseContext(), JadwalSholatService.class);
-                    startService(jss);
-                    /*TIMELINE SERVICE*/
+                        Intent jss = new Intent(getBaseContext(), JadwalSholatService.class);
+                        startService(jss);
+                    /*JADWAL SHOLAT SERVICE*/
+                    }
+                    if(!checkIsRunning(UploadTimeline.class)){
                     /*UPLOAD TIMELINE SERVICE*/
-                    Intent uis = new Intent(getApplicationContext(), UploadTimeline.class);
-                    startService(uis);
+                        Intent uis = new Intent(getApplicationContext(), UploadTimeline.class);
+                        startService(uis);
                     /*UPLOAD TIMELINE SERVICE*/
+                    }
+                    if(!checkIsRunning(ProfilePictureService.class)){
+                    /*PROFILE PICTURE SERVICE*/
+                        Intent pp = new Intent(getApplicationContext(), ProfilePictureService.class);
+                        startService(pp);
+                    /*PROFILE PICTURE SERVICE*/
+                    }
                 }
             });
         }

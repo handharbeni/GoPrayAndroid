@@ -57,7 +57,7 @@
 
     <RelativeLayout
         android:id="@+id/itemSholat"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
@@ -81,22 +81,12 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_marginRight="5dp"
-                    android:id="@+id/txtLabelSholat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
-                    tools:text="@string/sholat" />
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_marginRight="5dp"
                     android:id="@+id/txtSholat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
-                    tools:text="Dhuhur"
-                    android:layout_toRightOf="@+id/txtLabelSholat"
-                    android:layout_toEndOf="@+id/txtLabelSholat" />
+                    android:textColor="@android:color/black"
+                    tools:text="Dhuhur" />
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_marginRight="5dp"
                     android:id="@+id/txtLabelBersama"
@@ -113,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="@android:color/black"
                     tools:text="Dia"
                     android:layout_toRightOf="@+id/txtLabelBersama"
                     android:layout_toEndOf="@+id/txtLabelBersama" />
@@ -133,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="@android:color/black"
                     tools:text="Dia"
                     android:layout_toRightOf="@+id/txtLabelTempat"
                     android:layout_toEndOf="@+id/txtLabelTempat" />
@@ -152,7 +142,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/itemMengaji"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -177,6 +167,7 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_marginRight="5dp"
+                    android:visibility="gone"
                     android:id="@+id/txtLabelMengaji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -189,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="@android:color/black"
                     tools:text="Dhuhur"
                     android:layout_toRightOf="@+id/txtLabelMengaji"
                     android:layout_toEndOf="@+id/txtLabelMengaji" />
@@ -209,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="@android:color/black"
                     tools:text="Dia"
                     android:layout_toRightOf="@+id/txtLabelTempatMengaji"
                     android:layout_toEndOf="@+id/txtLabelTempatMengaji" />

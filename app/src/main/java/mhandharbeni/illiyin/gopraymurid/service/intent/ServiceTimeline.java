@@ -65,9 +65,8 @@ public class ServiceTimeline extends IntentService implements ConnectivityChange
     protected void onHandleIntent(Intent intent) {
         if (encryptedPreferences.getString("NETWORK","0").equalsIgnoreCase("1")){
             syncData();
+            sendBroadCast();
             stopSelf();
-//            uploadData();
-//            tHelper2.checkContext();
         }
     }
     public void syncData(){
@@ -144,27 +143,14 @@ public class ServiceTimeline extends IntentService implements ConnectivityChange
         }
 
     }
-    public void uploadData() {
-        String token = encryptedPreferences.getString(KEY, "0");
-        if (!token.equalsIgnoreCase("0")) {
-            final RealmResults<Timeline> tlResult = tHelper.getTimeline(2);
-            if(tlResult.size() > 0){
-                /*upload data*/
-                for (int i = 0; i < tlResult.size(); i++) {
-                }
-                /*upload data*/
-            }
-
-        }
-
-    }
-
     @Override
     public void onDestroy() {
         tHelper.closeRealm();
         super.onDestroy();
     }
-
+    public void sendBroadCast(){
+        this.sendBroadcast(new Intent().setAction("UPDATE TIMELINE").putExtra("MODE", "UPDATE LIST"));
+    }
     @Override
     public void onConnectionChange(ConnectivityEvent event) {
         if(event.getState().getValue() == ConnectivityState.CONNECTED){

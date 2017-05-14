@@ -1,10 +1,7 @@
 package mhandharbeni.illiyin.gopraymurid;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,10 +10,8 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.golovin.fluentstackbar.FluentSnackbar;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
@@ -40,8 +36,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Family;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Meme;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Setting;
@@ -62,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     TabLayout tabLayout;
 
     private FluentSnackbar mFluentSnackbar;
-    private RelativeLayout mainLayout, signinLayout, signupLayout;
+    private RelativeLayout activityLayout, mainLayout, signinLayout, signupLayout;
     private Button btnSignin, btnSignup;
     private TextView txtScreenSignup, txtScreenSignin;
 
@@ -187,10 +181,10 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         final TabLayout.Tab meme = tabLayout.newTab();
         final TabLayout.Tab setting = tabLayout.newTab();
 
-        timeline.setIcon(R.drawable.tab_timeline_inactive);
-        family.setIcon(R.drawable.tab_ortu_inactive);
-        meme.setIcon(R.drawable.tab_meme_inactive);
-        setting.setIcon(R.drawable.tab_settings_inactive);
+        timeline.setIcon(R.drawable.tab_timeline);
+        family.setIcon(R.drawable.tab_ortu);
+        meme.setIcon(R.drawable.tab_meme);
+        setting.setIcon(R.drawable.tab_setting);
 
 
         tabLayout.addTab(timeline, 0);
@@ -207,16 +201,16 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                 Drawable icon = null;
                 switch (tab.getPosition()){
                     case 0:
-                        icon = getResources().getDrawable(R.drawable.tab_timeline_active);
+                        icon = getResources().getDrawable(R.drawable.tab_timeline_actives);
                         break;
                     case 1:
-                        icon = getResources().getDrawable(R.drawable.tab_ortu_active);
+                        icon = getResources().getDrawable(R.drawable.tab_ortu_actives);
                         break;
                     case 2:
-                        icon = getResources().getDrawable(R.drawable.tab_meme_active);
+                        icon = getResources().getDrawable(R.drawable.tab_meme_actives);
                         break;
                     case 3:
-                        icon = getResources().getDrawable(R.drawable.tab_settings_active);
+                        icon = getResources().getDrawable(R.drawable.tab_setting_actives);
                         break;
                 }
                 tab.setIcon(icon);
@@ -229,16 +223,16 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                 Drawable icon = null;
                 switch (tab.getPosition()){
                     case 0:
-                        icon = getResources().getDrawable(R.drawable.tab_timeline_inactive);
+                        icon = getResources().getDrawable(R.drawable.tab_timeline);
                         break;
                     case 1:
-                        icon = getResources().getDrawable(R.drawable.tab_ortu_inactive);
+                        icon = getResources().getDrawable(R.drawable.tab_ortu);
                         break;
                     case 2:
-                        icon = getResources().getDrawable(R.drawable.tab_meme_inactive);
+                        icon = getResources().getDrawable(R.drawable.tab_meme);
                         break;
                     case 3:
-                        icon = getResources().getDrawable(R.drawable.tab_settings_inactive);
+                        icon = getResources().getDrawable(R.drawable.tab_setting);
                         break;
                 }
                 tab.setIcon(icon);

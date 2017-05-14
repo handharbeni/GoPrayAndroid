@@ -3,6 +3,7 @@ package mhandharbeni.illiyin.gopraymurid.Adapter;
 import android.content.Context;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,6 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         ImageView lineBottom;
         /*Sholat*/
         RelativeLayout itemSholat;
-        TextView txtLabelSholat;
         TextView txtSholat;
         TextView txtLabelBersama;
         TextView txtBersama;
@@ -106,7 +106,6 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
 
             viewHolder.txtPuasa = (TextView) convertView.findViewById(R.id.txtPuasa);
             viewHolder.txtTanggalPuasa = (TextView) convertView.findViewById(R.id.txtTanggalPuasa);
-            viewHolder.txtLabelSholat = (TextView) convertView.findViewById(R.id.txtLabelSholat);
             viewHolder.txtSholat = (TextView) convertView.findViewById(R.id.txtSholat);
             viewHolder.txtLabelBersama = (TextView) convertView.findViewById(R.id.txtLabelBersama);
             viewHolder.txtBersama = (TextView) convertView.findViewById(R.id.txtBersama);
@@ -163,25 +162,29 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             viewHolder.txtBersama.setVisibility(View.GONE);
             viewHolder.txtLabelTempat.setVisibility(View.GONE);
             viewHolder.txtSholat.setText(dataModel.getKeterangan());
-            /*viewHolder.txtLabelSholat.setText("");*/
-            if(!dataModel.getBersama().equalsIgnoreCase("")){
+            if(dataModel.getBersama().equalsIgnoreCase("nothing") == false){
                 viewHolder.txtLabelBersama.setVisibility(View.VISIBLE);
+                viewHolder.txtLabelBersama.setText("bersama");
+                viewHolder.txtBersama.setVisibility(View.VISIBLE);
                 viewHolder.txtBersama.setText(dataModel.getBersama());
             }
-            if (!dataModel.getDi().equalsIgnoreCase("")){
+            if (dataModel.getDi().equalsIgnoreCase("nothing") == false){
                 viewHolder.txtLabelTempat.setVisibility(View.VISIBLE);
+                viewHolder.txtTempat.setVisibility(View.VISIBLE);
                 viewHolder.txtLabelTempat.setText("di");
                 viewHolder.txtTempat.setText(dataModel.getDi());
             }
             viewHolder.txtTanggalSholat.setText(dataModel.getTanggal());
-        }else if(dataModel.getType() == 10/**/){
+        }else if(dataModel.getType() == 7){
             /*mengaji*/
             viewHolder.itemMengaji.setVisibility(View.VISIBLE);
             viewHolder.txtLabelTempatMengaji.setVisibility(View.GONE);
-            /*viewHolder.txtLabelMengaji.setText("");*/
-            viewHolder.txtMengaji.setText(dataModel.getKeterangan());
-            if (!dataModel.getDi().equalsIgnoreCase("")){
+            viewHolder.txtTempatMengaji.setVisibility(View.GONE);
+            viewHolder.txtMengaji.setText(dataModel.getBersama());
+            if (dataModel.getDi().equalsIgnoreCase("nothing") == false){
                 viewHolder.txtLabelTempatMengaji.setVisibility(View.VISIBLE);
+                viewHolder.txtLabelTempatMengaji.setText("di");
+                viewHolder.txtTempatMengaji.setVisibility(View.VISIBLE);
                 viewHolder.txtTempatMengaji.setText(dataModel.getDi());
             }
             viewHolder.txtTanggalMengaji.setText(dataModel.getTanggal());

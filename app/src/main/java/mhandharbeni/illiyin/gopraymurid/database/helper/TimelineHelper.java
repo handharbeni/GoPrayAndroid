@@ -77,7 +77,7 @@ public class TimelineHelper {
     public RealmResults<Timeline> getTimeline(int type){
         if (type == 1){
             /* id */
-            realmResult = realm.where(Timeline.class).findAllSorted("id", Sort.DESCENDING);
+            realmResult = realm.where(Timeline.class).equalTo("status", 3).findAllSorted("id", Sort.DESCENDING);
         }else if(type == 2){
             /* status */
             realmResult = realm.where(Timeline.class).equalTo("status", 1).findAll();

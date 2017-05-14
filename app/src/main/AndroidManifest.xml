@@ -16,6 +16,7 @@
         <service android:name=".service.MainServices" />
         <service android:name=".service.intent.ServiceTimeline" />
         <service android:name=".service.intent.UploadTimeline" />
+        <service android:name=".service.intent.ProfilePictureService"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".Fragment.aktivitas.MainAktivitas" android:hardwareAccelerated="false" />
         <service
             android:name=".service.intent.JadwalSholatService"
             android:exported="false" />

@@ -101,7 +101,7 @@ public class UploadTimeline extends IntentService implements ConnectivityChangeL
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onResponse(Response response) {
-                            /*update status timeline to 2*/
+                        /*update status timeline to 2*/
                         try {
                             JSONObject jsonObject = new JSONObject(response.body().string());
                             if(jsonObject.getBoolean("return")){
@@ -112,7 +112,7 @@ public class UploadTimeline extends IntentService implements ConnectivityChangeL
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                            /*update status timeline to 2*/
+                        /*update status timeline to 2*/
                     }
 
                     @Override

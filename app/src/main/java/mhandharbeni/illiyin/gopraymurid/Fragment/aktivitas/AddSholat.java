@@ -1,16 +1,19 @@
 package mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas;
 
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bvapp.arcmenulibrary.ArcMenu;
 import com.dunst.check.CheckableImageButton;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 
@@ -22,12 +25,9 @@ import java.util.Random;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.Timeline;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
-import sexy.code.Callback;
-import sexy.code.FormBody;
+import mhandharbeni.illiyin.gopraymurid.service.intent.ServiceTimeline;
+import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
 import sexy.code.HttPizza;
-import sexy.code.Request;
-import sexy.code.RequestBody;
-import sexy.code.Response;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -43,7 +43,7 @@ public class AddSholat extends Fragment implements View.OnClickListener {
     HttPizza client;
     EncryptedPreferences encryptedPreferences;
     CheckableImageButton checkSubuh, checkDhuhur, checkAshar, checkMaghrib, checkIsya, checkSunnah;
-    TextView txtBersama, txtTempat;
+    EditText txtBersama, txtTempat;
     Button btnSave;
     TimelineHelper th;
     @Override
@@ -60,15 +60,15 @@ public class AddSholat extends Fragment implements View.OnClickListener {
 
         endUri = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/timeline";
         v = inflater.inflate(R.layout.tambah_sholat, container, false);
+
         checkSubuh = (CheckableImageButton) v.findViewById(R.id.btnSubuh);
         checkDhuhur = (CheckableImageButton) v.findViewById(R.id.btnDhuhur);
         checkAshar = (CheckableImageButton) v.findViewById(R.id.btnAshar);
         checkMaghrib = (CheckableImageButton) v.findViewById(R.id.btnMaghrib);
         checkIsya = (CheckableImageButton) v.findViewById(R.id.btnIsya);
         checkSunnah= (CheckableImageButton) v.findViewById(R.id.btnSunnah);
-        txtBersama = (TextView) v.findViewById(R.id.txtBersama);
-        txtTempat = (TextView) v.findViewById(R.id.txtTempat);
-
+        txtBersama = (EditText) v.findViewById(R.id.txtBersama);
+        txtTempat = (EditText) v.findViewById(R.id.txtTempat);
 
         uncheckButton();
         checkSunnah.setOnClickListener(this);
@@ -88,6 +88,11 @@ public class AddSholat extends Fragment implements View.OnClickListener {
 
         return v;
     }
+    public void backToHome(Fragment fragment){
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.FrameContainer, fragment);
+        ft.commit();
+    }
     public void uncheckButton(){
         checkSubuh.setChecked(FALSE);
         checkDhuhur.setChecked(FALSE);
@@ -97,6 +102,15 @@ public class AddSholat extends Fragment implements View.OnClickListener {
         checkSunnah.setChecked(FALSE);
     }
     public void saveServer(){
+        String sBersama = txtBersama.getText().toString();
+        String sTempat = txtTempat.getText().toString();
+
+        if (sBersama.equalsIgnoreCase("") || sBersama.isEmpty()){
+            sBersama = "nothing";
+        }
+        if (sTempat.equalsIgnoreCase("") || sTempat.isEmpty()){
+            sTempat = "nothing";
+        }
         int rand = getRandId();
         Timeline tl = new Timeline();
         tl.setId(rand);
@@ -105,8 +119,8 @@ public class AddSholat extends Fragment implements View.OnClickListener {
         tl.setNama_aktivitas("Sholat");
         tl.setNama_ibadah(encryptedPreferences.getString("NAMA_SHOLAT","Subuh"));
         tl.setImage("tanpa gambar");
-        tl.setTempat(txtTempat.getText().toString());
-        tl.setBersama(txtBersama.getText().toString());
+        tl.setTempat(sTempat);
+        tl.setBersama(sBersama);
         tl.setPoint(1);
         tl.setNominal(0);
         tl.setDate(getDate());
@@ -114,6 +128,27 @@ public class AddSholat extends Fragment implements View.OnClickListener {
         tl.setStatus(1);
 
         th.AddTimelineOffline(tl);
+        /*run service*/
+        if(!checkIsRunning(UploadTimeline.class)){
+            Intent intenUpload = new Intent(getActivity().getApplicationContext(), UploadTimeline.class);
+            getActivity().startService(intenUpload);
+        }
+        if(!checkIsRunning(ServiceTimeline.class)){
+            Intent intentTimeline = new Intent(getActivity().getApplicationContext(), ServiceTimeline.class);
+            getActivity().startService(intentTimeline);
+        }
+        /*run service*/
+        getActivity().finish();
+    }
+    private boolean checkIsRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager
+                .getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
     public int getRandId(){
         int max = 1000000, min = 50000;

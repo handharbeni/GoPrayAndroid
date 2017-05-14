@@ -31,10 +31,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.Adapter.TimelineAdapter;
 import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
+import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.AddMengaji;
 import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.AddSholat;
+import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.MainAktivitas;
+import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.helper.JadwalSholatHelper;
@@ -57,6 +61,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
     ListView listView;
     private static TimelineAdapter adapter;
     RelativeLayout dimView;
+    CircleImageView profpict;
 
     TimelineHelper tlHelper;
     JadwalSholatHelper jsHelper;
@@ -69,9 +74,6 @@ public class Timeline extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().registerReceiver(this.receiver, new IntentFilter("UPDATE TIMELINE"));
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((receiver),
-                new IntentFilter(MainServices.ACTION_LOCATION_BROADCAST)
-        );
     }
 
     @Override
@@ -90,6 +92,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         listView=(ListView) v.findViewById(R.id.listViewTimeline);
         dimView = (RelativeLayout) v.findViewById(R.id.dimScreen);
         endUri = getString(R.string.server)+"/"+getString(R.string.vServer)+"/users/self/timeline?access_token=";
+        initProfilePicture();
         displayInfo();
         getJadwalSholat();
         getCurrentSholat();
@@ -97,6 +100,13 @@ public class Timeline extends Fragment implements View.OnClickListener {
         initData();
         initAdapter();
         return v;
+    }
+    public void initProfilePicture(){
+        String image = encryptedPreferences.getString(PICTURE, getResources().getString(R.string.dummyPicture));
+        if (!image.equalsIgnoreCase(null) || !image.equalsIgnoreCase("")){
+            profpict = (CircleImageView) v.findViewById(R.id.profile_image);
+            Glide.with(getActivity().getApplicationContext()).load(image).into(profpict);
+        }
     }
     public void initArc(){
         menu = (ArcMenu) v.findViewById(R.id.arcMenu);
@@ -117,11 +127,11 @@ public class Timeline extends Fragment implements View.OnClickListener {
                     switch (s.getId()){
                         case 0 :
                             /*sholat*/
-                            Fragment fr = new AddSholat();
-                            addAktivitas(fr);
+                            addAktivitas(0);
                             break;
                         case 1 :
                             /*mengaji*/
+                            addAktivitas(1);
                             break;
                         case 2 :
                             /*sedekah*/
@@ -138,14 +148,13 @@ public class Timeline extends Fragment implements View.OnClickListener {
         }
         menu.setOnClickListener(this);
     }
-    public void addAktivitas(Fragment fragment){
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//        ft.setCustomAnimations(R.anim.expand_in, R.anim.fragment_anim);
-        ft.replace(R.id.FrameContainer, fragment);
-        ft.commit();
+    public void addAktivitas(int mode){
+        Intent iAktivitas = new Intent(getActivity().getApplicationContext(), MainAktivitas.class);
+        iAktivitas.putExtra("MODE", mode);
+        startActivity(iAktivitas);
     }
     public void initData(){
-        dataModels= new ArrayList<>();
+        dataModels = new ArrayList<>();
         RealmResults<mhandharbeni.illiyin.gopraymurid.database.Timeline>
                 result = tlHelper.getTimeline(1);
         int z = 0;
@@ -172,15 +181,55 @@ public class Timeline extends Fragment implements View.OnClickListener {
                     dr = R.drawable.timeline_sedekah;
                     break;
                 case 5:
-                    dr = R.drawable.timeline_meme;
-                    break;
                 case 6:
                     dr = R.drawable.timeline_meme;
+                    break;
+                case 7:
+                    dr = R.drawable.timeline_mengai;
                     break;
             }
             dataModels.add(new TimelineModel(result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
                     result.get(i).getNama_ibadah(), result.get(i).getBersama(), result.get(i).getTempat(),
-                    result.get(i).getDate(), tl));
+                    result.get(i).getDate()+"  "+result.get(i).getJam(), tl));
+        }
+    }
+    public void addDataAdapter(){
+        RealmResults<mhandharbeni.illiyin.gopraymurid.database.Timeline>
+                result = tlHelper.getTimeline(1);
+        int z = 0;
+        for (int i=0; i<result.size(); i++){
+            String tl;
+            if (z == (result.size()-1)) {
+                tl = "start";
+            }else{
+                tl = "content";
+            }
+            z++;
+            int dr = R.drawable.timeline_berdoa;
+            switch (result.get(i).getId_aktivitas()){
+                case 1:
+                    dr = R.drawable.timeline_berdoa;
+                    break;
+                case 2:
+                    dr = R.drawable.timeline_puasa;
+                    break;
+                case 3:
+                    dr = R.drawable.timeline_sholat;
+                    break;
+                case 4:
+                    dr = R.drawable.timeline_sedekah;
+                    break;
+                case 5:
+                case 6:
+                    dr = R.drawable.timeline_meme;
+                    break;
+                case 7:
+                    dr = R.drawable.timeline_mengai;
+                    break;
+            }
+            adapter.add(new TimelineModel(result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
+                    result.get(i).getNama_ibadah(), result.get(i).getBersama(), result.get(i).getTempat(),
+                    result.get(i).getDate()+"  "+result.get(i).getJam(), tl));
         }
     }
     public SpannableStringBuilder setTextWithSpan(String text, StyleSpan style) {
@@ -229,7 +278,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         }
     }
     public Date convertDate(String date){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date convertedDate = new Date();
         try {
             convertedDate = dateFormat.parse(date);
@@ -251,7 +300,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         return convertedDate;
     }
     public static String getDate() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date date = new Date();
         return simpleDateFormat.format(date);
     }
@@ -373,14 +422,12 @@ public class Timeline extends Fragment implements View.OnClickListener {
 
     @Override
     public void onPause() {
-//        getActivity().unregisterReceiver(this.receiver);
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
         super.onPause();
     }
 
     @Override
     public void onStop() {
-//        getActivity().unregisterReceiver(this.receiver);
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
         super.onStop();
     }
@@ -394,15 +441,26 @@ public class Timeline extends Fragment implements View.OnClickListener {
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            getCurrentSholat();
-            initData();
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    TimelineModel dataModel= dataModels.get(position);
-                    }
-            });
-            adapter.notifyDataSetChanged();
+            Bundle bundle = intent.getExtras();
+            String mode = bundle.getString("MODE");
+            switch (mode){
+                case "UPDATE TIME":
+                    getCurrentSholat();
+                    break;
+                case "UPDATE PROFPICT":
+                    initProfilePicture();
+                    break;
+                case "UPDATE LIST":
+                    adapter.clear();
+                    addDataAdapter();
+                    adapter.notifyDataSetChanged();
+                    break;
+                default:
+                    getCurrentSholat();
+                    break;
+            }
+
+
         }
     };
 

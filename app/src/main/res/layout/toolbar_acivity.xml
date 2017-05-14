@@ -1,0 +1,45 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/gradient"
+    android:contentInsetStart="0dp"
+    android:contentInsetLeft="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    android:elevation="10dp">
+
+    <RelativeLayout
+        android:paddingLeft="5dp"
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:id="@+id/customTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/imageBack"
+            android:layout_toRightOf="@+id/imageBack" />
+
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/imageBack"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
+
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>
