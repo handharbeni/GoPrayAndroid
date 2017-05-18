@@ -48,5 +48,7 @@ dependencies {
     compile 'it.neokree:MaterialTabs:0.11'
     compile 'com.dunst.check:checkablebutton:1.0.1'
     compile 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
+    compile 'com.zhihu.android:matisse:0.4.3'
+    compile 'com.github.dmytrodanylyk:android-morphing-button:98a4986e56'
     testCompile 'junit:junit:4.12'
 }

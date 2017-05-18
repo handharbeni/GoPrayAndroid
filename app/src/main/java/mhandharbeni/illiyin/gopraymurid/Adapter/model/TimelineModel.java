@@ -14,9 +14,10 @@ public class TimelineModel {
     String keterangan;
     String tanggal;
     String tl;
+    String nominal;
 
     public TimelineModel(int type,  int icon, String stiker,
-                         String keterangan, String bersama, String di, String tanggal, String lineTime){
+                         String keterangan, String bersama, String di, String tanggal, String lineTime, String nominal){
         this.type = type;
         this.icon = icon;
         this.stiker = stiker;
@@ -25,8 +26,16 @@ public class TimelineModel {
         this.di = di;
         this.tanggal = tanggal;
         this.tl = lineTime;
+        this.nominal = nominal;
     }
 
+    public String getNominal() {
+        return nominal;
+    }
+
+    public void setNominal(String nominal) {
+        this.nominal = nominal;
+    }
 
     public String getTl() {
         return tl;

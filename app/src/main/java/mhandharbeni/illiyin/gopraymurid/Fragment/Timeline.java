@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -35,10 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.Adapter.TimelineAdapter;
 import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
-import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.AddMengaji;
-import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.AddSholat;
 import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.MainAktivitas;
-import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.helper.JadwalSholatHelper;
@@ -135,9 +131,11 @@ public class Timeline extends Fragment implements View.OnClickListener {
                             break;
                         case 2 :
                             /*sedekah*/
+                            addAktivitas(2);
                             break;
                         case 3 :
                             /*puasa*/
+                            addAktivitas(3);
                             break;
                         case 4 :
                             /*freetext*/
@@ -166,6 +164,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
                 tl = "content";
             }
             z++;
+            String namaIbadah = result.get(i).getNama_ibadah();
             int dr = R.drawable.timeline_berdoa;
             switch (result.get(i).getId_aktivitas()){
                 case 1:
@@ -173,9 +172,29 @@ public class Timeline extends Fragment implements View.OnClickListener {
                     break;
                 case 2:
                     dr = R.drawable.timeline_puasa;
+                    if (result.get(i).getId_ibadah() == 1){
+                        namaIbadah = "Puasa Ramadhan";
+                    }else if (result.get(i).getId_ibadah() == 2){
+                        namaIbadah = "Puasa Senin Kamis";
+                    }else if (result.get(i).getId_ibadah() == 3){
+                        namaIbadah = "Puasa Sunnah";
+                    }
                     break;
                 case 3:
                     dr = R.drawable.timeline_sholat;
+                    if (result.get(i).getId_ibadah() == 1){
+                        namaIbadah = "Sholat Subuh";
+                    }else if (result.get(i).getId_ibadah() == 2){
+                        namaIbadah = "Sholat Dhuhur";
+                    }else if (result.get(i).getId_ibadah() == 3){
+                        namaIbadah = "Sholat Ashar";
+                    }else if (result.get(i).getId_ibadah() == 4){
+                        namaIbadah = "Sholat Maghrib";
+                    }else if (result.get(i).getId_ibadah() == 5){
+                        namaIbadah = "Sholat Isya";
+                    }else if (result.get(i).getId_ibadah() == 6){
+                        namaIbadah = "Sholat Sunnah";
+                    }
                     break;
                 case 4:
                     dr = R.drawable.timeline_sedekah;
@@ -189,8 +208,8 @@ public class Timeline extends Fragment implements View.OnClickListener {
                     break;
             }
             dataModels.add(new TimelineModel(result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
-                    result.get(i).getNama_ibadah(), result.get(i).getBersama(), result.get(i).getTempat(),
-                    result.get(i).getDate()+"  "+result.get(i).getJam(), tl));
+                    namaIbadah, result.get(i).getBersama(), result.get(i).getTempat(),
+                    result.get(i).getDate()+"  "+result.get(i).getJam(), tl, String.valueOf(result.get(i).getNominal())));
         }
     }
     public void addDataAdapter(){
@@ -205,6 +224,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
                 tl = "content";
             }
             z++;
+            String namaIbadah = result.get(i).getNama_ibadah();
             int dr = R.drawable.timeline_berdoa;
             switch (result.get(i).getId_aktivitas()){
                 case 1:
@@ -212,9 +232,29 @@ public class Timeline extends Fragment implements View.OnClickListener {
                     break;
                 case 2:
                     dr = R.drawable.timeline_puasa;
+                    if (result.get(i).getId_ibadah() == 1){
+                        namaIbadah = "Puasa Ramadhan";
+                    }else if (result.get(i).getId_ibadah() == 2){
+                        namaIbadah = "Puasa Senin Kamis";
+                    }else if (result.get(i).getId_ibadah() == 3){
+                        namaIbadah = "Puasa Sunnah";
+                    }
                     break;
                 case 3:
                     dr = R.drawable.timeline_sholat;
+                    if (result.get(i).getId_ibadah() == 1){
+                        namaIbadah = "Sholat Subuh";
+                    }else if (result.get(i).getId_ibadah() == 2){
+                        namaIbadah = "Sholat Dhuhur";
+                    }else if (result.get(i).getId_ibadah() == 3){
+                        namaIbadah = "Sholat Ashar";
+                    }else if (result.get(i).getId_ibadah() == 4){
+                        namaIbadah = "Sholat Maghrib";
+                    }else if (result.get(i).getId_ibadah() == 5){
+                        namaIbadah = "Sholat Isya";
+                    }else if (result.get(i).getId_ibadah() == 6){
+                        namaIbadah = "Sholat Sunnah";
+                    }
                     break;
                 case 4:
                     dr = R.drawable.timeline_sedekah;
@@ -228,8 +268,8 @@ public class Timeline extends Fragment implements View.OnClickListener {
                     break;
             }
             adapter.add(new TimelineModel(result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
-                    result.get(i).getNama_ibadah(), result.get(i).getBersama(), result.get(i).getTempat(),
-                    result.get(i).getDate()+"  "+result.get(i).getJam(), tl));
+                    namaIbadah, result.get(i).getBersama(), result.get(i).getTempat(),
+                    result.get(i).getDate()+"  "+result.get(i).getJam(), tl, String.valueOf(result.get(i).getNominal())));
         }
     }
     public SpannableStringBuilder setTextWithSpan(String text, StyleSpan style) {

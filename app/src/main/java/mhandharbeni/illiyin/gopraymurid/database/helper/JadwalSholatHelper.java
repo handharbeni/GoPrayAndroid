@@ -2,8 +2,6 @@ package mhandharbeni.illiyin.gopraymurid.database.helper;
 
 import android.content.Context;
 
-import java.util.Date;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;

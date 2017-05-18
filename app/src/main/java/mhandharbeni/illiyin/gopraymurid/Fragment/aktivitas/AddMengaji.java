@@ -11,10 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.dunst.check.CheckableImageButton;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
@@ -40,7 +37,7 @@ public class AddMengaji extends Fragment {
     HttPizza client;
     EncryptedPreferences encryptedPreferences;
     EditText txtAyat, txtTempat;
-    Spinner txtSurat;
+    SearchableSpinner txtSurat;
     Button btnSave;
     TimelineHelper th;
     @Override
@@ -49,7 +46,7 @@ public class AddMengaji extends Fragment {
         client = new HttPizza();
         th = new TimelineHelper(getActivity().getApplicationContext());
         v = inflater.inflate(R.layout.tambah_mengaji, container, false);
-        txtSurat = (Spinner) v.findViewById(R.id.txtMengaji);
+        txtSurat = (SearchableSpinner) v.findViewById(R.id.txtMengaji);
         txtAyat = (EditText) v.findViewById(R.id.txtAyat);
         txtTempat = (EditText) v.findViewById(R.id.txtTempat);
         btnSave = (Button) v.findViewById(R.id.btnSimpan);
@@ -59,8 +56,8 @@ public class AddMengaji extends Fragment {
                 saveServer();
             }
         });
-        ArrayAdapter<String> spinnerSurat = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.surat));
-        txtSurat.setAdapter(spinnerSurat);
+/*        ArrayAdapter<String> spinnerSurat = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.surat));
+        txtSurat.setAdapter(spinnerSurat);*/
         return v;
     }
     public void saveServer(){

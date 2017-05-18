@@ -40,15 +40,13 @@
                         android:textColor="@color/colorPrimary"
                         android:textStyle="bold" />
 
-                    <Spinner
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                         android:entries="@array/surat"
                         android:id="@+id/txtMengaji"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@+id/constat_surat"
-                        android:background="@android:color/transparent"
                         android:paddingLeft="10dp"
-                        android:textColor="#000000"
                         android:textStyle="bold" />
 
 

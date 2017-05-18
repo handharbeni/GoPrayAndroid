@@ -1,24 +1,336 @@
 package mhandharbeni.illiyin.gopraymurid.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.dd.morphingbutton.MorphingButton;
+import com.golovin.fluentstackbar.FluentSnackbar;
+import com.pddstudio.preferences.encrypted.EncryptedPreferences;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
+import com.zplesac.connectionbuddy.models.ConnectivityEvent;
+import com.zplesac.connectionbuddy.models.ConnectivityState;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import io.realm.RealmResults;
+import mhandharbeni.illiyin.gopraymurid.Adapter.QuoteAdapter;
+import mhandharbeni.illiyin.gopraymurid.Adapter.TimelineAdapter;
+import mhandharbeni.illiyin.gopraymurid.Adapter.model.QuoteModel;
+import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
 import mhandharbeni.illiyin.gopraymurid.R;
+import mhandharbeni.illiyin.gopraymurid.database.*;
+import mhandharbeni.illiyin.gopraymurid.database.helper.QuoteHelper;
+import mhandharbeni.illiyin.gopraymurid.service.MainServices;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+import static android.app.Activity.RESULT_OK;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 /**
  * Created by root on 19/04/17.
  */
 
-public class Meme extends Fragment {
+public class Meme extends Fragment  implements ConnectivityChangeListener {
+    public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
+    private static final int REQUEST_CODE_CHOOSE = 23;
+    ListView listView;
     View v;
+    ImageButton imagePick;
+    EditText txtText;
+    OkHttpClient client;
+    EncryptedPreferences encryptedPreferences;
+    MorphingButton btnSimpan;
+    String endUri;
+
+    ArrayList<QuoteModel> dataModels;
+    QuoteHelper qHelper;
+    private static QuoteAdapter adapter;
+    private FluentSnackbar mFluentSnackbar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        client = new OkHttpClient();
+        qHelper = new QuoteHelper(getActivity().getApplicationContext());
+        encryptedPreferences = new EncryptedPreferences.Builder(getActivity()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         v = inflater.inflate(R.layout.fragment_meme, container, false);
+        endUri = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/meme";
+        imagePick = (ImageButton) v.findViewById(R.id.imgPick);
+        txtText = (EditText) v.findViewById(R.id.txtText);
+        btnSimpan = (MorphingButton) v.findViewById(R.id.btnSimpan);
+        btnSimpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doUpload();
+            }
+        });
+        imagePick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getImage();
+            }
+        });
+        listView = (ListView) v.findViewById(R.id.listViewQuote);
+        initData();
+        initAdapter();
         return v;
     }
+    public void doUpload(){
+        if(encryptedPreferences.getString("NETWORK","0").equalsIgnoreCase("1")){
+            String text = txtText.getText().toString();
+            if(text.isEmpty()){
+                txtText.setError("Tidak Boleh Kosong");
+            }else{
+                btnSimpan.setEnabled(FALSE);
+                showSnackBar("PROSESING");
+            /*do upload*/
+                uploadQuote();
+            }
+        }
+    }
+    public void getImage(){
+        Matisse.from(this)
+                .choose(MimeType.of(MimeType.JPEG, MimeType.PNG))
+                .countable(true)
+                .maxSelectable(1)
+                .theme(R.style.Matisse_Dracula)
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                .thumbnailScale(0.85f)
+                .imageEngine(new GlideEngine())
+                .forResult(REQUEST_CODE_CHOOSE);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
+            for (Uri row : Matisse.obtainResult(data)) {
+                String[] filePath = getPath(row).split("/");
+                encryptedPreferences.edit().putString("imagepath", getPath(row)).apply();
+                encryptedPreferences.edit().putString("imagename", filePath[filePath.length-1]).apply();
+            }
+        }
+    }
+    public void showSnackBar(String message){
+        mFluentSnackbar = FluentSnackbar.create(getActivity());
+        mFluentSnackbar.create(message)
+                .maxLines(2)
+                .backgroundColorRes(R.color.colorPrimary)
+                .textColorRes(R.color.indicator)
+                .duration(Snackbar.LENGTH_SHORT)
+                .actionText(message)
+                .actionTextColorRes(R.color.colorAccent)
+                .important()
+                .show();
+    }
+    public String getPath(Uri uri){
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
+        if (cursor == null) return null;
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String s=cursor.getString(column_index);
+        cursor.close();
+        return s;
+    }
+    public void uploadQuote(){
+        String accessToken = encryptedPreferences.getUtils().decryptStringValue(encryptedPreferences.getString(KEY, getResources().getString(R.string.dummyToken)));
+        File sourceFile = new File(encryptedPreferences.getString("imagepath", ""));
+        final MediaType MEDIA_TYPE = encryptedPreferences.getString("imagepath", "").endsWith("png") ?
+                MediaType.parse("image/png") : MediaType.parse("image/jpeg");
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("access_token", accessToken)
+                .addFormDataPart("gambar", encryptedPreferences.getString("imagename", ""), RequestBody.create(MEDIA_TYPE, sourceFile))
+                .addFormDataPart("text", txtText.getText().toString())
+                .build();
+        Request request = new Request.Builder()
+                .url(endUri)
+                .post(requestBody)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                encryptedPreferences.edit().putString("SUCCESS", "0").putString("MESSAGE", "GAGAL").apply();
+                showMessage();
+                Log.d("MEME FAIL", "onFailure: "+ e.getMessage());
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    Boolean results = jsonObject.getBoolean("return");
+                    if (results){
+                        encryptedPreferences.edit().putString("SUCCESS", "1").apply();
+                    }else{
+                        String errorMessage = jsonObject.getString("error_message");
+                        encryptedPreferences.edit().putString("SUCCESS", "0").putString("MESSAGE", errorMessage).apply();
+                    }
+                    showMessage();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    public void showMessage(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String success = encryptedPreferences.getString("SUCCESS", "0");
+                String message = encryptedPreferences.getString("MESSAGE", "GAGAL");
+                if (success.equalsIgnoreCase("1")){
+                    btnSimpan.setEnabled(TRUE);
+                    showSnackBar("SUKSES");
+                }else{
+                    btnSimpan.setEnabled(TRUE);
+                    showSnackBar(message);
+                }
+            }
+        });
+    }
+    public void initData(){
+        dataModels = new ArrayList<>();
+        RealmResults<Quote>
+                result = qHelper.getQuote();
+        int z = 0;
+        for (int i=0; i<result.size(); i++){
+            String tl;
+            if (z == (result.size()-1)) {
+                tl = "start";
+            }else{
+                tl = "content";
+            }
+            z++;
+            QuoteModel qm = new QuoteModel(result.get(i).getId(),
+                                result.get(i).getPath_meme(),
+                                result.get(i).getTanggal(),
+                                result.get(i).getJam(),
+                                tl);
+            dataModels.add(qm);
+        }
+    }
+    public void addDataAdapter(){
+        RealmResults<Quote>
+                result = qHelper.getQuote();
+        int z = 0;
+        for (int i=0; i<result.size(); i++){
+            String tl;
+            if (z == (result.size()-1)) {
+                tl = "start";
+            }else{
+                tl = "content";
+            }
+            z++;
+            QuoteModel qm = new QuoteModel(result.get(i).getId(),
+                    result.get(i).getPath_meme(),
+                    result.get(i).getTanggal(),
+                    result.get(i).getJam(),
+                    tl);
+            adapter.add(qm);
+        }
+    }
+    public void initAdapter(){
+        adapter= new QuoteAdapter(dataModels,getActivity().getApplicationContext());
+
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                QuoteModel dataModel= dataModels.get(position);
+            }
+        });
+    }
+    @Override
+    public void onConnectionChange(ConnectivityEvent event) {
+        if (event.getState().getValue() == ConnectivityState.CONNECTED) {
+            encryptedPreferences.edit()
+                    .putString("NETWORK", "1")
+                    .apply();
+        } else {
+            encryptedPreferences.edit()
+                    .putString("NETWORK", "0")
+                    .apply();
+        }
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().registerReceiver(this.receiver, new IntentFilter("QUOTE"));
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((receiver),
+                new IntentFilter(MainServices.ACTION_LOCATION_BROADCAST)
+        );
+    }
+    @Override
+    public void onPause() {
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
+        super.onStop();
+    }
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(this.receiver);
+        super.onDestroy();
+    }
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras();
+            String mode = bundle.getString("MODE");
+            switch (mode){
+                case "UPDATE QUOTE":
+                    adapter.clear();
+                    addDataAdapter();
+                    adapter.notifyDataSetChanged();
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
+    };
 }

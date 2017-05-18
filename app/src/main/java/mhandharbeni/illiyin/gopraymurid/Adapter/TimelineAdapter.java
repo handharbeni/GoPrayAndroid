@@ -1,9 +1,6 @@
 package mhandharbeni.illiyin.gopraymurid.Adapter;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatTextView;
-import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,7 @@ import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
 import mhandharbeni.illiyin.gopraymurid.R;
 
 /**
- * Created by root on 26/04/17.
+ * Created by root on 15/05/17.
  */
 
 public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View.OnClickListener{
@@ -75,7 +72,7 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         TextView txtPuasa;
         TextView txtTanggalPuasa;
     }
-    ViewHolder viewHolder;
+    TimelineAdapter.ViewHolder viewHolder;
     public TimelineAdapter(ArrayList<TimelineModel> data, Context context) {
         super(context, R.layout.item_timeline, data);
         this.dataSet = data;
@@ -92,7 +89,7 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         TimelineModel dataModel = getItem(position);
         final View result;
         if (convertView == null) {
-            viewHolder = new ViewHolder();
+            viewHolder = new TimelineAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.item_timeline, parent, false);
             viewHolder.lineBottom = (ImageView) convertView.findViewById(R.id.lineBottom);
@@ -134,7 +131,7 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             result=convertView;
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (TimelineAdapter.ViewHolder) convertView.getTag();
             result=convertView;
         }
 
@@ -192,12 +189,8 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             /*sedekah*/
             viewHolder.itemSedekah.setVisibility(View.VISIBLE);
             viewHolder.txtLabelTempatSedekah.setVisibility(View.GONE);
-            /*viewHolder.txtLabelSedekah.setText("");*/
-            if (!dataModel.getDi().equalsIgnoreCase("")){
-                viewHolder.txtLabelTempatSedekah.setVisibility(View.VISIBLE);
-                viewHolder.txtTempatSedekah.setText(dataModel.getDi());
-            }
-
+            viewHolder.txtLabelSedekah.setVisibility(View.VISIBLE);
+            viewHolder.txtLabelSedekah.setText("Sedekah "+dataModel.getNominal());
             viewHolder.txtTanggalSedekah.setText(dataModel.getTanggal());
         }else if(dataModel.getType() == 1){
             /*berdoa*/

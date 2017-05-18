@@ -6,7 +6,8 @@
     <string name="noConnection">Tidak Ada Koneksi</string>
     <string name="KeyPassword">SATULIMAKALI</string>
     <!--<string name="server">http://goprayapi.herokuapp.com</string>-->
-    <string name="server">http://192.168.1.20/GoPrayAPI</string>
+    <!--<string name="server">http://192.168.1.20/GoPrayAPI</string>-->
+    <string name="server">http://103.27.207.92:88</string>
     <string name="vServer"></string>
     <string name="signin">Masuk</string>
     <string name="signup">Daftar</string>
@@ -138,5 +139,10 @@
         <item>Al Ihklas</item>
         <item>Al Falaq</item>
         <item>An Naas</item>
+    </array>
+    <array name="puasa">
+        <item>Wajib Ramadhan</item>
+        <item>Senin Kamis</item>
+        <item>Sunnah</item>
     </array>
 </resources>

@@ -12,13 +12,52 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="onResponse" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d180a7f3-84b1-4ba9-9c54-cbcc2ceb76a3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddFreeText.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddFreeText.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/android_morphing_button_98a4986e56.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/library_1_0_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/library_1_0_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/matisse_0_4_3.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_25_3_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/QuoteAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/model/QuoteModel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/Quote.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/QuoteHelper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/QuoteService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_quote.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tambah_puasa.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tambah_sedekah.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_25_1_0.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/proguard-rules.pro" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/TimelineAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/TimelineAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/model/TimelineModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/model/TimelineModel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Meme.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Meme.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Timeline.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Timeline.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddMengaji.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddMengaji.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddPuasa.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddPuasa.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddSedekah.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddSedekah.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/MainAktivitas.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/MainAktivitas.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/JadwalSholatHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/JadwalSholatHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/MainServices.java" afterPath="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/MainServices.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_meme.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_meme.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_timeline.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_timeline.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/tambah_mengaji.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/tambah_mengaji.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
     </list>
     <ignored path="GoPrayAndroid.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,11 +89,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Timeline.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Timeline.java">
+      <file leaf-file-name="Meme.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Meme.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1926">
-              <caret line="151" column="84" selection-start-line="151" selection-start-column="84" selection-end-line="151" selection-end-column="84" />
+            <state relative-caret-position="58">
+              <caret line="232" column="39" selection-start-line="232" selection-start-column="39" selection-end-line="232" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,110 +101,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainAktivitas.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/MainAktivitas.java">
+      <file leaf-file-name="QuoteHelper.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/QuoteHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="27" column="22" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddMengaji.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddMengaji.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-936">
-              <caret line="61" column="60" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2186#2332#0" expanded="true" />
-                <element signature="e#2331#2332#0" expanded="true" />
-                <element signature="e#2395#2403#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddSedekah.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddSedekah.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddPuasa.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddPuasa.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddFreeText.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddFreeText.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider editor-type-id="android-manifest">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="26" column="103" selection-start-line="26" selection-start-column="103" selection-end-line="26" selection-end-column="103" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tambah_mengaji.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tambah_mengaji.xml">
-          <provider selected="true" editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="774">
-              <caret line="43" column="53" selection-start-line="43" selection-start-column="53" selection-end-line="43" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TimelineHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/TimelineHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1116">
-              <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
+            <state relative-caret-position="272">
+              <caret line="46" column="83" selection-start-line="46" selection-start-column="83" selection-end-line="46" selection-end-column="83" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -181,8 +121,8 @@
         <option value="layoutResourceFile" />
         <option value="valueResourceFile" />
         <option value="resourceFile" />
-        <option value="Class" />
         <option value="layoutResourceFile_vertical" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -503,6 +443,11 @@
                 <option name="name" value="prepareComPddstudioEncryptedPreferences130Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare it.sephiroth.android.library.easing:library:1.0.2" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareItSephirothAndroidLibraryEasingLibrary102Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="compileDebugAndroidTestNdk" />
               </ExternalTaskPojo>
@@ -612,6 +557,11 @@
                 <option name="name" value="generateDebugAssets" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.github.dmytrodanylyk:android-morphing-button:98a4986e56" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGithubDmytrodanylykAndroidMorphingButton98a4986e56Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Displays the dependent components of components in root project 'GoPrayAndroid'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="dependentComponents" />
@@ -629,11 +579,6 @@
                 <option name="description" value="Prints out all the source sets defined in this project." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="sourceSets" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:recyclerview-v7:25.1.0" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComAndroidSupportRecyclerviewV72510Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -874,6 +819,11 @@
                 <option name="name" value="javaPreCompileReleaseUnitTest" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:recyclerview-v7:25.3.1" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportRecyclerviewV72531Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="javaPreCompileRelease" />
               </ExternalTaskPojo>
@@ -1000,6 +950,11 @@
                 <option name="name" value="transformResourcesWithMergeJavaResForDebug" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare it.sephiroth.android.library.imagezoom:library:1.0.4" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareItSephirothAndroidLibraryImagezoomLibrary104Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Prepare com.google.android.gms:play-services-base:9.4.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBase940Library" />
@@ -1035,6 +990,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="generateReleaseBuildConfig" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.zhihu.android:matisse:0.4.3" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComZhihuAndroidMatisse043Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.scottyab:aescrypt:0.0.1" />
@@ -1374,6 +1334,11 @@
                 <option name="name" value="prepareComPddstudioEncryptedPreferences130Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare it.sephiroth.android.library.easing:library:1.0.2" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareItSephirothAndroidLibraryEasingLibrary102Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="compileDebugAndroidTestNdk" />
               </ExternalTaskPojo>
@@ -1483,6 +1448,11 @@
                 <option name="name" value="generateDebugAssets" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.github.dmytrodanylyk:android-morphing-button:98a4986e56" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComGithubDmytrodanylykAndroidMorphingButton98a4986e56Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Displays the dependent components of components in project ':app'. [incubating]" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="dependentComponents" />
@@ -1500,11 +1470,6 @@
                 <option name="description" value="Prints out all the source sets defined in this project." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="sourceSets" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:recyclerview-v7:25.1.0" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComAndroidSupportRecyclerviewV72510Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
@@ -1740,6 +1705,11 @@
                 <option name="name" value="javaPreCompileReleaseUnitTest" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:recyclerview-v7:25.3.1" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportRecyclerviewV72531Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="javaPreCompileRelease" />
               </ExternalTaskPojo>
@@ -1861,6 +1831,11 @@
                 <option name="name" value="transformResourcesWithMergeJavaResForDebug" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare it.sephiroth.android.library.imagezoom:library:1.0.4" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareItSephirothAndroidLibraryImagezoomLibrary104Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Prepare com.google.android.gms:play-services-base:9.4.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBase940Library" />
@@ -1896,6 +1871,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="generateReleaseBuildConfig" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.zhihu.android:matisse:0.4.3" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComZhihuAndroidMatisse043Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.scottyab:aescrypt:0.0.1" />
@@ -1968,7 +1948,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4481136689896" />
+        <entry key="$PROJECT_DIR$" value="4481659070749" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2291,18 +2271,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fab_timeline.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/gradient.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/register.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_timeline_start.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/model/TimelineModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/JadwalSholat.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/JadwalSholatHelper.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/defaultborder.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/fragment_anim.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/button_selector.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/selectborder.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/unselectborder.xml" />
@@ -2322,26 +2290,38 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_timeline.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/ProfilePictureService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/ServiceTimeline.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/MainServices.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tambah_sholat.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/layout_main_aktivitas.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/toolbar_acivity.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/MainAktivitas.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/TimelineAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Timeline.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddSholat.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/UploadTimeline.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_timeline.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddFreeText.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/tambah_sedekah.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tambah_mengaji.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddMengaji.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddPuasa.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddSedekah.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddFreeText.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/model/TimelineModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/tambah_puasa.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/MainAktivitas.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddPuasa.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_timeline.xml" />
+        <option value="$PROJECT_DIR$/app/proguard-rules.pro" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/Quote.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/model/QuoteModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/TimelineAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/QuoteService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/MainServices.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/QuoteAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_quote.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Timeline.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_meme.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Meme.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/QuoteHelper.java" />
       </list>
     </option>
   </component>
@@ -2395,7 +2375,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2403,10 +2385,6 @@
               <option name="myItemId" value="GoPrayAndroid" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2416,46 +2394,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoPrayAndroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoPrayAndroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2474,54 +2412,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="gopraymurid" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoPrayAndroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gopraymurid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoPrayAndroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gopraymurid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="intent" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2544,56 +2434,18 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Fragment" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoPrayAndroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gopraymurid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Fragment" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="aktivitas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoPrayAndroid" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane />
-      </pane>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../icontil/fix/trophy_bronze.svg" />
-    <property name="device.picker.selection" value="E6V8GIUOIVJV755S" />
+    <property name="device.picker.selection" value="8af4af07d22" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="lastFolderRoot" value="$PROJECT_DIR$/../../icontil" />
@@ -2941,7 +2793,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="24" width="1317" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2949,7 +2801,8 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.5058824" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.8111111" sideWeight="0.49411765" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2857143" sideWeight="0.49411765" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28549019" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.49411765" order="7" side_tool="false" content_ui="tabs" />
@@ -2969,7 +2822,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28549019" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -3019,89 +2871,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.android/build-cache/2dff6d0c5e7e9efbc8d0e80be0bc7e4b5633bccb/output/jars/classes.jar!/com/bvapp/arcmenulibrary/ArcMenu.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4983">
-          <caret line="639" column="16" selection-start-line="639" selection-start-column="16" selection-end-line="639" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="57" selection-start-line="6" selection-start-column="57" selection-end-line="6" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Setting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Family.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Meme.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.realm/realm-android-library/2.3.1/359e2151410ddd89bd71ad92cef3d51d20a7e783/realm-android-library-2.3.1-sources.jar!/io/realm/BaseRealm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="382" column="0" selection-start-line="382" selection-start-column="0" selection-end-line="382" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///media/mhandharbeni/9673-5614/PosDB/m_pegawai_permission.sql" />
-    <entry file="file:///media/mhandharbeni/9673-5614/PosDB/m_pegawai_menu.sql" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/JadwalSholatHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="23" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-25/android/app/Service.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="604" column="22" selection-start-line="604" selection-start-column="22" selection-end-line="604" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/UploadHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="668">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="51" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/io/realm/TimelineRealmProxy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10278">
-          <caret line="599" column="0" selection-start-line="599" selection-start-column="0" selection-end-line="599" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/JadwalSholatService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_tab_meme.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-mdpi/trophy_bronze.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/tab_ortu_actives.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -3146,48 +2915,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/ProfilePictureService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="80" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/MainServices.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="93" column="69" selection-start-line="93" selection-start-column="69" selection-end-line="93" selection-end-column="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/ServiceTimeline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1366">
-          <caret line="67" column="28" selection-start-line="67" selection-start-column="28" selection-end-line="67" selection-end-column="28" />
-          <folding>
-            <element signature="e#1942#1968#0" expanded="false" />
-            <element signature="e#1973#2000#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_timeline.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1458">
-          <caret line="81" column="40" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3229,44 +2956,7 @@
         <state relative-caret-position="372">
           <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding>
-            <element signature="e#937#955#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="99" selection-end-column="30" />
-          <folding>
-            <element signature="e#12756#12782#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/TimelineAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2970">
-          <caret line="182" column="64" selection-start-line="182" selection-start-column="64" selection-end-line="182" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/Timeline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="88" column="16" selection-start-line="88" selection-start-column="16" selection-end-line="88" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tambah_sholat.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="132" column="51" selection-start-line="132" selection-start-column="41" selection-end-line="132" selection-end-column="51" />
-          <folding>
-            <element signature="e#453#5657#0" expanded="false" />
+            <element signature="e#937#955#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3275,32 +2965,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-882">
           <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/UploadTimeline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="762">
-          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2089#2130#0" expanded="true" />
-            <element signature="e#2135#2177#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/model/TimelineModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-          <folding>
-            <element signature="e#885#886#0" expanded="true" />
-            <element signature="e#912#913#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3311,70 +2975,248 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="50" column="4" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_timeline.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3636">
-          <caret line="202" column="59" selection-start-line="202" selection-start-column="59" selection-end-line="202" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="27" column="22" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Timeline.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1926">
-          <caret line="151" column="84" selection-start-line="151" selection-start-column="84" selection-end-line="151" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/MainAktivitas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/TimelineHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1116">
           <caret line="68" column="16" selection-start-line="68" selection-start-column="16" selection-end-line="68" selection-end-column="16" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddFreeText.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tambah_sedekah.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="43" column="51" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="51" />
+          <folding>
+            <element signature="e#3086#3100#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddSedekah.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="58" column="26" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tambah_mengaji.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="48" column="50" selection-start-line="0" selection-start-column="0" selection-end-line="172" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tambah_puasa.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="44" column="49" selection-start-line="44" selection-start-column="49" selection-end-line="44" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddMengaji.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="137" column="0" selection-start-line="33" selection-start-column="24" selection-end-line="137" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="32" column="73" selection-start-line="32" selection-start-column="73" selection-end-line="32" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-fragment/25.3.1/support-fragment-25.3.1-sources.jar!/android/support/v4/app/Fragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="989" column="16" selection-start-line="989" selection-start-column="16" selection-end-line="989" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.android/build-cache/1e25061e5f5245683af076c3c968425e95a2453e/output/res/values/values.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="64" column="17" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_timeline.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="81" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="116" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tambah_sholat.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="230" column="25" selection-start-line="181" selection-start-column="8" selection-end-line="230" selection-end-column="25" />
+          <folding>
+            <element signature="e#453#5657#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddPuasa.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-30">
+          <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/MainAktivitas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-145">
+          <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/ProfilePictureService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="94" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/JadwalSholatHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/Quote.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="35" />
+          <folding>
+            <element signature="e#236#237#0" expanded="true" />
+            <element signature="e#261#262#0" expanded="true" />
+            <element signature="e#294#295#0" expanded="true" />
+            <element signature="e#322#323#0" expanded="true" />
+            <element signature="e#358#359#0" expanded="true" />
+            <element signature="e#390#391#0" expanded="true" />
+            <element signature="e#440#441#0" expanded="true" />
+            <element signature="e#482#483#0" expanded="true" />
+            <element signature="e#516#517#0" expanded="true" />
+            <element signature="e#546#547#0" expanded="true" />
+            <element signature="e#592#593#0" expanded="true" />
+            <element signature="e#630#631#0" expanded="true" />
+            <element signature="e#660#661#0" expanded="true" />
+            <element signature="e#686#687#0" expanded="true" />
+            <element signature="e#724#725#0" expanded="true" />
+            <element signature="e#754#755#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_timeline.xml">
       <provider selected="true" editor-type-id="android-designer2">
         <state />
       </provider>
       <provider editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="43" column="53" selection-start-line="43" selection-start-column="53" selection-end-line="43" selection-end-column="53" />
+        <state relative-caret-position="238">
+          <caret line="349" column="55" selection-start-line="0" selection-start-column="0" selection-end-line="445" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/model/QuoteModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="e#446#447#0" expanded="true" />
+            <element signature="e#471#472#0" expanded="true" />
+            <element signature="e#507#508#0" expanded="true" />
+            <element signature="e#535#536#0" expanded="true" />
+            <element signature="e#561#562#0" expanded="true" />
+            <element signature="e#586#587#0" expanded="true" />
+            <element signature="e#619#620#0" expanded="true" />
+            <element signature="e#647#648#0" expanded="true" />
+            <element signature="e#683#684#0" expanded="true" />
+            <element signature="e#715#716#0" expanded="true" />
+            <element signature="e#765#766#0" expanded="true" />
+            <element signature="e#807#808#0" expanded="true" />
+            <element signature="e#841#842#0" expanded="true" />
+            <element signature="e#871#872#0" expanded="true" />
+            <element signature="e#917#918#0" expanded="true" />
+            <element signature="e#955#956#0" expanded="true" />
+            <element signature="e#985#986#0" expanded="true" />
+            <element signature="e#1011#1012#0" expanded="true" />
+            <element signature="e#1049#1050#0" expanded="true" />
+            <element signature="e#1079#1080#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/model/TimelineModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="14" />
+          <folding>
+            <element signature="e#840#841#0" expanded="true" />
+            <element signature="e#870#871#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/Timeline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="88" column="16" selection-start-line="88" selection-start-column="16" selection-end-line="88" selection-end-column="16" />
+          <folding>
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#1782#1783#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/ServiceTimeline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2502">
+          <caret line="167" column="5" selection-start-line="167" selection-start-column="5" selection-end-line="167" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/UploadTimeline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="846">
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3384,49 +3226,130 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="26" column="103" selection-start-line="26" selection-start-column="103" selection-end-line="26" selection-end-column="103" />
+        <state relative-caret-position="378">
+          <caret line="21" column="62" selection-start-line="21" selection-start-column="62" selection-end-line="21" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddMengaji.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_quote.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-936">
-          <caret line="61" column="60" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2186#2332#0" expanded="true" />
-            <element signature="e#2331#2332#0" expanded="true" />
-            <element signature="e#2395#2403#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="166">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddSedekah.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/intent/QuoteService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="24" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddPuasa.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        <state relative-caret-position="218">
+          <caret line="124" column="89" selection-start-line="124" selection-start-column="89" selection-end-line="124" selection-end-column="89" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/aktivitas/AddFreeText.java">
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+        <state relative-caret-position="443">
+          <caret line="51" column="73" selection-start-line="51" selection-start-column="73" selection-end-line="51" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-25/android.jar!/android/R.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="2538" column="32" selection-start-line="2538" selection-start-column="32" selection-end-line="2538" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Timeline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="508" column="113" selection-start-line="508" selection-start-column="109" selection-end-line="508" selection-end-column="113" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1392">
+          <caret line="261" column="18" selection-start-line="261" selection-start-column="18" selection-end-line="261" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/service/MainServices.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1136">
+          <caret line="102" column="84" selection-start-line="102" selection-start-column="84" selection-end-line="102" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/QuoteAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="51" column="62" selection-start-line="51" selection-start-column="62" selection-end-line="51" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Adapter/TimelineAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_meme.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="63" column="12" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/Fragment/Meme.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="232" column="39" selection-start-line="232" selection-start-column="39" selection-end-line="232" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/mhandharbeni/illiyin/gopraymurid/database/helper/QuoteHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="46" column="83" selection-start-line="46" selection-start-column="83" selection-end-line="46" selection-end-column="83" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

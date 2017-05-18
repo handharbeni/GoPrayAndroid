@@ -177,20 +177,20 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         tabLayout.removeAllTabs();
 
         final TabLayout.Tab timeline = tabLayout.newTab();
-        final TabLayout.Tab family = tabLayout.newTab();
+//        final TabLayout.Tab family = tabLayout.newTab();
         final TabLayout.Tab meme = tabLayout.newTab();
         final TabLayout.Tab setting = tabLayout.newTab();
 
         timeline.setIcon(R.drawable.tab_timeline);
-        family.setIcon(R.drawable.tab_ortu);
+//        family.setIcon(R.drawable.tab_ortu);
         meme.setIcon(R.drawable.tab_meme);
         setting.setIcon(R.drawable.tab_setting);
 
 
         tabLayout.addTab(timeline, 0);
-        tabLayout.addTab(family, 1);
-        tabLayout.addTab(meme, 2);
-        tabLayout.addTab(setting, 3);
+//        tabLayout.addTab(family, 1);
+        tabLayout.addTab(meme, 1);
+        tabLayout.addTab(setting, 2);
 
         tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.color.tab_selector));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.indicator));
@@ -203,13 +203,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                     case 0:
                         icon = getResources().getDrawable(R.drawable.tab_timeline_actives);
                         break;
-                    case 1:
+/*                    case 1:
                         icon = getResources().getDrawable(R.drawable.tab_ortu_actives);
-                        break;
-                    case 2:
+                        break;*/
+                    case 1:
                         icon = getResources().getDrawable(R.drawable.tab_meme_actives);
                         break;
-                    case 3:
+                    case 2:
                         icon = getResources().getDrawable(R.drawable.tab_setting_actives);
                         break;
                 }
@@ -225,13 +225,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                     case 0:
                         icon = getResources().getDrawable(R.drawable.tab_timeline);
                         break;
-                    case 1:
+/*                    case 1:
                         icon = getResources().getDrawable(R.drawable.tab_ortu);
-                        break;
-                    case 2:
+                        break;*/
+                    case 1:
                         icon = getResources().getDrawable(R.drawable.tab_meme);
                         break;
-                    case 3:
+                    case 2:
                         icon = getResources().getDrawable(R.drawable.tab_setting);
                         break;
                 }
@@ -253,13 +253,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
             case 0:
                 fragment = new Timeline();
                 break;
-            case 1:
+/*            case 1:
                 fragment = new Family();
-                break;
-            case 2:
+                break;*/
+            case 1:
                 fragment = new Meme();
                 break;
-            case 3:
+            case 2:
                 fragment = new Setting();
                 break;
         }

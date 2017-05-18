@@ -142,7 +142,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/itemMengaji"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -247,7 +247,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="@android:color/black"
                     tools:text="@string/sedekah" />
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_marginRight="5dp"
@@ -307,7 +307,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/line"
+                android:textColor="@android:color/black"
                 tools:text="Mengaji Di" />
 
             <android.support.v7.widget.AppCompatTextView
@@ -323,7 +323,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/itemPuasa"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -347,7 +347,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/line"
+                android:textColor="@android:color/black"
                 tools:text="@string/freetext" />
 
             <android.support.v7.widget.AppCompatTextView

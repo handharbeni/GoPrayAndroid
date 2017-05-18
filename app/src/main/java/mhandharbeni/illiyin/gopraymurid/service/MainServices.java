@@ -16,6 +16,7 @@ import java.util.TimerTask;
 import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.service.intent.JadwalSholatService;
 import mhandharbeni.illiyin.gopraymurid.service.intent.ProfilePictureService;
+import mhandharbeni.illiyin.gopraymurid.service.intent.QuoteService;
 import mhandharbeni.illiyin.gopraymurid.service.intent.ServiceTimeline;
 import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
 
@@ -25,7 +26,7 @@ import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
 
 public class MainServices extends Service {
     public static Boolean serviceRunning = false;
-    public static final long NOTIFY_INTERVAL = 1 * 1000;
+    public static final long NOTIFY_INTERVAL = 5 * 1000;
     private Handler handler = new Handler();
     private Timer timer = null;
     public static final String
@@ -94,6 +95,12 @@ public class MainServices extends Service {
                     if(!checkIsRunning(ProfilePictureService.class)){
                     /*PROFILE PICTURE SERVICE*/
                         Intent pp = new Intent(getApplicationContext(), ProfilePictureService.class);
+                        startService(pp);
+                    /*PROFILE PICTURE SERVICE*/
+                    }
+                    if(!checkIsRunning(QuoteService.class)){
+                    /*PROFILE PICTURE SERVICE*/
+                        Intent pp = new Intent(getApplicationContext(), QuoteService.class);
                         startService(pp);
                     /*PROFILE PICTURE SERVICE*/
                     }

@@ -1,15 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="MEME"
-        tools:text="MEME" />
+    <RelativeLayout
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:background="@android:color/white"
+        android:elevation="2dp"
+        android:outlineProvider="bounds"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingBottom="10dp"
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <RelativeLayout
+            android:id="@+id/rlBersama"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@android:drawable/editbox_background">
+
+            <EditText
+                android:id="@+id/txtText"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:hint="Masukkan teks quote disini"
+                android:textColor="@color/line"
+                android:textStyle="bold"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageButton
+                android:id="@+id/imgPick"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_camera"
+                android:paddingLeft="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:padding="5dp"
+            android:layout_below="@+id/rlBersama"
+            android:layout_width="match_parent"
+            android:layout_height="550dp">
+
+            <com.dd.morphingbutton.MorphingButton
+                android:background="@drawable/mainbutton_selector"
+                android:id="@+id/btnSimpan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <ImageButton
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/ibTwitter"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/twitter_selector"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ibInstagram"
+                android:layout_toEndOf="@+id/ibInstagram" />
+
+            <ImageButton
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/ibInstagram"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ig_selector"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ibFacebook"
+                android:layout_toEndOf="@+id/ibFacebook" />
+
+            <ImageButton
+                android:layout_alignParentTop="true"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:id="@+id/ibFacebook"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/fb_selector" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:id="@+id/listViewQuote"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout" />
+
 </RelativeLayout>
