@@ -15,6 +15,7 @@
     <string name="prosesLogin">Proses Login..</string>
     <string name="prosesDaftar">Proses Daftar..</string>
     <string name="signupSuccess">Daftar Berhasil!!</string>
+    <string name="signupFailed">Gagal Daftar</string>
     <string name="askaccount">Belum Punya Akun?</string>
     <string name="asklogin">Sudah Punya Akun?</string>
     <string name="sholat">Sholat</string>

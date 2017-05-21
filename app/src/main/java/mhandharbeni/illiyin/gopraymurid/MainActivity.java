@@ -364,9 +364,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
             // koneksi tersedia
             btnSignup.setText(getString(R.string.prosesDaftar));
             btnSignup.setEnabled(false);
-            TextView txtEmail = (TextView) findViewById(R.id.txtEmail);
-            TextView txtPassword = (TextView) findViewById(R.id.txtPassword);
-            TextView txtNama= (TextView) findViewById(R.id.txtNama);
+            TextView txtEmail = (TextView) findViewById(R.id.txtDEmail);
+            TextView txtPassword = (TextView) findViewById(R.id.txtDPassword);
+            TextView txtNama= (TextView) findViewById(R.id.txtDNama);
             // koneksi tersedia
             RequestBody formBody = new FormBody.Builder()
                     .add("nama", txtNama.getText().toString())
@@ -384,32 +384,33 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                         String responses = response.body().string();
                         JSONObject jsonObj = new JSONObject(responses);
                         Boolean returns = jsonObj.getBoolean("return");
+//                        Log.d("JSONOBJECT", "onResponse: "+jsonObj.getString("error_message"));
                         if(returns){
                             showSnackBar(getString(R.string.signupSuccess));
                             btnSignup.setText(getString(R.string.signin));
                             btnSignup.setEnabled(true);
                             setView(1);
                         }else{
-                            showSnackBar(getString(R.string.loginFailed));
-                            btnSignup.setText(getString(R.string.signin));
+                            showSnackBar(getString(R.string.signupFailed));
+                            btnSignup.setText(getString(R.string.signup));
                             btnSignup.setEnabled(true);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
-                        showSnackBar(getString(R.string.loginFailed));
-                        btnSignup.setText(getString(R.string.signin));
+                        showSnackBar(getString(R.string.signupFailed));
+                        btnSignup.setText(getString(R.string.signup));
                         btnSignup.setEnabled(true);
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        showSnackBar(getString(R.string.loginFailed));
-                        btnSignup.setText(getString(R.string.signin));
+                        showSnackBar(getString(R.string.signupFailed));
+                        btnSignup.setText(getString(R.string.signup));
                         btnSignup.setEnabled(true);
                     }
                 }
                 @Override
                 public void onFailure(Throwable t) {
-                    showSnackBar(getString(R.string.loginFailed));
-                    btnSignin.setText(getString(R.string.signin));
+                    showSnackBar(getString(R.string.signupFailed));
+                    btnSignin.setText(getString(R.string.signup));
                     btnSignin.setEnabled(true);
                 }
             });

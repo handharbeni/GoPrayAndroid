@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,17 @@ import android.widget.TextView;
 import com.dunst.check.CheckableImageButton;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.R;
+import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.Timeline;
+import mhandharbeni.illiyin.gopraymurid.database.helper.JadwalSholatHelper;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
 import mhandharbeni.illiyin.gopraymurid.service.intent.ServiceTimeline;
 import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
@@ -46,8 +51,11 @@ public class AddSholat extends Fragment implements View.OnClickListener {
     EditText txtBersama, txtTempat;
     Button btnSave;
     TimelineHelper th;
+    JadwalSholatHelper jsHelper;
+    String tSubuh, tDhuha, tDhuhur,tAshar,tMaghrib,tIsya;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         //init encrypting
         encryptedPreferences = new EncryptedPreferences.Builder(getActivity()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         //init encrypting
@@ -56,6 +64,7 @@ public class AddSholat extends Fragment implements View.OnClickListener {
         /*init network*/
         /*Timeline Helper*/
         th = new TimelineHelper(getActivity().getApplicationContext());
+        jsHelper = new JadwalSholatHelper(getActivity().getApplicationContext());
         /*Timeline Helper*/
 
         endUri = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/timeline";
@@ -69,7 +78,7 @@ public class AddSholat extends Fragment implements View.OnClickListener {
         checkSunnah= (CheckableImageButton) v.findViewById(R.id.btnSunnah);
         txtBersama = (EditText) v.findViewById(R.id.txtBersama);
         txtTempat = (EditText) v.findViewById(R.id.txtTempat);
-
+        getJadwalSholat();
         uncheckButton();
         checkSunnah.setOnClickListener(this);
         checkSubuh.setOnClickListener(this);
@@ -88,11 +97,7 @@ public class AddSholat extends Fragment implements View.OnClickListener {
 
         return v;
     }
-    public void backToHome(Fragment fragment){
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.FrameContainer, fragment);
-        ft.commit();
-    }
+
     public void uncheckButton(){
         checkSubuh.setChecked(FALSE);
         checkDhuhur.setChecked(FALSE);
@@ -100,6 +105,20 @@ public class AddSholat extends Fragment implements View.OnClickListener {
         checkMaghrib.setChecked(FALSE);
         checkIsya.setChecked(FALSE);
         checkSunnah.setChecked(FALSE);
+    }
+    public void getJadwalSholat(){
+//        String tanggal = (getDateTime());
+        String tanggal = "2017-04-11";
+        JadwalSholat js = new JadwalSholat();
+        RealmResults<JadwalSholat> rjs = jsHelper.getJadwalSholat(tanggal);
+        if (rjs.size() > 0){
+            tSubuh     = rjs.get(0).getSubuh();
+            tDhuha     = rjs.get(0).getDhuha();
+            tDhuhur    = rjs.get(0).getDhuhur();
+            tAshar     = rjs.get(0).getAshar();
+            tMaghrib   = rjs.get(0).getMaghrib();
+            tIsya      = rjs.get(0).getIsya();
+        }
     }
     public void saveServer(){
         String sBersama = txtBersama.getText().toString();
@@ -165,9 +184,38 @@ public class AddSholat extends Fragment implements View.OnClickListener {
         return simpleDateFormat.format(date);
     }
     public static String getTime() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss", Locale.getDefault());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         Date date = new Date();
         return simpleDateFormat.format(date);
+    }
+    public String getDifferenceTime(String time1, String time2){
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
+        Date d1 = null;
+        Date d2 = null;
+        try {
+            d1 = format.parse(time1);
+            d2 = format.parse(time2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        long diff = (d2.getTime() - d1.getTime());
+        long diffSeconds = (diff / 1000)%60;
+        long diffMinutes = (diff / (60 * 1000))%60;
+        long diffHours = (diff / (60 * 60 * 1000))%60;
+        String result = diffHours +":"+ diffMinutes +":"+diffSeconds;
+        return result;
+    }
+    public void checkDifference(){
+        if (!encryptedPreferences.getString("JAM_TERAKHIR", "").equalsIgnoreCase("")){
+            String time1 = getTime();
+            String time2 = encryptedPreferences.getString("JAM_TERAKHIR", "");
+
+            String difference = getDifferenceTime(time1, time2);
+            Log.d("ADD SHOLAT", "checkDifference: "+time1);
+            Log.d("ADD SHOLAT", "checkDifference: "+time2);
+            Log.d("ADD SHOLAT", "checkDifference: "+String.valueOf(difference));
+        }
     }
     @Override
     public void onClick(View v) {
@@ -177,33 +225,40 @@ public class AddSholat extends Fragment implements View.OnClickListener {
             case R.id.btnSubuh :
                 encryptedPreferences.edit().putString("SHOLAT", "1").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Subuh").commit();
+                encryptedPreferences.edit().putString("JAM_TERAKHIR", tDhuha).commit();
                 checkSubuh.setChecked(TRUE);
                 break;
             case R.id.btnDhuhur :
                 encryptedPreferences.edit().putString("SHOLAT", "2").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Dhuhur").commit();
+                encryptedPreferences.edit().putString("JAM_TERAKHIR", tAshar).commit();
                 checkDhuhur.setChecked(TRUE);
                 break;
             case R.id.btnAshar :
                 encryptedPreferences.edit().putString("SHOLAT", "3").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Ashar").commit();
+                encryptedPreferences.edit().putString("JAM_TERAKHIR", tMaghrib).commit();
                 checkAshar.setChecked(TRUE);
                 break;
             case R.id.btnMaghrib :
                 encryptedPreferences.edit().putString("SHOLAT", "4").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Maghrib").commit();
+                encryptedPreferences.edit().putString("JAM_TERAKHIR", tIsya).commit();
                 checkMaghrib.setChecked(TRUE);
                 break;
             case R.id.btnIsya :
                 encryptedPreferences.edit().putString("SHOLAT", "5").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Isya").commit();
+                encryptedPreferences.edit().putString("JAM_TERAKHIR", tSubuh).commit();
                 checkIsya.setChecked(TRUE);
                 break;
             case R.id.btnSunnah :
                 encryptedPreferences.edit().putString("SHOLAT", "6").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Sunnah").commit();
+                encryptedPreferences.edit().putString("JAM_TERAKHIR", "").commit();
                 checkSunnah.setChecked(TRUE);
                 break;
         }
+        checkDifference();
     }
 }
