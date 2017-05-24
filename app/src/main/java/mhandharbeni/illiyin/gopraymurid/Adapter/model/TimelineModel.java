@@ -6,6 +6,7 @@ package mhandharbeni.illiyin.gopraymurid.Adapter.model;
 
 public class TimelineModel {
     /*type 1 sholat, 2 mengaji, 3 sedekah, 4 berdoa, 5 freetext*/
+    int id;
     int type;
     int icon;
     String stiker;
@@ -16,8 +17,9 @@ public class TimelineModel {
     String tl;
     String nominal;
 
-    public TimelineModel(int type,  int icon, String stiker,
+    public TimelineModel(int id, int type,  int icon, String stiker,
                          String keterangan, String bersama, String di, String tanggal, String lineTime, String nominal){
+        this.id = id;
         this.type = type;
         this.icon = icon;
         this.stiker = stiker;
@@ -27,6 +29,14 @@ public class TimelineModel {
         this.tanggal = tanggal;
         this.tl = lineTime;
         this.nominal = nominal;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNominal() {

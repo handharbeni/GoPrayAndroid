@@ -3,21 +3,22 @@ package mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.dunst.check.CheckableImageButton;
+import com.facebook.CallbackManager;
+import com.facebook.share.widget.ShareDialog;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +26,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import io.realm.RealmResults;
+import mhandharbeni.illiyin.gopraymurid.Fragment.share.ShareSocialMedia;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.Timeline;
@@ -53,6 +55,19 @@ public class AddSholat extends Fragment implements View.OnClickListener {
     TimelineHelper th;
     JadwalSholatHelper jsHelper;
     String tSubuh, tDhuha, tDhuhur,tAshar,tMaghrib,tIsya;
+
+    ShareDialog shareDialog;
+    CallbackManager callbackManager;
+
+    ShareSocialMedia socialMediaShare;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        socialMediaShare = new ShareSocialMedia(getActivity(), getActivity().getApplicationContext());
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -156,6 +171,10 @@ public class AddSholat extends Fragment implements View.OnClickListener {
             Intent intentTimeline = new Intent(getActivity().getApplicationContext(), ServiceTimeline.class);
             getActivity().startService(intentTimeline);
         }
+//        socialMediaShare.shareTwitter("MESSAGE TWITTER", "http://developers.facebook.com/android");
+//        socialMediaShare.shareFacebook("TITLE", "DESCRIPTION", "http://developers.facebook.com/android");
+//        shareInstagram("image/*", "");
+//        shareFacebook();
         /*run service*/
         getActivity().finish();
     }
@@ -225,40 +244,40 @@ public class AddSholat extends Fragment implements View.OnClickListener {
             case R.id.btnSubuh :
                 encryptedPreferences.edit().putString("SHOLAT", "1").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Subuh").commit();
-                encryptedPreferences.edit().putString("JAM_TERAKHIR", tDhuha).commit();
+//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tDhuha).commit();
                 checkSubuh.setChecked(TRUE);
                 break;
             case R.id.btnDhuhur :
                 encryptedPreferences.edit().putString("SHOLAT", "2").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Dhuhur").commit();
-                encryptedPreferences.edit().putString("JAM_TERAKHIR", tAshar).commit();
+//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tAshar).commit();
                 checkDhuhur.setChecked(TRUE);
                 break;
             case R.id.btnAshar :
                 encryptedPreferences.edit().putString("SHOLAT", "3").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Ashar").commit();
-                encryptedPreferences.edit().putString("JAM_TERAKHIR", tMaghrib).commit();
+//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tMaghrib).commit();
                 checkAshar.setChecked(TRUE);
                 break;
             case R.id.btnMaghrib :
                 encryptedPreferences.edit().putString("SHOLAT", "4").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Maghrib").commit();
-                encryptedPreferences.edit().putString("JAM_TERAKHIR", tIsya).commit();
+//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tIsya).commit();
                 checkMaghrib.setChecked(TRUE);
                 break;
             case R.id.btnIsya :
                 encryptedPreferences.edit().putString("SHOLAT", "5").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Isya").commit();
-                encryptedPreferences.edit().putString("JAM_TERAKHIR", tSubuh).commit();
+//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tSubuh).commit();
                 checkIsya.setChecked(TRUE);
                 break;
             case R.id.btnSunnah :
                 encryptedPreferences.edit().putString("SHOLAT", "6").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Sunnah").commit();
-                encryptedPreferences.edit().putString("JAM_TERAKHIR", "").commit();
+//                encryptedPreferences.edit().putString("JAM_TERAKHIR", "").commit();
                 checkSunnah.setChecked(TRUE);
                 break;
         }
-        checkDifference();
+//        checkDifference();
     }
 }

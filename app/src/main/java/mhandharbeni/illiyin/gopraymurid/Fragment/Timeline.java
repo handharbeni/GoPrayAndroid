@@ -10,7 +10,11 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,6 +27,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bvapp.arcmenulibrary.ArcMenu;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +40,7 @@ import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.Adapter.TimelineAdapter;
 import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
 import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.MainAktivitas;
+import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.helper.JadwalSholatHelper;
@@ -49,7 +55,7 @@ import sexy.code.HttPizza;
 public class Timeline extends Fragment implements View.OnClickListener {
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
     private static final int[] ITEM_DRAWABLES = { R.drawable.timeline_sholat,
-            R.drawable.timeline_mengai, R.drawable.timeline_sedekah, R.drawable.timeline_puasa, R.drawable.timeline_meme};
+            R.drawable.timeline_mengai, R.drawable.timeline_sedekah, R.drawable.timeline_puasa};
 
     private String endUri;
     View v;
@@ -75,6 +81,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //init encrypting
+        ((MainActivity)getActivity()).startServices();
         encryptedPreferences = new EncryptedPreferences.Builder(getActivity()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         //init encrypting
         /*init network*/
@@ -86,6 +93,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         tlHelper = new TimelineHelper(getActivity().getApplicationContext());
         jsHelper = new JadwalSholatHelper(getActivity().getApplicationContext());
         listView=(ListView) v.findViewById(R.id.listViewTimeline);
+        getActivity().registerForContextMenu(listView);
         dimView = (RelativeLayout) v.findViewById(R.id.dimScreen);
         endUri = getString(R.string.server)+"/"+getString(R.string.vServer)+"/users/self/timeline?access_token=";
         initProfilePicture();
@@ -136,9 +144,6 @@ public class Timeline extends Fragment implements View.OnClickListener {
                         case 3 :
                             /*puasa*/
                             addAktivitas(3);
-                            break;
-                        case 4 :
-                            /*freetext*/
                             break;
                     }
                 }
@@ -207,7 +212,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
                     dr = R.drawable.timeline_mengai;
                     break;
             }
-            dataModels.add(new TimelineModel(result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
+            dataModels.add(new TimelineModel(result.get(i).getId(),result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
                     namaIbadah, result.get(i).getBersama(), result.get(i).getTempat(),
                     result.get(i).getDate()+"  "+result.get(i).getJam(), tl, String.valueOf(result.get(i).getNominal())));
         }
@@ -267,7 +272,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
                     dr = R.drawable.timeline_mengai;
                     break;
             }
-            adapter.add(new TimelineModel(result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
+            adapter.add(new TimelineModel(result.get(i).getId(),result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
                     namaIbadah, result.get(i).getBersama(), result.get(i).getTempat(),
                     result.get(i).getDate()+"  "+result.get(i).getJam(), tl, String.valueOf(result.get(i).getNominal())));
         }
@@ -290,6 +295,32 @@ public class Timeline extends Fragment implements View.OnClickListener {
                 TimelineModel dataModel= dataModels.get(position);
             }
         });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final TimelineModel dataModel= dataModels.get(position);
+                new LovelyStandardDialog(getActivity())
+                        .setTopColorRes(R.color.colorPrimary)
+                        .setButtonsColorRes(R.color.colorAccent)
+                        .setTitle("HAPUS")
+                        .setMessage("Hapus Aktivitas?")
+                        .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                /*HAPUS AKTIVITAS*/
+                                deleteActivity(dataModel.getId());
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .show();
+                return false;
+            }
+        });
+    }
+    public void deleteActivity(int id){
+        Toast.makeText(getActivity().getApplication(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+        /*DELETE SERVER*/
+        /*DELETE DATA LOKAL*/
     }
     public void displayInfo(){
         TextView txtPoint = (TextView) v.findViewById(R.id.txtPoint);
@@ -301,9 +332,31 @@ public class Timeline extends Fragment implements View.OnClickListener {
         }
         txtPoint.setText(String.valueOf(point));
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId()==R.id.listViewTimeline) {
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.menu_context_timeline, menu);
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch(item.getItemId()) {
+            case R.id.delete:
+                // remove stuff here
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
     public void getJadwalSholat(){
 //        String tanggal = (getDateTime());
-        String tanggal = "2017-04-11";
+        String tanggal = getDate();
         JadwalSholat js = new JadwalSholat();
         RealmResults<JadwalSholat> rjs = jsHelper.getJadwalSholat(tanggal);
         if (rjs.size() > 0){
@@ -350,7 +403,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         return simpleDateFormat.format(date);
     }
     public void getCurrentSholat(){
-        String tanggal = "2017-04-11";
+        String tanggal = getDate();
         String jam = getTime();
         RealmResults<JadwalSholat> rjs = jsHelper.getJadwalSholat(tanggal);
         if (rjs.size() > 0){
@@ -361,7 +414,6 @@ public class Timeline extends Fragment implements View.OnClickListener {
             String dAshar     = rjs.get(0).getAshar();
             String dMaghrib   = rjs.get(0).getMaghrib();
             String dIsya      = rjs.get(0).getIsya();
-
             checkLewatWaktu(jam,dSubuh,dDhuha,dDhuhur,dAshar,dMaghrib,dIsya);
 
         }
@@ -376,6 +428,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
 
         TextView txtNamaSholat = (TextView) v.findViewById(R.id.txtNamaSholat);
         TextView txtRemainTime = (TextView) v.findViewById(R.id.txtRemainTime);
+        String remain = "";
 
         long wSekarang = stringToTime(waktuSekarang);
         long wSubuh = stringToTime(waktuSubuh);
@@ -389,24 +442,31 @@ public class Timeline extends Fragment implements View.OnClickListener {
         if (wSekarang < wSubuh){
             label = "Subuh";
             remainTime = wSekarang - wSubuh;
+            remain = getRemainTime(remainTime);
         }else if(wSekarang < wDhuha){
             label = "Dhuha";
             remainTime = wSekarang - wDhuha;
+            remain = getRemainTime(remainTime);
         }else if(wSekarang < wDhuhur){
             label = "Dhuhur";
             remainTime = wSekarang - wDhuhur;
+            remain = getRemainTime(remainTime);
         }else if(wSekarang < wAshar){
             label = "Ashar";
             remainTime = wSekarang - wAshar;
+            remain = getRemainTime(remainTime);
         }else if(wSekarang < wMaghrib){
             label = "Maghrib";
             remainTime = wSekarang - wMaghrib;
+            remain = getRemainTime(remainTime);
         }else if(wSekarang < wIsya){
             label = "Isya";
             remainTime = wSekarang - wIsya;
+            remain = getRemainTime(remainTime);
+        }else if (wSekarang > wIsya){
+            label = "Subuh";
+            remain = "Besok Jam "+waktuSubuh;
         }
-        String remain = getRemainTime(remainTime);
-
         txtNamaSholat.setText(label);
         txtRemainTime.setText(remain);
     }

@@ -20,7 +20,7 @@
         <service android:name=".service.intent.UploadTimeline" />
         <service android:name=".service.intent.ProfilePictureService"/>
         <service android:name=".service.intent.QuoteService"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:windowSoftInputMode="stateVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,6 +34,10 @@
         <service
             android:name=".service.TimeService"
             android:enabled="true"
+            android:exported="true"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <provider android:authorities="com.facebook.app.FacebookContentProvider217154788790940"
+            android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
     </application>
 

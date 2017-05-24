@@ -16,7 +16,8 @@
         android:layout_height="wrap_content">
 
 
-        <TextView
+        <ImageView
+            android:src="@drawable/ic_logo"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:id="@+id/customTitle"
@@ -33,13 +34,13 @@
             android:layout_toRightOf="@+id/imageBack" />
 
         <ImageView
-            android:layout_centerHorizontal="true"
             android:id="@+id/imageBack"
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/ic_arrow_back_white"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            app:srcCompat="?attr/actionModeCloseDrawable" />
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

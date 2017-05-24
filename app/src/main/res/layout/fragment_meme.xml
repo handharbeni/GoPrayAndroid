@@ -8,8 +8,6 @@
         android:paddingTop="10dp"
         android:paddingEnd="10dp"
         android:background="@android:color/white"
-        android:elevation="2dp"
-        android:outlineProvider="bounds"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:paddingRight="10dp"
@@ -42,6 +40,7 @@
                 android:layout_alignParentStart="true" />
 
             <ImageButton
+                android:visibility="gone"
                 android:id="@+id/imgPick"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -72,6 +71,7 @@
                 android:layout_alignParentEnd="true" />
 
             <ImageButton
+                android:visibility="gone"
                 android:layout_margin="5dp"
                 android:padding="0dp"
                 android:scaleType="fitCenter"
@@ -84,6 +84,7 @@
                 android:layout_toEndOf="@+id/ibInstagram" />
 
             <ImageButton
+                android:visibility="gone"
                 android:layout_margin="5dp"
                 android:padding="0dp"
                 android:scaleType="fitCenter"
@@ -96,6 +97,7 @@
                 android:layout_toEndOf="@+id/ibFacebook" />
 
             <ImageButton
+                android:visibility="gone"
                 android:layout_alignParentTop="true"
                 android:layout_margin="5dp"
                 android:padding="0dp"
@@ -108,8 +110,8 @@
     </RelativeLayout>
 
     <ListView
-        android:divider="@null"
-        android:dividerHeight="0dp"
+        android:divider="@drawable/horizontal_line"
+        android:dividerHeight="0.2dp"
         android:id="@+id/listViewQuote"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

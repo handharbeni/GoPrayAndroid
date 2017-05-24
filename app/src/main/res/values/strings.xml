@@ -27,6 +27,7 @@
     <string name="save">Simpan</string>
     <string name="dummyToken">8aa560b5efa8691dddcf4a11a69b3d1f98f01280bb6ef6efbd32ca39d9b8ac33</string>
     <string name="dummyPicture">http://s3.amazonaws.com/37assets/svn/765-default-avatar.png</string>
+    <string name="facebook_app_id">217154788790940</string>
     <array name="surat">
         <item>Al Fatihah</item>
         <item>Al Baqoroh</item>
@@ -146,4 +147,39 @@
         <item>Senin Kamis</item>
         <item>Sunnah</item>
     </array>
+    <string-array name="versi">
+        <item>Versi</item>
+    </string-array>
+    <string-array name="preferences">
+        <!--<item>Lokasi</item>-->
+        <item>Akun</item>
+        <!--<item>Notifikasi</item>-->
+        <!--<item>Sharing</item>-->
+        <!--<item>Efek Suara</item>-->
+    </string-array>
+    <string-array name="tentang">
+        <item>Akun</item>
+        <item>Tentang</item>
+        <item>Bantuan</item>
+        <item>Logout</item>
+    </string-array>
+    <string name="hapus">Hapus</string>
+    <string name="about">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in coungue lacus, consequat efficitur neque.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in coungue lacus, consequat efficitur neque.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in coungue lacus, consequat efficitur neque.
+        \n \n
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in coungue lacus, consequat efficitur neque.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in coungue lacus, consequat efficitur neque.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in coungue lacus, consequat efficitur neque.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in coungue lacus, consequat efficitur neque.
+    </string>
+    <string name="helpInfo">
+        Jangan Malu Bertanya \n \n
+        Membutuhkan beberapa bantuan ? tentang update sholat, doa, sedekah, puasa, mengaji, orang terdekat.
+        Silakan bertanya pada gopray.id
+    </string>
+    <string name="prosesing">Sedang DiProses..</string>
+    <string name="selesai">Selesai!!</string>
+    <string name="mengunggah">Sedang Menunggah!!</string>
 </resources>

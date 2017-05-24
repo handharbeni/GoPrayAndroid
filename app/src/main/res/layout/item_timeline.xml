@@ -6,25 +6,23 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
-    android:layout_marginBottom="25dp"
+    android:layout_marginBottom="20dp"
     android:orientation="horizontal"
     android:gravity="top"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
     <RelativeLayout
-        android:weightSum="2"
         android:id="@+id/time_marker"
-        android:layout_width="wrap_content"
+        android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_gravity="top"
         android:gravity="top">
 
         <ImageView
             android:id="@+id/lineTop"
-            android:layout_width="wrap_content"
+            android:layout_width="1dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/vertical_line"
@@ -32,9 +30,8 @@
 
         <ImageView
             android:id="@+id/lineBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:src="@drawable/vertical_line"
             android:layout_alignLeft="@+id/lineTop"
@@ -46,7 +43,6 @@
             android:id="@+id/imgIcon"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_weight="1"
             android:src="@drawable/timeline_berdoa"
             app:srcCompat="@drawable/timeline_berdoa"
             android:layout_centerVertical="true"
@@ -56,6 +52,8 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
         android:id="@+id/itemSholat"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -85,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="#262626"
                     tools:text="Dhuhur" />
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_marginRight="5dp"
@@ -93,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="#999999"
                     tools:text="@string/bersama"
                     android:layout_toRightOf="@+id/txtSholat"
                     android:layout_toEndOf="@+id/txtSholat"/>
@@ -103,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="#262626"
                     tools:text="Dia"
                     android:layout_toRightOf="@+id/txtLabelBersama"
                     android:layout_toEndOf="@+id/txtLabelBersama" />
@@ -113,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="#999999"
                     tools:text="@string/tempat"
                     android:layout_toRightOf="@+id/txtBersama"
                     android:layout_toEndOf="@+id/txtBersama"/>
@@ -123,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="#262626"
                     tools:text="Dia"
                     android:layout_toRightOf="@+id/txtLabelTempat"
                     android:layout_toEndOf="@+id/txtLabelTempat" />
@@ -133,7 +131,7 @@
                 android:id="@+id/txtTanggalSholat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/line"
+                android:textColor="#999999"
                 android:textSize="12sp"
                 tools:text="24 JAN" />
 
@@ -141,6 +139,9 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+
         android:id="@+id/itemMengaji"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -172,7 +173,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="@color/time"
                     tools:text="@string/mengaji" />
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_marginRight="5dp"
@@ -180,7 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="#262626"
                     tools:text="Dhuhur"
                     android:layout_toRightOf="@+id/txtLabelMengaji"
                     android:layout_toEndOf="@+id/txtLabelMengaji" />
@@ -190,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="@color/time"
                     tools:text="@string/tempat"
                     android:layout_toRightOf="@+id/txtMengaji"
                     android:layout_toEndOf="@+id/txtMengaji"/>
@@ -200,7 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="#262626"
                     tools:text="Dia"
                     android:layout_toRightOf="@+id/txtLabelTempatMengaji"
                     android:layout_toEndOf="@+id/txtLabelTempatMengaji" />
@@ -209,7 +210,7 @@
                 android:id="@+id/txtTanggalMengaji"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/line"
+                android:textColor="@color/time"
                 android:textSize="12sp"
                 tools:text="24 JAN" />
 
@@ -217,6 +218,9 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+
         android:id="@+id/itemSedekah"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -247,7 +251,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@android:color/black"
+                    android:textColor="#262626"
                     tools:text="@string/sedekah" />
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_marginRight="5dp"
@@ -255,7 +259,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="@color/time"
                     tools:text="@string/tempat"
                     android:layout_toRightOf="@+id/txtLabelSedekah"
                     android:layout_toEndOf="@+id/txtLabelSedekah"/>
@@ -265,7 +269,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/line"
+                    android:textColor="#262626"
                     tools:text="Dia"
                     android:layout_toRightOf="@+id/txtLabelTempatSedekah"
                     android:layout_toEndOf="@+id/txtLabelTempatSedekah" />
@@ -274,7 +278,7 @@
                 android:id="@+id/txtTanggalSedekah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/line"
+                android:textColor="@color/time"
                 android:textSize="12sp"
                 tools:text="24 JAN" />
 
@@ -282,6 +286,9 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+
         android:id="@+id/itemBerdoa"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -307,14 +314,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@android:color/black"
+                android:textColor="#262626"
                 tools:text="Mengaji Di" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtTanggalDoa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/line"
+                android:textColor="@color/time"
                 android:textSize="12sp"
                 tools:text="24 JAN" />
 
@@ -322,6 +329,9 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+
         android:id="@+id/itemPuasa"
         android:visibility="visible"
         android:layout_width="match_parent"
@@ -347,14 +357,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@android:color/black"
+                android:textColor="#262626"
                 tools:text="@string/freetext" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtTanggalPuasa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/line"
+                android:textColor="@color/time"
                 android:textSize="12sp"
                 tools:text="24 JAN" />
 
@@ -362,6 +372,9 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+
         android:id="@+id/itemFreeText"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -387,14 +400,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/line"
+                android:textColor="@color/time"
                 tools:text="@string/freetext" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtTanggalFreeText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/line"
+                android:textColor="@color/time"
                 android:textSize="12sp"
                 tools:text="24 JAN" />
 
@@ -402,6 +415,9 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+
         android:id="@+id/itemStiker"
         android:visibility="gone"
         android:layout_width="match_parent"
@@ -430,13 +446,13 @@
                 android:maxWidth="100dp"
                 android:maxHeight="100dp"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/line" />
+                android:textColor="@color/time" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txtTanggalStiker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/line"
+                android:textColor="@color/time"
                 android:textSize="12sp"
                 tools:text="24 JAN" />
 

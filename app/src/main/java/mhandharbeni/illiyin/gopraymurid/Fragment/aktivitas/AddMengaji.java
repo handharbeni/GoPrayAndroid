@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
+import mhandharbeni.illiyin.gopraymurid.Fragment.share.ShareSocialMedia;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.Timeline;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
@@ -40,6 +41,7 @@ public class AddMengaji extends Fragment {
     SearchableSpinner txtSurat;
     Button btnSave;
     TimelineHelper th;
+    ShareSocialMedia shareSocialMedia;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         encryptedPreferences = new EncryptedPreferences.Builder(getActivity()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
@@ -56,6 +58,7 @@ public class AddMengaji extends Fragment {
                 saveServer();
             }
         });
+        shareSocialMedia = new ShareSocialMedia(getActivity(), getActivity().getApplication());
 /*        ArrayAdapter<String> spinnerSurat = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.surat));
         txtSurat.setAdapter(spinnerSurat);*/
         return v;
@@ -102,6 +105,8 @@ public class AddMengaji extends Fragment {
             Intent intentTimeline = new Intent(getActivity().getApplicationContext(), ServiceTimeline.class);
             getActivity().startService(intentTimeline);
         }
+        shareSocialMedia.shareTwitter("MESSAGE TWITTER", "http://developers.facebook.com/android");
+        shareSocialMedia.shareFacebook("TITLE", "DESCRIPTION", "http://developers.facebook.com/android");
         /*run service*/
         getActivity().finish();
     }

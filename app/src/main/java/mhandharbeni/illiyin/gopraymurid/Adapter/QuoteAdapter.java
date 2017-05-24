@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -68,7 +69,11 @@ public class QuoteAdapter extends ArrayAdapter<QuoteModel> implements View.OnCli
             viewHolder.lineBottom.setVisibility(View.VISIBLE);
         }
 
-        Glide.with(mContext).load(dataModel.getPath_meme()).into(viewHolder.txtImage);
+        Glide.with(mContext)
+                .load(dataModel.getPath_meme())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(false)
+                .into(viewHolder.txtImage);
         viewHolder.txtTanggal.setText(dataModel.getTanggal());
 
         return convertView;

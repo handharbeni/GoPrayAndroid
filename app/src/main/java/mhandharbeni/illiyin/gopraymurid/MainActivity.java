@@ -123,13 +123,27 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         signinLayout = (RelativeLayout) findViewById(R.id.signinLayout);
         signupLayout = (RelativeLayout) findViewById(R.id.signupLayout);
-        if (MainServices.serviceRunning == false){
+        if (!MainServices.serviceRunning){
             startService(new Intent(getApplicationContext(), MainServices.class));
         }
-        if(TimeService.serviceRunning == false){
+        if(!TimeService.serviceRunning){
             startService(new Intent(getApplicationContext(), TimeService.class));
         }
         checkSession();
+    }
+    public void startServices(){
+        if (!MainServices.serviceRunning){
+            startService(new Intent(getApplicationContext(), MainServices.class));
+        }
+        if(!TimeService.serviceRunning){
+            startService(new Intent(getApplicationContext(), TimeService.class));
+        }
+    }
+    public void stopServices(){
+        stopService(new Intent(this, MainServices.class));
+        stopService(new Intent(this, TimeService.class));
+        ConnectionBuddy.getInstance().clearNetworkCache(this);
+        ConnectionBuddy.getInstance().notifyConnectionChange(true, this);
     }
     public void checkSession(){
         // 0 : logout (default)
@@ -266,6 +280,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         changeFragment(fragment);
     }
     public void signinInit(){
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         btnSignin = (Button) findViewById(R.id.btnSignin);
         txtScreenSignup = (TextView) findViewById(R.id.txtScreenSignup);
         txtScreenSignup.setOnClickListener(new View.OnClickListener() {

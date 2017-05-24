@@ -183,7 +183,7 @@
             android:padding="5dp"
             android:layout_below="@+id/cvketerangan"
             android:layout_width="match_parent"
-            android:layout_height="550dp">
+            android:layout_height="match_parent">
 
             <Button
                 android:background="@drawable/mainbutton_selector"
@@ -197,6 +197,7 @@
                 android:layout_alignParentEnd="true" />
 
             <ImageButton
+                android:visibility="gone"
                 android:layout_margin="5dp"
                 android:padding="0dp"
                 android:scaleType="fitCenter"
@@ -209,6 +210,7 @@
                 android:layout_toEndOf="@+id/ibInstagram" />
 
             <ImageButton
+                android:visibility="gone"
                 android:layout_margin="5dp"
                 android:padding="0dp"
                 android:scaleType="fitCenter"
@@ -221,6 +223,7 @@
                 android:layout_toEndOf="@+id/ibFacebook" />
 
             <ImageButton
+                android:visibility="gone"
                 android:layout_margin="5dp"
                 android:padding="0dp"
                 android:scaleType="fitCenter"

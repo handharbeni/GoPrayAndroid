@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.dd.morphingbutton.MorphingButton;
 import com.golovin.fluentstackbar.FluentSnackbar;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
+import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
@@ -50,6 +52,7 @@ import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.*;
 import mhandharbeni.illiyin.gopraymurid.database.helper.QuoteHelper;
 import mhandharbeni.illiyin.gopraymurid.service.MainServices;
+import mhandharbeni.illiyin.gopraymurid.service.intent.QuoteService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -83,6 +86,15 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
     QuoteHelper qHelper;
     private static QuoteAdapter adapter;
     private FluentSnackbar mFluentSnackbar;
+    LovelyProgressDialog lovelyProgressDialog;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        encryptedPreferences = new EncryptedPreferences.Builder(getActivity()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
+        encryptedPreferences.edit().putString("imagepath", "nothing").apply();
+        encryptedPreferences.edit().putString("imagename", "nothing").apply();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,7 +102,6 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
         StrictMode.setThreadPolicy(policy);
         client = new OkHttpClient();
         qHelper = new QuoteHelper(getActivity().getApplicationContext());
-        encryptedPreferences = new EncryptedPreferences.Builder(getActivity()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         v = inflater.inflate(R.layout.fragment_meme, container, false);
         endUri = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/meme";
         imagePick = (ImageButton) v.findViewById(R.id.imgPick);
@@ -120,7 +131,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
                 txtText.setError("Tidak Boleh Kosong");
             }else{
                 btnSimpan.setEnabled(FALSE);
-                showSnackBar("PROSESING");
+//                showSnackBar("PROSESING");
             /*do upload*/
                 uploadQuote();
             }
@@ -129,7 +140,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
     public void getImage(){
         Matisse.from(this)
                 .choose(MimeType.of(MimeType.JPEG, MimeType.PNG))
-                .countable(true)
+                .countable(false)
                 .maxSelectable(1)
                 .theme(R.style.Matisse_Dracula)
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
@@ -148,7 +159,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
             }
         }
     }
-    public void showSnackBar(String message){
+    public void showSnackBars(String message){
         mFluentSnackbar = FluentSnackbar.create(getActivity());
         mFluentSnackbar.create(message)
                 .maxLines(2)
@@ -171,45 +182,91 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
         return s;
     }
     public void uploadQuote(){
+        lovelyProgressDialog = new LovelyProgressDialog(getActivity());
+        lovelyProgressDialog
+                .setIcon(R.drawable.ic_logo)
+                .setTitle(R.string.prosesing)
+                .setTopColorRes(R.color.colorPrimary)
+                .setCancelable(false)
+                .show();
         String accessToken = encryptedPreferences.getUtils().decryptStringValue(encryptedPreferences.getString(KEY, getResources().getString(R.string.dummyToken)));
-        File sourceFile = new File(encryptedPreferences.getString("imagepath", ""));
-        final MediaType MEDIA_TYPE = encryptedPreferences.getString("imagepath", "").endsWith("png") ?
-                MediaType.parse("image/png") : MediaType.parse("image/jpeg");
-        RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("access_token", accessToken)
-                .addFormDataPart("gambar", encryptedPreferences.getString("imagename", ""), RequestBody.create(MEDIA_TYPE, sourceFile))
-                .addFormDataPart("text", txtText.getText().toString())
-                .build();
-        Request request = new Request.Builder()
-                .url(endUri)
-                .post(requestBody)
-                .build();
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                encryptedPreferences.edit().putString("SUCCESS", "0").putString("MESSAGE", "GAGAL").apply();
-                showMessage();
-                Log.d("MEME FAIL", "onFailure: "+ e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.body().string());
-                    Boolean results = jsonObject.getBoolean("return");
-                    if (results){
-                        encryptedPreferences.edit().putString("SUCCESS", "1").apply();
-                    }else{
-                        String errorMessage = jsonObject.getString("error_message");
-                        encryptedPreferences.edit().putString("SUCCESS", "0").putString("MESSAGE", errorMessage).apply();
-                    }
+        if (!encryptedPreferences.getString("imagepath", "nothing").equalsIgnoreCase("nothing")){
+            File sourceFile = new File(encryptedPreferences.getString("imagepath", ""));
+            final MediaType MEDIA_TYPE = encryptedPreferences.getString("imagepath", "").endsWith("png") ?
+                    MediaType.parse("image/png") : MediaType.parse("image/jpeg");
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("access_token", accessToken)
+                    .addFormDataPart("gambar", encryptedPreferences.getString("imagename", ""), RequestBody.create(MEDIA_TYPE, sourceFile))
+                    .addFormDataPart("text", txtText.getText().toString())
+                    .build();
+            Request request = new Request.Builder()
+                    .url(endUri)
+                    .post(requestBody)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    encryptedPreferences.edit().putString("imagepath", "nothing").apply();
+                    encryptedPreferences.edit().putString("imagename", "nothing").apply();
+                    encryptedPreferences.edit().putString("SUCCESS", "0").putString("MESSAGE", "GAGAL").apply();
                     showMessage();
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        Boolean results = jsonObject.getBoolean("return");
+                        if (results){
+                            encryptedPreferences.edit().putString("SUCCESS", "1").apply();
+                        }else{
+                            String errorMessage = jsonObject.getString("error_message");
+                            encryptedPreferences.edit().putString("SUCCESS", "0").putString("MESSAGE", errorMessage).apply();
+                        }
+                        encryptedPreferences.edit().putString("imagepath", "nothing").apply();
+                        encryptedPreferences.edit().putString("imagename", "nothing").apply();
+                        showMessage();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }else{
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("access_token", accessToken)
+                    .addFormDataPart("text", txtText.getText().toString())
+                    .build();
+            Request request = new Request.Builder()
+                    .url(endUri)
+                    .post(requestBody)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    encryptedPreferences.edit().putString("SUCCESS", "0").putString("MESSAGE", "GAGAL").apply();
+                    showMessage();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        Boolean results = jsonObject.getBoolean("return");
+                        if (results){
+                            encryptedPreferences.edit().putString("SUCCESS", "1").apply();
+                        }else{
+                            String errorMessage = jsonObject.getString("error_message");
+                            encryptedPreferences.edit().putString("SUCCESS", "0").putString("MESSAGE", errorMessage).apply();
+                        }
+                        showMessage();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
     public void showMessage(){
         getActivity().runOnUiThread(new Runnable() {
@@ -218,11 +275,18 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
                 String success = encryptedPreferences.getString("SUCCESS", "0");
                 String message = encryptedPreferences.getString("MESSAGE", "GAGAL");
                 if (success.equalsIgnoreCase("1")){
+                    lovelyProgressDialog.setTitle(R.string.selesai);
                     btnSimpan.setEnabled(TRUE);
-                    showSnackBar("SUKSES");
+                    Intent iQuote = new Intent(getActivity(), QuoteService.class);
+                    getActivity().startService(iQuote);
+                    lovelyProgressDialog.setTitle(R.string.mengunggah);
+                    lovelyProgressDialog.setTitle(R.string.selesai);
+                    lovelyProgressDialog.dismiss();
+//                    showSnackBar("SUKSES");
                 }else{
                     btnSimpan.setEnabled(TRUE);
-                    showSnackBar(message);
+                    lovelyProgressDialog.dismiss();
+//                    showSnackBar(message);
                 }
             }
         });
