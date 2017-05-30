@@ -8,13 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
-import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -25,6 +24,7 @@ import mhandharbeni.illiyin.gopraymurid.database.Timeline;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
 import mhandharbeni.illiyin.gopraymurid.service.intent.ServiceTimeline;
 import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
+import mhandharbeni.illiyin.gopraymurid.util.NumberTextWatcher;
 import sexy.code.HttPizza;
 
 /**
@@ -46,6 +46,7 @@ public class AddSedekah extends Fragment {
         th = new TimelineHelper(getActivity().getApplicationContext());
         v = inflater.inflate(R.layout.tambah_sedekah, container, false);
         txtSedekah = (EditText) v.findViewById(R.id.txtSedekah);
+        txtSedekah.addTextChangedListener(new NumberTextWatcher(txtSedekah, "#,###"));
         btnSave = (Button) v.findViewById(R.id.btnSimpan);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +73,14 @@ public class AddSedekah extends Fragment {
         tl.setTempat("nothing");
         tl.setBersama("nothing");
         tl.setPoint(1);
-        tl.setNominal(Integer.valueOf(sNominal));
+        String input = sNominal;
+        String regx = ".";
+        char[] ca = regx.toCharArray();
+        for (char c : ca) {
+            input = input.replace(""+c, "");
+        }
+        int i1 = new BigDecimal(sNominal).intValueExact();
+        tl.setNominal(Integer.valueOf(input));
         tl.setDate(getDate());
         tl.setJam(getTime());
         tl.setStatus(1);

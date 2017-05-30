@@ -63,6 +63,7 @@
             android:layout_height="match_parent">
 
             <Button
+                android:textColor="@color/indicator"
                 android:background="@drawable/mainbutton_selector"
                 android:id="@+id/btnSimpan"
                 android:layout_width="wrap_content"

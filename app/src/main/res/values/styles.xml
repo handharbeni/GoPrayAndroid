@@ -7,7 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="AppThemeNoTitle" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeNoTitlex" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:fontFamily">src/main/assets/fonts/helvetica-normal.ttf</item>
+        <!--<item name="android:textColor">@color/indicator</item>-->
     </style>
     <style name="Path">
         <item name="android:layout_width">@dimen/item_circle_size_path</item>

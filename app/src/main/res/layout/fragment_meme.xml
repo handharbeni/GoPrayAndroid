@@ -40,7 +40,6 @@
                 android:layout_alignParentStart="true" />
 
             <ImageButton
-                android:visibility="gone"
                 android:id="@+id/imgPick"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -60,7 +59,8 @@
             android:layout_width="match_parent"
             android:layout_height="550dp">
 
-            <com.dd.morphingbutton.MorphingButton
+            <Button
+                android:textColor="@color/indicator"
                 android:background="@drawable/mainbutton_selector"
                 android:id="@+id/btnSimpan"
                 android:layout_width="wrap_content"

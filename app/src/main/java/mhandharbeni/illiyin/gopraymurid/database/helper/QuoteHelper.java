@@ -7,6 +7,7 @@ import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import mhandharbeni.illiyin.gopraymurid.database.Quote;
+import mhandharbeni.illiyin.gopraymurid.database.Timeline;
 
 /**
  * Created by root on 15/05/17.
@@ -46,6 +47,24 @@ public class QuoteHelper {
     public RealmResults<Quote> getQuote(){
         realmResult = realm.where(Quote.class).findAllSorted("id", Sort.DESCENDING);
         return realmResult;
+    }
+    public String getUrlImage(int id){
+        realmResult = realm.where(Quote.class)
+                .equalTo("id", id)
+                .findAll();
+        if (realmResult.size() > 0)
+            return realmResult.get(0).getPath_meme();
+        else
+            return "nothing";
+    }
+    public boolean deleteData(int id){
+        realm.beginTransaction();
+        RealmResults realmResults = realm.where(Quote.class)
+                .equalTo("id", id)
+                .findAll();
+        boolean deleted = realmResults.deleteFirstFromRealm();
+        realm.commitTransaction();
+        return deleted;
     }
     public boolean checkDuplicate(int id){
         realmResult = realm.where(Quote.class)

@@ -107,6 +107,15 @@ public class TimelineHelper {
         realm.commitTransaction();
         closeRealm();
     }
+    public boolean deleteData(int id){
+        realm.beginTransaction();
+        RealmResults realmResults = realm.where(Timeline.class)
+                .equalTo("id", id)
+                .findAll();
+        boolean deleted = realmResults.deleteFirstFromRealm();
+        realm.commitTransaction();
+        return deleted;
+    }
     public void closeRealm(){
 //        realm.close();
     }

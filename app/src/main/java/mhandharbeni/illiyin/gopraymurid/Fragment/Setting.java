@@ -20,11 +20,13 @@ import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 import java.io.File;
 
 import io.realm.Realm;
+import mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas.MainAktivitas;
+import mhandharbeni.illiyin.gopraymurid.Fragment.setting.SettingAktivitas;
 import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.service.MainServices;
 
-import static com.facebook.FacebookSdk.getCacheDir;
+//import static com.facebook.FacebookSdk.getCacheDir;
 
 /**
  * Created by root on 19/04/17.
@@ -32,7 +34,7 @@ import static com.facebook.FacebookSdk.getCacheDir;
 
 public class Setting extends Fragment {
     View v;
-    ListView listViewAbout, listViewSetting;
+    ListView listViewAbout;
     Realm realm;
     EncryptedPreferences encryptedPreferences;
 
@@ -49,6 +51,7 @@ public class Setting extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0 :
+                        settingProfile(0);
                         break;
                     case 1 :
                         dialogAbout();
@@ -63,6 +66,11 @@ public class Setting extends Fragment {
             }
         });
         return v;
+    }
+    public void settingProfile(int mode){
+        Intent iAktivitas = new Intent(getActivity().getApplicationContext(), SettingAktivitas.class);
+        iAktivitas.putExtra("MODE", mode);
+        startActivity(iAktivitas);
     }
     public void dialogLogout(){
         new LovelyStandardDialog(getActivity())
@@ -101,6 +109,9 @@ public class Setting extends Fragment {
         ((MainActivity)getActivity()).checkSession();
     }
     public void deleteAllRealmData(){
+        encryptedPreferences.edit()
+                .putString("NETWORK", "1")
+                .commit();
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {

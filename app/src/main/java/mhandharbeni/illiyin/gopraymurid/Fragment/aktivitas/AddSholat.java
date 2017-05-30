@@ -14,8 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.dunst.check.CheckableImageButton;
-import com.facebook.CallbackManager;
-import com.facebook.share.widget.ShareDialog;
+//import com.facebook.CallbackManager;
+//import com.facebook.share.widget.ShareDialog;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 
 import java.io.File;
@@ -56,15 +56,15 @@ public class AddSholat extends Fragment implements View.OnClickListener {
     JadwalSholatHelper jsHelper;
     String tSubuh, tDhuha, tDhuhur,tAshar,tMaghrib,tIsya;
 
-    ShareDialog shareDialog;
-    CallbackManager callbackManager;
+    //ShareDialog shareDialog;
+    //CallbackManager callbackManager;
 
-    ShareSocialMedia socialMediaShare;
+//    ShareSocialMedia socialMediaShare;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        socialMediaShare = new ShareSocialMedia(getActivity(), getActivity().getApplicationContext());
+//        socialMediaShare = new ShareSocialMedia(getActivity(), getActivity().getApplicationContext());
     }
 
 

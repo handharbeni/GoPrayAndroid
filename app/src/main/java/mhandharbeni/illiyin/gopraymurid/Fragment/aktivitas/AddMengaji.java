@@ -58,7 +58,7 @@ public class AddMengaji extends Fragment {
                 saveServer();
             }
         });
-        shareSocialMedia = new ShareSocialMedia(getActivity(), getActivity().getApplication());
+//        shareSocialMedia = new ShareSocialMedia(getActivity(), getActivity().getApplication());
 /*        ArrayAdapter<String> spinnerSurat = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.surat));
         txtSurat.setAdapter(spinnerSurat);*/
         return v;
@@ -105,8 +105,8 @@ public class AddMengaji extends Fragment {
             Intent intentTimeline = new Intent(getActivity().getApplicationContext(), ServiceTimeline.class);
             getActivity().startService(intentTimeline);
         }
-        shareSocialMedia.shareTwitter("MESSAGE TWITTER", "http://developers.facebook.com/android");
-        shareSocialMedia.shareFacebook("TITLE", "DESCRIPTION", "http://developers.facebook.com/android");
+//        shareSocialMedia.shareTwitter("MESSAGE TWITTER", "http://developers.facebook.com/android");
+//        shareSocialMedia.shareFacebook("TITLE", "DESCRIPTION", "http://developers.facebook.com/android");
         /*run service*/
         getActivity().finish();
     }

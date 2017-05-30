@@ -3,6 +3,9 @@
     <string name="nama">Nama</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="passwordlama">Password Lama</string>
+    <string name="passwordbaru">Password Baru</string>
+    <string name="ulangipassword">Ulangi Password Baru</string>
     <string name="noConnection">Tidak Ada Koneksi</string>
     <string name="KeyPassword">SATULIMAKALI</string>
     <!--<string name="server">http://goprayapi.herokuapp.com</string>-->
@@ -175,11 +178,12 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras in coungue lacus, consequat efficitur neque.
     </string>
     <string name="helpInfo">
-        Jangan Malu Bertanya \n \n
-        Membutuhkan beberapa bantuan ? tentang update sholat, doa, sedekah, puasa, mengaji, orang terdekat.
+        Jangan Malu Bertanya \n \n Membutuhkan beberapa bantuan ? tentang update sholat, doa, sedekah, puasa, mengaji, orang terdekat.
         Silakan bertanya pada gopray.id
     </string>
-    <string name="prosesing">Sedang DiProses..</string>
+    <string name="prosesing">Sedang Diproses..</string>
     <string name="selesai">Selesai!!</string>
     <string name="mengunggah">Sedang Menunggah!!</string>
+    <string name="font_name_helvetica_normal">helvetica-normal</string>
+    <string name="font_name_source_sans_pro">SourceSansPro</string>
 </resources>

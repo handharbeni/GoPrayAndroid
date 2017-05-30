@@ -29,6 +29,10 @@ import com.bvapp.arcmenulibrary.ArcMenu;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +40,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.realm.Realm;
 import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.Adapter.TimelineAdapter;
 import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
@@ -46,7 +51,15 @@ import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.helper.JadwalSholatHelper;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
 import mhandharbeni.illiyin.gopraymurid.service.MainServices;
+import mhandharbeni.illiyin.gopraymurid.service.intent.QuoteService;
+import sexy.code.Callback;
+import sexy.code.FormBody;
 import sexy.code.HttPizza;
+import sexy.code.Request;
+import sexy.code.RequestBody;
+import sexy.code.Response;
+
+import static java.lang.Boolean.TRUE;
 
 /**
  * Created by root on 19/04/17.
@@ -67,6 +80,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
 
     TimelineHelper tlHelper;
     JadwalSholatHelper jsHelper;
+
 
     HttPizza client;
     ArcMenu menu;
@@ -95,7 +109,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         listView=(ListView) v.findViewById(R.id.listViewTimeline);
         getActivity().registerForContextMenu(listView);
         dimView = (RelativeLayout) v.findViewById(R.id.dimScreen);
-        endUri = getString(R.string.server)+"/"+getString(R.string.vServer)+"/users/self/timeline?access_token=";
+        endUri = getString(R.string.server)+"/"+getString(R.string.vServer)+"/users/self/deletetimeline";
         initProfilePicture();
         displayInfo();
         getJadwalSholat();
@@ -115,9 +129,13 @@ public class Timeline extends Fragment implements View.OnClickListener {
     public void initArc(){
         menu = (ArcMenu) v.findViewById(R.id.arcMenu);
         menu.setMenuGravity(ArcMenu.BOTTOM_MIDDLE);
+        menu.setClipChildren(true);
+        menu.setPadding(0, 0, 0, 25);
+        menu.setPadding(0, 0, 0, 25);
         menu.attachToListView(listView);
+        menu.setArc(195.0f, 345.0f);
         menu.showTooltip(false);
-        menu.setAnim(300,300,ArcMenu.ANIM_BOTTOM_TO_DOWN,ArcMenu.ANIM_BOTTOM_TO_DOWN,
+        menu.setAnim(600,600,ArcMenu.ANIM_BOTTOM_TO_DOWN,ArcMenu.ANIM_BOTTOM_TO_DOWN,
                 ArcMenu.ANIM_INTERPOLATOR_ACCELERATE_DECLERATE,ArcMenu.ANIM_INTERPOLATOR_ACCELERATE_DECLERATE);
         final int itemCount = ITEM_DRAWABLES.length;
         for (int i = 0; i < itemCount; i++) {
@@ -318,11 +336,15 @@ public class Timeline extends Fragment implements View.OnClickListener {
         });
     }
     public void deleteActivity(int id){
-        Toast.makeText(getActivity().getApplication(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+        deleteTimeline(id);
+//        Toast.makeText(getActivity().getApplication(), String.valueOf(id), Toast.LENGTH_SHORT).show();
         /*DELETE SERVER*/
         /*DELETE DATA LOKAL*/
     }
     public void displayInfo(){
+        String nama = encryptedPreferences.getString(NAMA, "");
+        TextView txtRemainTime = (TextView) v.findViewById(R.id.txtRemainTime);
+        txtRemainTime.setText(nama);
         TextView txtPoint = (TextView) v.findViewById(R.id.txtPoint);
         RealmResults<mhandharbeni.illiyin.gopraymurid.database.Timeline>
                 result = tlHelper.getTimeline(1);
@@ -575,4 +597,48 @@ public class Timeline extends Fragment implements View.OnClickListener {
             }
         }
     }
+    public void deleteTimeline(int id){
+        final int idTemp;
+        idTemp = id;
+        String token = encryptedPreferences.getString(KEY, getString(R.string.dummyToken));
+        String decryptToken = encryptedPreferences.getUtils().decryptStringValue(token);
+        Log.d("DECRYPT TOKEN", "deleteTimeline: "+decryptToken);
+        /*delete server*/
+        RequestBody requestBody = new FormBody.Builder()
+                .add("id_timeline", String.valueOf(id))
+                .add("access_token", decryptToken)
+                .build();
+        Request request = client.newRequest().url(endUri).post(requestBody).build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Response response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    Boolean result = jsonObject.getBoolean("return");
+                    if (result){
+//                        deleteRealm(Integer.valueOf(idTemp));
+                        deleteRealm(idTemp);
+                        /*delete realm*/
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+        /*delete server*/
+    }
+    public void deleteRealm(int id){
+        Boolean resultDelete = tlHelper.deleteData(id);
+        if (resultDelete){
+            adapter.clear();
+            addDataAdapter();
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 }

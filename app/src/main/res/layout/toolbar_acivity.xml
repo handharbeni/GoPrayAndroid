@@ -1,6 +1,7 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="70dp"
+    android:maxHeight="70dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/gradient"
     android:contentInsetStart="0dp"
@@ -8,14 +9,11 @@
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
     android:elevation="10dp">
-
     <RelativeLayout
         android:paddingLeft="5dp"
         android:paddingTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
+        android:layout_height="70dp">
         <ImageView
             android:src="@drawable/ic_logo"
             android:paddingTop="15dp"
@@ -36,11 +34,10 @@
         <ImageView
             android:id="@+id/imageBack"
             android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_arrow_back_white"
-            android:layout_centerVertical="true"
+            android:layout_centerVertical="false"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

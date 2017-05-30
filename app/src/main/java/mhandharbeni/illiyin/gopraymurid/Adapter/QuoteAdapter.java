@@ -71,7 +71,7 @@ public class QuoteAdapter extends ArrayAdapter<QuoteModel> implements View.OnCli
 
         Glide.with(mContext)
                 .load(dataModel.getPath_meme())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .skipMemoryCache(false)
                 .into(viewHolder.txtImage);
         viewHolder.txtTanggal.setText(dataModel.getTanggal());

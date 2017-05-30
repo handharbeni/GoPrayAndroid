@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.share.Sharer;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
+//import com.facebook.CallbackManager;
+//import com.facebook.FacebookCallback;
+//import com.facebook.FacebookException;
+//import com.facebook.share.Sharer;
+//import com.facebook.share.model.ShareLinkContent;
+//import com.facebook.share.widget.ShareDialog;
 
 import java.io.File;
 
@@ -20,8 +20,8 @@ import java.io.File;
  */
 
 public class ShareSocialMedia {
-    ShareDialog shareDialog;
-    CallbackManager callbackManager;
+//    ShareDialog shareDialog;
+//    CallbackManager callbackManager;
     Activity mActivity;
     Fragment fragment;
     Context mContext;
@@ -29,24 +29,24 @@ public class ShareSocialMedia {
     public ShareSocialMedia(Activity mActivity, Context mContext) {
         this.mActivity = mActivity;
         this.mContext = mContext;
-        callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog(this.mActivity);
-        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-            @Override
-            public void onSuccess(Sharer.Result result) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
+//        callbackManager = CallbackManager.Factory.create();
+//        shareDialog = new ShareDialog(this.mActivity);
+//        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+//            @Override
+//            public void onSuccess(Sharer.Result result) {
+//
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//
+//            }
+//        });
     }
 
     public ShareSocialMedia(Context mContext) {
@@ -55,29 +55,29 @@ public class ShareSocialMedia {
 
     public ShareSocialMedia(Fragment fragment) {
         this.fragment = fragment;
-        callbackManager = CallbackManager.Factory.create();
+//        callbackManager = CallbackManager.Factory.create();
     }
 
     public ShareSocialMedia(Activity mActivity) {
         this.mActivity = mActivity;
-        callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog(this.mActivity);
-        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-            @Override
-            public void onSuccess(Sharer.Result result) {
-
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
+//        callbackManager = CallbackManager.Factory.create();
+//        shareDialog = new ShareDialog(this.mActivity);
+//        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+//            @Override
+//            public void onSuccess(Sharer.Result result) {
+//
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//
+//            }
+//        });
     }
     public void shareTwitter(String message, String url){
 //        String tweetUrl = "https://twitter.com/intent/tweet?text="+message+"&url="

@@ -1,7 +1,10 @@
 package mhandharbeni.illiyin.gopraymurid;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,19 +15,28 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.Space;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.azimolabs.keyboardwatcher.KeyboardWatcher;
 import com.golovin.fluentstackbar.FluentSnackbar;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
+import com.zplesac.connectionbuddy.ConnectionBuddyCache;
 import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
 import com.zplesac.connectionbuddy.models.ConnectivityEvent;
@@ -35,13 +47,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 
-import mhandharbeni.illiyin.gopraymurid.Fragment.Family;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Meme;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Setting;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Timeline;
 import mhandharbeni.illiyin.gopraymurid.service.MainServices;
 import mhandharbeni.illiyin.gopraymurid.service.TimeService;
+import mhandharbeni.illiyin.gopraymurid.util.FontChangeCrawler;
 import sexy.code.Callback;
 import sexy.code.FormBody;
 import sexy.code.HttPizza;
@@ -49,7 +62,7 @@ import sexy.code.Request;
 import sexy.code.RequestBody;
 import sexy.code.Response;
 
-public class MainActivity extends AppCompatActivity implements ConnectivityChangeListener {
+public class MainActivity extends AppCompatActivity implements ConnectivityChangeListener, KeyboardWatcher.OnKeyboardToggleListener, ViewTreeObserver.OnGlobalLayoutListener {
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
 
 
@@ -67,11 +80,25 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     EncryptedPreferences encryptedPreferences;
     ConnectionBuddyConfiguration networkInspectorConfiguration;
     HttPizza client;
+    FontChangeCrawler fontReplacer;
+    EditText txtEmail;
+    EditText txtPassword;
+    EditText txtNama;
 
+    ScrollView svLogin;
+    ScrollView svSignup;
+    private KeyboardWatcher keyboardWatcher;
+    int width, height;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        keyboardWatcher = new KeyboardWatcher(this);
+        keyboardWatcher.setListener(this);
+        Typeface defaultFont = Typeface.createFromAsset(getAssets(), "fonts/helvetica-normal.ttf");
+//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+//                .setDefaultFontPath(getAssets()+"fonts/helvetica-normal.ttf")
+//                .build()
+//        );
         // permission
         String[] permissions = new String[11];
         permissions[0] = Manifest.permission.CAMERA;
@@ -118,19 +145,41 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         uriSignin = "users/self/login";
         uriSignup = "users/self/daftar";
         //url
-        setContentView(R.layout.activity_main);
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        width = displayMetrics.widthPixels;
+        height = displayMetrics.heightPixels;
 
+
+
+        setContentView(R.layout.activity_main);
+        svLogin = (ScrollView) findViewById(R.id.svLogin);
+        svSignup = (ScrollView) findViewById(R.id.svSignup);
+        LinearLayout lrLogin = (LinearLayout) findViewById(R.id.lrLogin);
+        LinearLayout lrSignup = (LinearLayout) findViewById(R.id.lrSignup);
+        lrLogin.setMinimumHeight(height+300);
+        lrSignup.setMinimumHeight(height+300);
+
+
+        fontReplacer = new FontChangeCrawler(defaultFont);
+//        fontReplacer.replaceFonts();
+        fontReplacer.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         signinLayout = (RelativeLayout) findViewById(R.id.signinLayout);
         signupLayout = (RelativeLayout) findViewById(R.id.signupLayout);
-        if (!MainServices.serviceRunning){
-            startService(new Intent(getApplicationContext(), MainServices.class));
-        }
-        if(!TimeService.serviceRunning){
-            startService(new Intent(getApplicationContext(), TimeService.class));
-        }
+        startServices();
+        ConnectionBuddy.getInstance().clearNetworkCache(this);
         checkSession();
     }
+    private final void focusOnView(final View parent, final View v){
+        parent.post(new Runnable() {
+            @Override
+            public void run() {
+                parent.scrollTo(0, v.getBottom());
+            }
+        });
+    }
+
+
     public void startServices(){
         if (!MainServices.serviceRunning){
             startService(new Intent(getApplicationContext(), MainServices.class));
@@ -142,8 +191,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     public void stopServices(){
         stopService(new Intent(this, MainServices.class));
         stopService(new Intent(this, TimeService.class));
+
         ConnectionBuddy.getInstance().clearNetworkCache(this);
         ConnectionBuddy.getInstance().notifyConnectionChange(true, this);
+
+        networkInspectorConfiguration = new ConnectionBuddyConfiguration.Builder(this).build();
+        ConnectionBuddy.getInstance().init(networkInspectorConfiguration);
+
     }
     public void checkSession(){
         // 0 : logout (default)
@@ -280,9 +334,26 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         changeFragment(fragment);
     }
     public void signinInit(){
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         btnSignin = (Button) findViewById(R.id.btnSignin);
+        txtEmail = (EditText) findViewById(R.id.txtEmail);
+        txtPassword = (EditText) findViewById(R.id.txtPassword);
         txtScreenSignup = (TextView) findViewById(R.id.txtScreenSignup);
+        txtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(svLogin, signinLayout);
+                }
+            }
+        });
+        txtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(svLogin, signinLayout);
+                }
+            }
+        });
         txtScreenSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,13 +366,12 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                 doSignin();
             }
         });
+
     }
     public void doSignin(){
         if(encryptedPreferences.getString("NETWORK", "0").equalsIgnoreCase("1")){
             btnSignin.setText(getString(R.string.prosesLogin));
             btnSignin.setEnabled(false);
-            TextView txtEmail = (TextView) findViewById(R.id.txtEmail);
-            TextView txtPassword = (TextView) findViewById(R.id.txtPassword);
             // koneksi tersedia
             RequestBody formBody = new FormBody.Builder()
                     .add("email", txtEmail.getText().toString())
@@ -358,7 +428,38 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
             showSnackBar(getString(R.string.noConnection));
         }
     }
+
     public void signupinit(){
+        btnSignup = (Button) findViewById(R.id.btnSignup);
+//        btnSignup.setText(getString(R.string.prosesDaftar));
+        btnSignup.setEnabled(true);
+        txtEmail = (EditText) findViewById(R.id.txtDEmail);
+        txtPassword = (EditText) findViewById(R.id.txtDPassword);
+        txtNama= (EditText) findViewById(R.id.txtDNama);
+        txtEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(svSignup, signupLayout);
+                }
+            }
+        });
+        txtPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(svSignup, signupLayout);
+                }
+            }
+        });
+        txtNama.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(svSignup, signupLayout);
+                }
+            }
+        });
         txtScreenSignin = (TextView) findViewById(R.id.txtScreenSignin);
         btnSignup = (Button) findViewById(R.id.btnSignup);
         txtScreenSignin.setOnClickListener(new View.OnClickListener() {
@@ -376,12 +477,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     }
     public void doSignup(){
         if(encryptedPreferences.getString("NETWORK", "0").equalsIgnoreCase("1")){
-            // koneksi tersedia
             btnSignup.setText(getString(R.string.prosesDaftar));
             btnSignup.setEnabled(false);
-            TextView txtEmail = (TextView) findViewById(R.id.txtDEmail);
-            TextView txtPassword = (TextView) findViewById(R.id.txtDPassword);
-            TextView txtNama= (TextView) findViewById(R.id.txtDNama);
+            // koneksi tersedia
             // koneksi tersedia
             RequestBody formBody = new FormBody.Builder()
                     .add("nama", txtNama.getText().toString())
@@ -476,5 +574,83 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     public void onStop() {
         ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
         super.onStop();
+    }
+    public void showSoftKeyboard(View view) {
+        if (view.requestFocus()) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+
+    @Override
+    public void onKeyboardShown(int keyboardSize) {
+        Log.d("KEYBOARD SHOWN", "onKeyboardShown: "+keyboardSize);
+        svLogin.scrollTo(0, keyboardSize);
+        for (int i = 0; i< keyboardSize;i++){
+            Space space = new Space(this);
+            svLogin.addView(space);
+        }
+        svLogin.notify();
+    }
+
+    @Override
+    public void onKeyboardClosed() {
+
+    }
+    public void getHeight(String mode){
+        switch (mode){
+            case "signin":
+                initHeightSignin();
+                break;
+            case "signup":
+                initHeightSignup();
+                break;
+            case "main":
+                initHeightMain();
+                break;
+        }
+    }
+    public void initHeightSignin(){
+//        signinLayout.getViewTreeObserver().addOnGlobalLayoutListener(this);
+        Rect r = new Rect();
+        signinLayout.getWindowVisibleDisplayFrame(r);
+        int screenHeight = signinLayout.getRootView().getHeight();
+        int heightDifference = screenHeight - (r.bottom - r.top);
+        Log.d("Keyboard Size", "Size: " + heightDifference);
+        resizeView(signinLayout, width, screenHeight + heightDifference);
+
+    }
+    public void initHeightSignup(){
+        Rect r = new Rect();
+        signupLayout.getWindowVisibleDisplayFrame(r);
+        int screenHeight = signinLayout.getRootView().getHeight();
+        int heightDifference = screenHeight - (r.bottom - r.top);
+        Log.d("Keyboard Size", "Size: " + heightDifference);
+        resizeView(signupLayout, width, screenHeight + heightDifference);
+    }
+    public void initHeightMain(){
+        Rect r = new Rect();
+        mainLayout.getWindowVisibleDisplayFrame(r);
+        int screenHeight = signinLayout.getRootView().getHeight();
+        int heightDifference = screenHeight - (r.bottom - r.top);
+        Log.d("Keyboard Size", "Size: " + heightDifference);
+        resizeView(signupLayout, width, screenHeight + heightDifference);
+    }
+    @Override
+    public void onGlobalLayout() {
+        Rect r = new Rect();
+        signinLayout.getWindowVisibleDisplayFrame(r);
+        int screenHeight = signinLayout.getRootView().getHeight();
+        int heightDifference = screenHeight - (r.bottom - r.top);
+        Log.d("Keyboard Size", "Size: " + heightDifference);
+    }
+    private void resizeView(View view, int newWidth, int newHeight) {
+        try {
+            Constructor<? extends ViewGroup.LayoutParams> ctor = view.getLayoutParams().getClass().getDeclaredConstructor(int.class, int.class);
+            view.setLayoutParams(ctor.newInstance(newWidth, newHeight));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

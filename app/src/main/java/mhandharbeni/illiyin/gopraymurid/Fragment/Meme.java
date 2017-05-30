@@ -6,16 +6,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,12 +26,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.dd.morphingbutton.MorphingButton;
 import com.golovin.fluentstackbar.FluentSnackbar;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
@@ -40,18 +44,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.Adapter.QuoteAdapter;
-import mhandharbeni.illiyin.gopraymurid.Adapter.TimelineAdapter;
 import mhandharbeni.illiyin.gopraymurid.Adapter.model.QuoteModel;
-import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
 import mhandharbeni.illiyin.gopraymurid.R;
-import mhandharbeni.illiyin.gopraymurid.database.*;
+import mhandharbeni.illiyin.gopraymurid.database.Quote;
 import mhandharbeni.illiyin.gopraymurid.database.helper.QuoteHelper;
-import mhandharbeni.illiyin.gopraymurid.service.MainServices;
 import mhandharbeni.illiyin.gopraymurid.service.intent.QuoteService;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -66,6 +68,8 @@ import static android.app.Activity.RESULT_OK;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
+//import com.dd.morphingbutton.MorphingButton;
+
 /**
  * Created by root on 19/04/17.
  */
@@ -79,8 +83,9 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
     EditText txtText;
     OkHttpClient client;
     EncryptedPreferences encryptedPreferences;
-    MorphingButton btnSimpan;
+    Button btnSimpan;
     String endUri;
+    String endUriDelete;
 
     ArrayList<QuoteModel> dataModels;
     QuoteHelper qHelper;
@@ -91,6 +96,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().registerReceiver(this.receiver, new IntentFilter("QUOTE"));
         encryptedPreferences = new EncryptedPreferences.Builder(getActivity()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         encryptedPreferences.edit().putString("imagepath", "nothing").apply();
         encryptedPreferences.edit().putString("imagename", "nothing").apply();
@@ -104,9 +110,10 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
         qHelper = new QuoteHelper(getActivity().getApplicationContext());
         v = inflater.inflate(R.layout.fragment_meme, container, false);
         endUri = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/meme";
+        endUriDelete = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/deletememe";
         imagePick = (ImageButton) v.findViewById(R.id.imgPick);
         txtText = (EditText) v.findViewById(R.id.txtText);
-        btnSimpan = (MorphingButton) v.findViewById(R.id.btnSimpan);
+        btnSimpan = (Button) v.findViewById(R.id.btnSimpan);
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,10 +127,56 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
             }
         });
         listView = (ListView) v.findViewById(R.id.listViewQuote);
+        registerForContextMenu(listView);
         initData();
         initAdapter();
         return v;
     }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+//        Adapter adapter = getListAdapter();
+        Object item = adapter.getItem(info.position);
+
+
+
+        menu.setHeaderTitle("Choose");
+        menu.add(0, adapter.getItem(info.position).getId(), 0, "Share");
+        menu.add(1, adapter.getItem(info.position).getId(), 0, "Delete");
+
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        if (item.getTitle() == "Delete") {
+            dialogDelete(item.getItemId());
+        } else if (item.getTitle() == "Share") {
+            shareQuote(item.getItemId());
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    public void shareQuote(int id){
+        String paths = qHelper.getUrlImage(id);
+        if (!paths.equalsIgnoreCase("nothing")){
+            Picasso.with(getActivity().getApplicationContext()).load(paths).into(new Target() {
+                @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    i.setType("image/*");
+                    i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap));
+                    startActivity(Intent.createChooser(i, "Share Quote"));
+                }
+                @Override public void onBitmapFailed(Drawable errorDrawable) { }
+                @Override public void onPrepareLoad(Drawable placeHolderDrawable) { }
+            });
+        }
+    }
+
     public void doUpload(){
         if(encryptedPreferences.getString("NETWORK","0").equalsIgnoreCase("1")){
             String text = txtText.getText().toString();
@@ -131,11 +184,22 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
                 txtText.setError("Tidak Boleh Kosong");
             }else{
                 btnSimpan.setEnabled(FALSE);
-//                showSnackBar("PROSESING");
-            /*do upload*/
                 uploadQuote();
             }
         }
+    }
+    public Uri getLocalBitmapUri(Bitmap bmp) {
+        Uri bmpUri = null;
+        try {
+            File file =  new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
+            FileOutputStream out = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.close();
+            bmpUri = Uri.fromFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bmpUri;
     }
     public void getImage(){
         Matisse.from(this)
@@ -147,6 +211,62 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
                 .thumbnailScale(0.85f)
                 .imageEngine(new GlideEngine())
                 .forResult(REQUEST_CODE_CHOOSE);
+    }
+    public void dialogDelete(final int id){
+        new LovelyStandardDialog(getActivity())
+                .setTopColorRes(R.color.colorPrimary)
+                .setButtonsColorRes(R.color.colorAccent)
+                .setTitle("HAPUS")
+                .setMessage("Hapus Quote?")
+                .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                                /*HAPUS AKTIVITAS*/
+                        deleteTimeline(id);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
+    }
+    public void deleteTimeline(final int id){
+        final int idTemp;
+        idTemp = id;
+        String token = encryptedPreferences.getString(KEY, getString(R.string.dummyToken));
+        String decryptToken = encryptedPreferences.getUtils().decryptStringValue(token);
+        /*delete server*/
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("access_token", decryptToken)
+                .addFormDataPart("id_meme", String.valueOf(id))
+                .build();
+        Request request = new Request.Builder()
+                .url(endUriDelete)
+                .post(requestBody)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                reload(id);
+            }
+        });
+        /*delete server*/
+    }
+    public void reload(final int id){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                qHelper.deleteData(id);
+                adapter.clear();
+                addDataAdapter();
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -306,7 +426,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
             z++;
             QuoteModel qm = new QuoteModel(result.get(i).getId(),
                                 result.get(i).getPath_meme(),
-                                result.get(i).getTanggal(),
+                                result.get(i).getTanggal()+" "+result.get(i).getJam(),
                                 result.get(i).getJam(),
                                 tl);
             dataModels.add(qm);
@@ -326,7 +446,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
             z++;
             QuoteModel qm = new QuoteModel(result.get(i).getId(),
                     result.get(i).getPath_meme(),
-                    result.get(i).getTanggal(),
+                    result.get(i).getTanggal()+" "+result.get(i).getJam(),
                     result.get(i).getJam(),
                     tl);
             adapter.add(qm);
@@ -359,10 +479,14 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
     public void onStart() {
         super.onStart();
         getActivity().registerReceiver(this.receiver, new IntentFilter("QUOTE"));
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver((receiver),
-                new IntentFilter(MainServices.ACTION_LOCATION_BROADCAST)
-        );
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().registerReceiver(this.receiver, new IntentFilter("QUOTE"));
+    }
+
     @Override
     public void onPause() {
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
