@@ -190,6 +190,8 @@ public class AddSholat extends Fragment implements View.OnClickListener,Keyboard
                                 String waktuIsya){
 
         String remain = "";
+        String startDay = "00:00:00";
+        String endDay = "23:59:59";
         checkSubuh.setEnabled(false);
         checkDhuhur.setEnabled(false);
         checkAshar.setEnabled(false);
@@ -202,67 +204,39 @@ public class AddSholat extends Fragment implements View.OnClickListener,Keyboard
         long wAshar = stringToTime(waktuAshar);
         long wMaghrib = stringToTime(waktuMaghrib);
         long wIsya = stringToTime(waktuIsya);
+        long wEndDay = stringToTime(endDay);
         String label = "Subuh";
         long remainTime = 0;
-        if (wSekarang < wSubuh){
+        if (wSekarang > wSubuh && wSekarang <= wDhuha){
             checkSubuh.setEnabled(true);
             checkDhuhur.setEnabled(false);
             checkAshar.setEnabled(false);
             checkMaghrib.setEnabled(false);
             checkIsya.setEnabled(false);
-            label = "Subuh";
-            remainTime = wSekarang - wSubuh;
-            remain = getRemainTime(remainTime);
-        }else if(wSekarang < wDhuha){
-//            checkDhuhur.setEnabled(true);
-            label = "Dhuha";
-            remainTime = wSekarang - wDhuha;
-            remain = getRemainTime(remainTime);
-        }else if(wSekarang < wDhuhur){
+        }else if (wSekarang > wDhuhur && wSekarang <= wAshar){
+            checkSubuh.setEnabled(false);
             checkDhuhur.setEnabled(true);
-            checkSubuh.setEnabled(false);
             checkAshar.setEnabled(false);
             checkMaghrib.setEnabled(false);
             checkIsya.setEnabled(false);
-            label = "Dhuhur";
-            remainTime = wSekarang - wDhuhur;
-            remain = getRemainTime(remainTime);
-        }else if(wSekarang < wAshar){
+        }if (wSekarang > wAshar && wSekarang < wMaghrib){
+            checkSubuh.setEnabled(false);
+            checkDhuhur.setEnabled(false);
             checkAshar.setEnabled(true);
-            checkDhuhur.setEnabled(false);
-            checkSubuh.setEnabled(false);
             checkMaghrib.setEnabled(false);
             checkIsya.setEnabled(false);
-            label = "Ashar";
-            remainTime = wSekarang - wAshar;
-            remain = getRemainTime(remainTime);
-        }else if(wSekarang < wMaghrib){
-            checkMaghrib.setEnabled(true);
-            checkDhuhur.setEnabled(false);
+        }if (wSekarang > wMaghrib && wSekarang < wIsya){
             checkSubuh.setEnabled(false);
+            checkDhuhur.setEnabled(false);
             checkAshar.setEnabled(false);
+            checkMaghrib.setEnabled(true);
             checkIsya.setEnabled(false);
-            label = "Maghrib";
-            remainTime = wSekarang - wMaghrib;
-            remain = getRemainTime(remainTime);
-        }else if(wSekarang < wIsya){
-            checkIsya.setEnabled(true);
-            checkDhuhur.setEnabled(false);
+        }if (wSekarang > wIsya && wSekarang < wEndDay){
             checkSubuh.setEnabled(false);
+            checkDhuhur.setEnabled(false);
             checkAshar.setEnabled(false);
             checkMaghrib.setEnabled(false);
-            label = "Isya";
-            remainTime = wSekarang - wIsya;
-            remain = getRemainTime(remainTime);
-        }else if (wSekarang > wIsya){
-            checkSubuh.setEnabled(true);
-            checkDhuhur.setEnabled(true);
-            checkAshar.setEnabled(true);
-            checkMaghrib.setEnabled(true);
             checkIsya.setEnabled(true);
-            label = "Subuh";
-            remain = "Besok Jam "+waktuSubuh;
-            /*show dialog*/
         }
     }
     public void getJadwal(){

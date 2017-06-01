@@ -100,6 +100,7 @@ public class Setting extends Fragment {
         new LovelyInfoDialog(getActivity())
                 .setTopColorRes(R.color.colorPrimary)
                 .setTitle("Tentang "+getString(R.string.app_name))
+                .setTitleGravity(Gravity.CENTER)
                 .setMessage(R.string.about)
                 .setMessageGravity(Gravity.CENTER)
                 .show();

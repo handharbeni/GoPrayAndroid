@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -98,6 +99,10 @@ public class Timeline extends Fragment implements View.OnClickListener {
         //init encrypting
         ((MainActivity)getActivity()).startServices();
         encryptedPreferences = new EncryptedPreferences.Builder(getActivity()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
+
+        if (encryptedPreferences.getString("NOTIFTROPHY", "NOTHING").equalsIgnoreCase("NOTHING")){
+            encryptedPreferences.edit().putString("NOTIFTROPHY", "0").commit();
+        }
         //init encrypting
         /*init network*/
         client = new HttPizza();
@@ -358,13 +363,51 @@ public class Timeline extends Fragment implements View.OnClickListener {
             point += result.get(i).getPoint();
         }
         txtPoint.setText(String.valueOf(point));
-        if (point <= 500){
+        String NOTIFTRPY = encryptedPreferences.getString("NOTIFTROPHY", "0");
+        int NTY = Integer.valueOf(NOTIFTRPY);
+        if (point > 500 && point < 999 ){
+
+            if (NTY != 1){
+                if(NTY > 1){
+                    /*TURUN*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "MAAF TROPHY ANDA TURUN MENJADI BRONZE");
+                }else{
+                    /*NAIK*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "SELAMAT ANDA MENDAPAT TROPHY BRONZE!!");
+                }
+                /*set to 1*/
+                encryptedPreferences.edit().putString("NOTIFTROPHY", "1").commit();
+            }
             /*bronze*/
             Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_bronze).into(imgTropi1);
-        }else if(point <= 1000){
+        }else if(point > 1000 && point < 1499){
+            if (NTY != 2){
+                if(NTY > 2){
+                    /*TURUN*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "MAAF TROPHY ANDA TURUN MENJADI SILVER");
+                }else{
+                    /*NAIK*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "SELAMAT ANDA MENDAPAT TROPHY SILVER!!");
+                }
+                /*set to 2*/
+                encryptedPreferences.edit().putString("NOTIFTROPHY", "2").commit();
+            }
+            /*NOTIFTROPHY 2*/
             /*silver*/
             Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_silver).into(imgTropi1);
-        }else if(point <= 1500){
+        }else if(point > 1500){
+            if (NTY != 3){
+                if(NTY > 3){
+                    /*TURUN*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "MAAF TROPHY ANDA TURUN MENJADI GOLD");
+                }else{
+                    /*NAIK*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "SELAMAT ANDA MENDAPAT TROPHY GOLD!!");
+                }
+                /*set to 2*/
+                encryptedPreferences.edit().putString("NOTIFTROPHY", "3").commit();
+            }
+            /*NOTIFTROPHY 3*/
             /*gold*/
             Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_gold).into(imgTropi1);
         }else{
@@ -372,8 +415,21 @@ public class Timeline extends Fragment implements View.OnClickListener {
             Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_gold).into(imgTropi1);
         }
     }
+    public void showNotifTrophy(Drawable drawablex, String text){
+        new LovelyStandardDialog(getActivity())
+                .setTopColorRes(R.color.colorPrimary)
+                .setButtonsColorRes(R.color.colorAccent)
+                .setIcon(R.drawable.ic_logo)
+                .setTitle(R.string.app_name)
+                .setMessage(text)
+                .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                    }
+                })
+                .show();
+    }
     public void displayInfoTropy(){
-        TextView txtRemainTime = (TextView) v.findViewById(R.id.txtRemainTime);
         ImageView imgTropi1 = (ImageView) v.findViewById(R.id.imgTropi1);
         TextView txtPoint = (TextView) v.findViewById(R.id.txtPoint);
         RealmResults<mhandharbeni.illiyin.gopraymurid.database.Timeline>
@@ -383,13 +439,51 @@ public class Timeline extends Fragment implements View.OnClickListener {
             point += result.get(i).getPoint();
         }
         txtPoint.setText(String.valueOf(point));
-        if (point <= 500){
+        String NOTIFTRPY = encryptedPreferences.getString("NOTIFTROPHY", "0");
+        int NTY = Integer.valueOf(NOTIFTRPY);
+        if (point > 500 && point < 999 ){
+
+            if (NTY != 1){
+                if(NTY > 1){
+                    /*TURUN*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "MAAF TROPHY ANDA TURUN MENJADI BRONZE");
+                }else{
+                    /*NAIK*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "SELAMAT ANDA MENDAPAT TROPHY BRONZE!!");
+                }
+                /*set to 1*/
+                encryptedPreferences.edit().putString("NOTIFTROPHY", "1").commit();
+            }
             /*bronze*/
             Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_bronze).into(imgTropi1);
-        }else if(point <= 1000){
+        }else if(point > 1000 && point < 1499){
+            if (NTY != 2){
+                if(NTY > 2){
+                    /*TURUN*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "MAAF TROPHY ANDA TURUN MENJADI SILVER");
+                }else{
+                    /*NAIK*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "SELAMAT ANDA MENDAPAT TROPHY SILVER!!");
+                }
+                /*set to 2*/
+                encryptedPreferences.edit().putString("NOTIFTROPHY", "2").commit();
+            }
+            /*NOTIFTROPHY 2*/
             /*silver*/
             Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_silver).into(imgTropi1);
-        }else if(point <= 1500){
+        }else if(point > 1500){
+            if (NTY != 3){
+                if(NTY > 3){
+                    /*TURUN*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "MAAF TROPHY ANDA TURUN MENJADI GOLD");
+                }else{
+                    /*NAIK*/
+                    showNotifTrophy(getResources().getDrawable(R.drawable.trophy_bronze), "SELAMAT ANDA MENDAPAT TROPHY GOLD!!");
+                }
+                /*set to 2*/
+                encryptedPreferences.edit().putString("NOTIFTROPHY", "3").commit();
+            }
+            /*NOTIFTROPHY 3*/
             /*gold*/
             Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_gold).into(imgTropi1);
         }else{
