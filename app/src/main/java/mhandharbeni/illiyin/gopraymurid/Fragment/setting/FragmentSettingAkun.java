@@ -17,11 +17,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
@@ -74,7 +77,9 @@ public class FragmentSettingAkun extends Fragment implements ConnectivityChangeL
     MaterialEditText txtSEmail, txtSPassword, txtSNama;
 
     View v;
-
+    ScrollView scAkun;
+    RelativeLayout rlAkun;
+    int width, height;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +92,14 @@ public class FragmentSettingAkun extends Fragment implements ConnectivityChangeL
         encryptedPreferences.edit().putString("imagepath", "nothing").apply();
         encryptedPreferences.edit().putString("imagename", "nothing").apply();
     }
+    private final void focusOnView(final View parent, final View v){
+        parent.post(new Runnable() {
+            @Override
+            public void run() {
+                parent.scrollTo(0, v.getBottom());
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,6 +110,38 @@ public class FragmentSettingAkun extends Fragment implements ConnectivityChangeL
         txtSPassword = (MaterialEditText) v.findViewById(R.id.txtSPassword);
         txtSNama = (MaterialEditText) v.findViewById(R.id.txtSNama);
 
+        txtSEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(scAkun, rlAkun);
+                }
+            }
+        });
+        txtSNama.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(scAkun, rlAkun);
+                }
+            }
+        });
+        txtSPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(scAkun, rlAkun);
+                }
+            }
+        });
+
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        width = displayMetrics.widthPixels;
+        height = displayMetrics.heightPixels;
+
+        scAkun = (ScrollView) v.findViewById(R.id.scAkun);
+        rlAkun = (RelativeLayout) v.findViewById(R.id.rlAkun);
+        rlAkun.setMinimumHeight(height+25);
         initAkun();
 
         initProfPic();

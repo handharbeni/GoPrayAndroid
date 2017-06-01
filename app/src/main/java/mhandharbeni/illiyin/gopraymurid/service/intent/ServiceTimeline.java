@@ -95,7 +95,11 @@ public class ServiceTimeline extends IntentService implements ConnectivityChange
                                     String tempat = objectData.getString("tempat");
                                     String bersama = objectData.getString("bersama");
                                     String image = objectData.getString("image");
-                                    int nominal = Integer.valueOf(objectData.getString("nominal"));
+                                    int nNominal = 0;
+                                    if (isInteger(objectData.getString("nominal"))){
+                                        nNominal = Integer.valueOf(objectData.getString("nominal"));
+                                    }
+                                    int nominal = nNominal;
                                     int poit = Integer.valueOf(objectData.getString("point"));
                                     int status = 3; /*1 not uploaded, 2 uploaded, 3 sync server*/
                                     String tanggal = objectData.getString("tanggal");
@@ -142,6 +146,17 @@ public class ServiceTimeline extends IntentService implements ConnectivityChange
             });
         }
 
+    }
+    public static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        } catch(NullPointerException e) {
+            return false;
+        }
+        // only got here if we didn't return false
+        return true;
     }
     @Override
     public void onDestroy() {

@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,7 @@ import java.util.ArrayList;
 import io.realm.RealmResults;
 import mhandharbeni.illiyin.gopraymurid.Adapter.QuoteAdapter;
 import mhandharbeni.illiyin.gopraymurid.Adapter.model.QuoteModel;
+import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.Quote;
 import mhandharbeni.illiyin.gopraymurid.database.helper.QuoteHelper;
@@ -130,6 +132,8 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
         registerForContextMenu(listView);
         initData();
         initAdapter();
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         return v;
     }
     @Override
@@ -184,6 +188,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
                 txtText.setError("Tidak Boleh Kosong");
             }else{
                 btnSimpan.setEnabled(FALSE);
+                ((MainActivity)getActivity()).showProgress();
                 uploadQuote();
             }
         }
@@ -402,10 +407,16 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
                     lovelyProgressDialog.setTitle(R.string.mengunggah);
                     lovelyProgressDialog.setTitle(R.string.selesai);
                     lovelyProgressDialog.dismiss();
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
 //                    showSnackBar("SUKSES");
                 }else{
                     btnSimpan.setEnabled(TRUE);
                     lovelyProgressDialog.dismiss();
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
 //                    showSnackBar(message);
                 }
             }
@@ -513,6 +524,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
                     adapter.clear();
                     addDataAdapter();
                     adapter.notifyDataSetChanged();
+                    ((MainActivity)getActivity()).stopProgress();
                     break;
                 default:
                     break;

@@ -1,6 +1,13 @@
 package mhandharbeni.illiyin.gopraymurid.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import mhandharbeni.illiyin.gopraymurid.Adapter.model.TimelineModel;
 import mhandharbeni.illiyin.gopraymurid.R;
@@ -84,6 +92,34 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         Object object= getItem(position);
         TimelineModel dataModel=(TimelineModel)object;
     }
+    public static SpannableStringBuilder setToBold(String text, String textToBold){
+
+        SpannableStringBuilder builder=new SpannableStringBuilder();
+
+        if(textToBold.length() > 0 && !textToBold.trim().equals("")){
+
+            //for counting start/end indexes
+            String testText = text.toLowerCase(Locale.US);
+            String testTextToBold = textToBold.toLowerCase(Locale.US);
+            int startingIndex = testText.indexOf(testTextToBold);
+            int endingIndex = startingIndex + testTextToBold.length();
+            //for counting start/end indexes
+
+            if(startingIndex < 0 || endingIndex <0){
+                return builder.append(text);
+            }
+            else if(startingIndex >= 0 && endingIndex >=0){
+
+                builder.append(text);
+                builder.setSpan(new StyleSpan(Typeface.BOLD), startingIndex, endingIndex, 0);
+                builder.setSpan(new ForegroundColorSpan(Color.BLACK), startingIndex, endingIndex, 0);
+            }
+        }else{
+            return builder.append(text);
+        }
+
+        return builder;
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TimelineModel dataModel = getItem(position);
@@ -152,48 +188,59 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         viewHolder.itemSholat.setVisibility(View.GONE);
         viewHolder.itemPuasa.setVisibility(View.GONE);
         if(dataModel.getType() == 3){
+            SpannableStringBuilder bersamaBold = null, diBold = null, keteranganBold;
+            SpannableStringBuilder sbLengkap;
             /*sholat*/
             viewHolder.itemSholat.setVisibility(View.VISIBLE);
             viewHolder.txtLabelBersama.setVisibility(View.GONE);
             viewHolder.txtTempat.setVisibility(View.GONE);
             viewHolder.txtBersama.setVisibility(View.GONE);
             viewHolder.txtLabelTempat.setVisibility(View.GONE);
-            viewHolder.txtSholat.setText(dataModel.getKeterangan());
+
+            keteranganBold = setToBold(dataModel.getKeterangan(), dataModel.getKeterangan());
+            sbLengkap = new SpannableStringBuilder();
+            sbLengkap.append(keteranganBold);
             if(dataModel.getBersama().equalsIgnoreCase("nothing") == false){
-                viewHolder.txtLabelBersama.setVisibility(View.VISIBLE);
-                viewHolder.txtLabelBersama.setText("bersama");
-                viewHolder.txtBersama.setVisibility(View.VISIBLE);
-                viewHolder.txtBersama.setText(dataModel.getBersama());
+                bersamaBold = setToBold(dataModel.getBersama(), dataModel.getBersama());
+                sbLengkap.append(" Bersama ");
+                sbLengkap.append(bersamaBold);
             }
             if (dataModel.getDi().equalsIgnoreCase("nothing") == false){
-                viewHolder.txtLabelTempat.setVisibility(View.VISIBLE);
-                viewHolder.txtTempat.setVisibility(View.VISIBLE);
-                viewHolder.txtLabelTempat.setText("di");
-                viewHolder.txtTempat.setText(dataModel.getDi());
+                diBold = setToBold(dataModel.getDi(), dataModel.getDi());
+                sbLengkap.append(" di ");
+                sbLengkap.append(diBold);
             }
+            viewHolder.txtSholat.setText(sbLengkap);
             viewHolder.txtTanggalSholat.setText(dataModel.getTanggal());
         }else if(dataModel.getType() == 7){
+            SpannableStringBuilder bersamaBold = null, diBold = null, keteranganBold;
+            SpannableStringBuilder sbLengkap;
             /*mengaji*/
             viewHolder.itemMengaji.setVisibility(View.VISIBLE);
             viewHolder.txtLabelTempatMengaji.setVisibility(View.GONE);
             viewHolder.txtTempatMengaji.setVisibility(View.GONE);
-            viewHolder.txtMengaji.setText(dataModel.getBersama());
+            keteranganBold = setToBold(dataModel.getBersama(), dataModel.getBersama());
+            sbLengkap = new SpannableStringBuilder();
+            sbLengkap.append(keteranganBold);
             if (dataModel.getDi().equalsIgnoreCase("nothing") == false){
-                viewHolder.txtLabelTempatMengaji.setVisibility(View.VISIBLE);
-                viewHolder.txtLabelTempatMengaji.setText("di");
-                viewHolder.txtTempatMengaji.setVisibility(View.VISIBLE);
-                viewHolder.txtTempatMengaji.setText(dataModel.getDi());
+                diBold = setToBold(dataModel.getDi(), dataModel.getDi());
+                sbLengkap.append(" di ");
+                sbLengkap.append(diBold);
             }
+            viewHolder.txtMengaji.setText(sbLengkap);
             viewHolder.txtTanggalMengaji.setText(dataModel.getTanggal());
         }else if(dataModel.getType() == 4){
             /*sedekah*/
+            SpannableStringBuilder bersamaBold = null, diBold = null, keteranganBold;
+            keteranganBold = setToBold("Sedekah "+dataModel.getNominal(), "Sedekah "+dataModel.getNominal());
             viewHolder.itemSedekah.setVisibility(View.VISIBLE);
             viewHolder.txtLabelTempatSedekah.setVisibility(View.GONE);
             viewHolder.txtLabelSedekah.setVisibility(View.VISIBLE);
-            viewHolder.txtLabelSedekah.setText("Sedekah "+dataModel.getNominal());
+            viewHolder.txtLabelSedekah.setText(keteranganBold);
             viewHolder.txtTanggalSedekah.setText(dataModel.getTanggal());
         }else if(dataModel.getType() == 1){
             /*berdoa*/
+
             viewHolder.itemBerdoa.setVisibility(View.VISIBLE);
             viewHolder.txtDoa.setText(dataModel.getKeterangan());
             viewHolder.txtTanggalDoa.setText(dataModel.getTanggal());
@@ -209,8 +256,10 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             viewHolder.txtTanggalStiker.setText(dataModel.getTanggal());
         }else if(dataModel.getType() == 2){
             /*Puasa*/
+            SpannableStringBuilder bersamaBold = null, diBold = null, keteranganBold;
+            keteranganBold = setToBold(dataModel.getKeterangan(), dataModel.getKeterangan());
             viewHolder.itemPuasa.setVisibility(View.VISIBLE);
-            viewHolder.txtPuasa.setText(dataModel.getKeterangan());
+            viewHolder.txtPuasa.setText(keteranganBold);
             viewHolder.txtTanggalPuasa.setText(dataModel.getTanggal());
         }
         return convertView;

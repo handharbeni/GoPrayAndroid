@@ -1,24 +1,28 @@
 package mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas;
 
 import android.app.ActivityManager;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.NotificationCompat;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
+import com.azimolabs.keyboardwatcher.KeyboardWatcher;
 import com.dunst.check.CheckableImageButton;
-//import com.facebook.CallbackManager;
-//import com.facebook.share.widget.ShareDialog;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,7 +30,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import io.realm.RealmResults;
-import mhandharbeni.illiyin.gopraymurid.Fragment.share.ShareSocialMedia;
+import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.JadwalSholat;
 import mhandharbeni.illiyin.gopraymurid.database.Timeline;
@@ -36,6 +40,7 @@ import mhandharbeni.illiyin.gopraymurid.service.intent.ServiceTimeline;
 import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
 import sexy.code.HttPizza;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
@@ -43,7 +48,7 @@ import static java.lang.Boolean.TRUE;
  * Created by root on 04/05/17.
  */
 
-public class AddSholat extends Fragment implements View.OnClickListener {
+public class AddSholat extends Fragment implements View.OnClickListener,KeyboardWatcher.OnKeyboardToggleListener, ViewTreeObserver.OnGlobalLayoutListener {
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
     String endUri;
     View v;
@@ -55,11 +60,12 @@ public class AddSholat extends Fragment implements View.OnClickListener {
     TimelineHelper th;
     JadwalSholatHelper jsHelper;
     String tSubuh, tDhuha, tDhuhur,tAshar,tMaghrib,tIsya;
-
-    //ShareDialog shareDialog;
-    //CallbackManager callbackManager;
-
-//    ShareSocialMedia socialMediaShare;
+    int width, height;
+    RelativeLayout rlTambahSholat;
+    ScrollView scTambahSholat;
+    int pointWajib = 10, pointSunnah = 5;
+    String dSubuh,dDhuha,dDhuhur,dAshar,dMaghrib,dIsya;
+    int points;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +90,8 @@ public class AddSholat extends Fragment implements View.OnClickListener {
 
         endUri = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/timeline";
         v = inflater.inflate(R.layout.tambah_sholat, container, false);
-
+        rlTambahSholat = (RelativeLayout) v.findViewById(R.id.rlTambahSholat);
+        scTambahSholat = (ScrollView) v.findViewById(R.id.scTambahSholat);
         checkSubuh = (CheckableImageButton) v.findViewById(R.id.btnSubuh);
         checkDhuhur = (CheckableImageButton) v.findViewById(R.id.btnDhuhur);
         checkAshar = (CheckableImageButton) v.findViewById(R.id.btnAshar);
@@ -93,6 +100,24 @@ public class AddSholat extends Fragment implements View.OnClickListener {
         checkSunnah= (CheckableImageButton) v.findViewById(R.id.btnSunnah);
         txtBersama = (EditText) v.findViewById(R.id.txtBersama);
         txtTempat = (EditText) v.findViewById(R.id.txtTempat);
+        txtBersama.clearFocus();
+        txtTempat.clearFocus();
+        txtBersama.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(scTambahSholat, rlTambahSholat);
+                }
+            }
+        });
+        txtTempat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    focusOnView(scTambahSholat, rlTambahSholat);
+                }
+            }
+        });
         getJadwalSholat();
         uncheckButton();
         checkSunnah.setOnClickListener(this);
@@ -110,6 +135,11 @@ public class AddSholat extends Fragment implements View.OnClickListener {
             }
         });
 
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        width = displayMetrics.widthPixels;
+        height = displayMetrics.heightPixels;
+        rlTambahSholat.setMinimumHeight(height+100);
+        setStatButton();
         return v;
     }
 
@@ -123,7 +153,7 @@ public class AddSholat extends Fragment implements View.OnClickListener {
     }
     public void getJadwalSholat(){
 //        String tanggal = (getDateTime());
-        String tanggal = "2017-04-11";
+        String tanggal = getDate();
         JadwalSholat js = new JadwalSholat();
         RealmResults<JadwalSholat> rjs = jsHelper.getJadwalSholat(tanggal);
         if (rjs.size() > 0){
@@ -135,15 +165,144 @@ public class AddSholat extends Fragment implements View.OnClickListener {
             tIsya      = rjs.get(0).getIsya();
         }
     }
+    public void setStatButton(){
+        String tanggal = getDate();
+        String jam = getTime();
+        RealmResults<JadwalSholat> rjs = jsHelper.getJadwalSholat(tanggal);
+        if (rjs.size() > 0){
+
+            dSubuh     = rjs.get(0).getSubuh();
+            dDhuha     = rjs.get(0).getDhuha();
+            dDhuhur    = rjs.get(0).getDhuhur();
+            dAshar     = rjs.get(0).getAshar();
+            dMaghrib   = rjs.get(0).getMaghrib();
+            dIsya      = rjs.get(0).getIsya();
+            checkLewatWaktu(jam,dSubuh,dDhuha,dDhuhur,dAshar,dMaghrib,dIsya);
+
+        }
+    }
+    public void checkLewatWaktu(String waktuSekarang,
+                                String waktuSubuh,
+                                String waktuDhuha,
+                                String waktuDhuhur,
+                                String waktuAshar,
+                                String waktuMaghrib,
+                                String waktuIsya){
+
+        String remain = "";
+        checkSubuh.setEnabled(false);
+        checkDhuhur.setEnabled(false);
+        checkAshar.setEnabled(false);
+        checkMaghrib.setEnabled(false);
+        checkIsya.setEnabled(false);
+        long wSekarang = stringToTime(waktuSekarang);
+        long wSubuh = stringToTime(waktuSubuh);
+        long wDhuha = stringToTime(waktuDhuha);
+        long wDhuhur = stringToTime(waktuDhuhur);
+        long wAshar = stringToTime(waktuAshar);
+        long wMaghrib = stringToTime(waktuMaghrib);
+        long wIsya = stringToTime(waktuIsya);
+        String label = "Subuh";
+        long remainTime = 0;
+        if (wSekarang < wSubuh){
+            checkSubuh.setEnabled(true);
+            checkDhuhur.setEnabled(false);
+            checkAshar.setEnabled(false);
+            checkMaghrib.setEnabled(false);
+            checkIsya.setEnabled(false);
+            label = "Subuh";
+            remainTime = wSekarang - wSubuh;
+            remain = getRemainTime(remainTime);
+        }else if(wSekarang < wDhuha){
+//            checkDhuhur.setEnabled(true);
+            label = "Dhuha";
+            remainTime = wSekarang - wDhuha;
+            remain = getRemainTime(remainTime);
+        }else if(wSekarang < wDhuhur){
+            checkDhuhur.setEnabled(true);
+            checkSubuh.setEnabled(false);
+            checkAshar.setEnabled(false);
+            checkMaghrib.setEnabled(false);
+            checkIsya.setEnabled(false);
+            label = "Dhuhur";
+            remainTime = wSekarang - wDhuhur;
+            remain = getRemainTime(remainTime);
+        }else if(wSekarang < wAshar){
+            checkAshar.setEnabled(true);
+            checkDhuhur.setEnabled(false);
+            checkSubuh.setEnabled(false);
+            checkMaghrib.setEnabled(false);
+            checkIsya.setEnabled(false);
+            label = "Ashar";
+            remainTime = wSekarang - wAshar;
+            remain = getRemainTime(remainTime);
+        }else if(wSekarang < wMaghrib){
+            checkMaghrib.setEnabled(true);
+            checkDhuhur.setEnabled(false);
+            checkSubuh.setEnabled(false);
+            checkAshar.setEnabled(false);
+            checkIsya.setEnabled(false);
+            label = "Maghrib";
+            remainTime = wSekarang - wMaghrib;
+            remain = getRemainTime(remainTime);
+        }else if(wSekarang < wIsya){
+            checkIsya.setEnabled(true);
+            checkDhuhur.setEnabled(false);
+            checkSubuh.setEnabled(false);
+            checkAshar.setEnabled(false);
+            checkMaghrib.setEnabled(false);
+            label = "Isya";
+            remainTime = wSekarang - wIsya;
+            remain = getRemainTime(remainTime);
+        }else if (wSekarang > wIsya){
+            checkSubuh.setEnabled(true);
+            checkDhuhur.setEnabled(true);
+            checkAshar.setEnabled(true);
+            checkMaghrib.setEnabled(true);
+            checkIsya.setEnabled(true);
+            label = "Subuh";
+            remain = "Besok Jam "+waktuSubuh;
+            /*show dialog*/
+        }
+    }
+    public void getJadwal(){
+
+    }
+    public double getPoint(int point, String start, String end, String current){
+
+        long startTime = stringToTime(start);
+        long endTime = stringToTime(end);
+        long currentTime = stringToTime(current);
+        long selisihTime;
+        double minuteTotal, pointPerMenit, diffCurrentTimeinMinute, gotPoint;
+        long diffCurrentTime;
+        if (currentTime <= endTime){
+            selisihTime = endTime - startTime;
+            minuteTotal = convertMinute(selisihTime);
+            pointPerMenit = (double)(int)point / (double)(int)minuteTotal;
+            if (currentTime < endTime){
+                diffCurrentTime = endTime - currentTime;
+            }else{
+                diffCurrentTime = currentTime - endTime;
+            }
+            diffCurrentTimeinMinute = convertMinute(diffCurrentTime);
+            gotPoint = diffCurrentTimeinMinute * pointPerMenit;
+        }else{
+            gotPoint = 0;
+        }
+        return gotPoint;
+    }
     public void saveServer(){
         String sBersama = txtBersama.getText().toString();
         String sTempat = txtTempat.getText().toString();
-
         if (sBersama.equalsIgnoreCase("") || sBersama.isEmpty()){
             sBersama = "nothing";
         }
         if (sTempat.equalsIgnoreCase("") || sTempat.isEmpty()){
             sTempat = "nothing";
+        }
+        if (sTempat.contains("masjid") || sTempat.contains("Masjid") || sTempat.contains("MASJID")){
+            points = points * 2;
         }
         int rand = getRandId();
         Timeline tl = new Timeline();
@@ -155,14 +314,13 @@ public class AddSholat extends Fragment implements View.OnClickListener {
         tl.setImage("tanpa gambar");
         tl.setTempat(sTempat);
         tl.setBersama(sBersama);
-        tl.setPoint(1);
+        tl.setPoint(points);
         tl.setNominal(0);
         tl.setDate(getDate());
         tl.setJam(getTime());
         tl.setStatus(1);
 
         th.AddTimelineOffline(tl);
-        /*run service*/
         if(!checkIsRunning(UploadTimeline.class)){
             Intent intenUpload = new Intent(getActivity().getApplicationContext(), UploadTimeline.class);
             getActivity().startService(intenUpload);
@@ -171,12 +329,30 @@ public class AddSholat extends Fragment implements View.OnClickListener {
             Intent intentTimeline = new Intent(getActivity().getApplicationContext(), ServiceTimeline.class);
             getActivity().startService(intentTimeline);
         }
-//        socialMediaShare.shareTwitter("MESSAGE TWITTER", "http://developers.facebook.com/android");
-//        socialMediaShare.shareFacebook("TITLE", "DESCRIPTION", "http://developers.facebook.com/android");
-//        shareInstagram("image/*", "");
-//        shareFacebook();
-        /*run service*/
-        getActivity().finish();
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(getActivity().getApplicationContext())
+                        .setSmallIcon(R.drawable.ic_logo)
+                        .setContentTitle("GoPray Point")
+                        .setContentText("Point Anda bertambah "+points);
+
+        int mNotificationId = 042;
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+        new LovelyStandardDialog(getActivity())
+                .setTopColorRes(R.color.colorPrimary)
+                .setButtonsColorRes(R.color.colorAccent)
+                .setIcon(R.drawable.ic_logo)
+                .setTitle(R.string.app_name)
+                .setMessage("Point Anda Bertambah "+points)
+                .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().finish();
+                    }
+                })
+                .show();
     }
     private boolean checkIsRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
@@ -231,53 +407,112 @@ public class AddSholat extends Fragment implements View.OnClickListener {
             String time2 = encryptedPreferences.getString("JAM_TERAKHIR", "");
 
             String difference = getDifferenceTime(time1, time2);
-            Log.d("ADD SHOLAT", "checkDifference: "+time1);
-            Log.d("ADD SHOLAT", "checkDifference: "+time2);
-            Log.d("ADD SHOLAT", "checkDifference: "+String.valueOf(difference));
         }
     }
     @Override
     public void onClick(View v) {
+        double pointx;
+        Long L;
         uncheckButton();
 
         switch (v.getId()){
             case R.id.btnSubuh :
+                pointx = getPoint(pointWajib, dSubuh, dDhuha, getTime());
+                L = Math.round(pointx);
+                points = Integer.valueOf(L.intValue());
                 encryptedPreferences.edit().putString("SHOLAT", "1").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Subuh").commit();
-//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tDhuha).commit();
                 checkSubuh.setChecked(TRUE);
                 break;
             case R.id.btnDhuhur :
+                pointx = getPoint(pointWajib, dDhuhur, dAshar, getTime());
+                L = Math.round(pointx);
+                points = Integer.valueOf(L.intValue());
                 encryptedPreferences.edit().putString("SHOLAT", "2").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Dhuhur").commit();
-//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tAshar).commit();
                 checkDhuhur.setChecked(TRUE);
                 break;
             case R.id.btnAshar :
+                pointx = getPoint(pointWajib, dAshar, dMaghrib, getTime());
+                L = Math.round(pointx);
+                points = Integer.valueOf(L.intValue());
                 encryptedPreferences.edit().putString("SHOLAT", "3").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Ashar").commit();
-//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tMaghrib).commit();
                 checkAshar.setChecked(TRUE);
                 break;
             case R.id.btnMaghrib :
+                pointx = getPoint(pointWajib, dMaghrib, dIsya, getTime());
+                L = Math.round(pointx);
+                points = Integer.valueOf(L.intValue());
+
                 encryptedPreferences.edit().putString("SHOLAT", "4").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Maghrib").commit();
-//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tIsya).commit();
                 checkMaghrib.setChecked(TRUE);
                 break;
             case R.id.btnIsya :
+                pointx = getPoint(pointWajib, dIsya, "23:59:59", getTime());
+                L = Math.round(pointx);
+                points = Integer.valueOf(L.intValue());
                 encryptedPreferences.edit().putString("SHOLAT", "5").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Isya").commit();
-//                encryptedPreferences.edit().putString("JAM_TERAKHIR", tSubuh).commit();
                 checkIsya.setChecked(TRUE);
                 break;
             case R.id.btnSunnah :
+                points = pointSunnah;
                 encryptedPreferences.edit().putString("SHOLAT", "6").commit();
                 encryptedPreferences.edit().putString("NAMA_SHOLAT", "Sunnah").commit();
-//                encryptedPreferences.edit().putString("JAM_TERAKHIR", "").commit();
                 checkSunnah.setChecked(TRUE);
                 break;
         }
-//        checkDifference();
     }
+    private final void focusOnView(final View parent, final View v){
+        parent.post(new Runnable() {
+            @Override
+            public void run() {
+                parent.scrollTo(0, v.getBottom());
+            }
+        });
+    }
+
+    @Override
+    public void onGlobalLayout() {
+
+    }
+
+    @Override
+    public void onKeyboardShown(int keyboardSize) {
+
+    }
+
+    @Override
+    public void onKeyboardClosed() {
+
+    }
+    public long stringToTime(String time){
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
+        Date d1 = null;
+        try {
+            d1 = format.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return d1.getTime();
+    }
+    public double convertMinute(long time){
+        long diffSeconds = ((time / 1000)%60) / 60;
+        long diffMinutes = (time / (60 * 1000))%60;
+        long diffHours = ((time / (60 * 60 * 1000))%60) * 60;
+        long totalinminute = diffSeconds + diffMinutes + diffHours;
+        double i = (double) (long) totalinminute;
+        return i;
+    }
+    public String getRemainTime(long time){
+        long diffSeconds = (time / 1000)%60;
+        long diffMinutes = (time / (60 * 1000))%60;
+        long diffHours = (time / (60 * 60 * 1000))%60;
+        String remainTime = String.valueOf(Math.abs(diffHours))+" Jam "+String.valueOf(Math.abs(diffMinutes))+" Menit";
+        return remainTime;
+    }
+
 }

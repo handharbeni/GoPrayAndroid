@@ -58,11 +58,10 @@
             android:text="TextView" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/txtPoint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="0"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -76,13 +75,11 @@
             app:civ_border_color="#FF000000"/>
 
         <ImageView
-            android:visibility="gone"
             android:layout_marginRight="10dp"
             android:padding="2dp"
             android:id="@+id/imgTropi1"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="@drawable/trophy_gold"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/txtPoint"
             android:layout_toStartOf="@+id/txtPoint" />

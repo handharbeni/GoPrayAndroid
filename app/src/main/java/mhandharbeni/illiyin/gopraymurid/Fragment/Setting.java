@@ -1,14 +1,17 @@
 package mhandharbeni.illiyin.gopraymurid.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ListViewCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -65,6 +68,8 @@ public class Setting extends Fragment {
                 }
             }
         });
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         return v;
     }
     public void settingProfile(int mode){
@@ -94,8 +99,9 @@ public class Setting extends Fragment {
     public void dialogAbout(){
         new LovelyInfoDialog(getActivity())
                 .setTopColorRes(R.color.colorPrimary)
-                .setTitle(R.string.app_name)
+                .setTitle("Tentang "+getString(R.string.app_name))
                 .setMessage(R.string.about)
+                .setMessageGravity(Gravity.CENTER)
                 .show();
     }
     public void dialogHelp(){

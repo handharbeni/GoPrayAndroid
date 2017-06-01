@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -117,6 +118,9 @@ public class Timeline extends Fragment implements View.OnClickListener {
         initArc();
         initData();
         initAdapter();
+
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         return v;
     }
     public void initProfilePicture(){
@@ -344,6 +348,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
     public void displayInfo(){
         String nama = encryptedPreferences.getString(NAMA, "");
         TextView txtRemainTime = (TextView) v.findViewById(R.id.txtRemainTime);
+        ImageView imgTropi1 = (ImageView) v.findViewById(R.id.imgTropi1);
         txtRemainTime.setText(nama);
         TextView txtPoint = (TextView) v.findViewById(R.id.txtPoint);
         RealmResults<mhandharbeni.illiyin.gopraymurid.database.Timeline>
@@ -353,8 +358,45 @@ public class Timeline extends Fragment implements View.OnClickListener {
             point += result.get(i).getPoint();
         }
         txtPoint.setText(String.valueOf(point));
+        if (point <= 500){
+            /*bronze*/
+            Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_bronze).into(imgTropi1);
+        }else if(point <= 1000){
+            /*silver*/
+            Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_silver).into(imgTropi1);
+        }else if(point <= 1500){
+            /*gold*/
+            Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_gold).into(imgTropi1);
+        }else{
+            /*gold*/
+            Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_gold).into(imgTropi1);
+        }
     }
-
+    public void displayInfoTropy(){
+        TextView txtRemainTime = (TextView) v.findViewById(R.id.txtRemainTime);
+        ImageView imgTropi1 = (ImageView) v.findViewById(R.id.imgTropi1);
+        TextView txtPoint = (TextView) v.findViewById(R.id.txtPoint);
+        RealmResults<mhandharbeni.illiyin.gopraymurid.database.Timeline>
+                result = tlHelper.getTimeline(1);
+        int point = 0;
+        for (int i=0;i<result.size();i++){
+            point += result.get(i).getPoint();
+        }
+        txtPoint.setText(String.valueOf(point));
+        if (point <= 500){
+            /*bronze*/
+            Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_bronze).into(imgTropi1);
+        }else if(point <= 1000){
+            /*silver*/
+            Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_silver).into(imgTropi1);
+        }else if(point <= 1500){
+            /*gold*/
+            Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_gold).into(imgTropi1);
+        }else{
+            /*gold*/
+            Glide.with(getActivity().getApplicationContext()).load("").placeholder(R.drawable.trophy_gold).into(imgTropi1);
+        }
+    }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -568,17 +610,21 @@ public class Timeline extends Fragment implements View.OnClickListener {
             switch (mode){
                 case "UPDATE TIME":
                     getCurrentSholat();
+                    displayInfoTropy();
                     break;
                 case "UPDATE PROFPICT":
                     initProfilePicture();
                     break;
                 case "UPDATE LIST":
+                    ((MainActivity)getActivity()).showProgress();
                     adapter.clear();
                     addDataAdapter();
                     adapter.notifyDataSetChanged();
+                    ((MainActivity)getActivity()).stopProgress();
                     break;
                 default:
                     getCurrentSholat();
+                    displayInfoTropy();
                     break;
             }
 

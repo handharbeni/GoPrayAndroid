@@ -1,10 +1,12 @@
 package mhandharbeni.illiyin.gopraymurid.Fragment.aktivitas;
 
 import android.app.ActivityManager;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.EditText;
 
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,12 +25,15 @@ import java.util.Locale;
 import java.util.Random;
 
 import mhandharbeni.illiyin.gopraymurid.Fragment.share.ShareSocialMedia;
+import mhandharbeni.illiyin.gopraymurid.MainActivity;
 import mhandharbeni.illiyin.gopraymurid.R;
 import mhandharbeni.illiyin.gopraymurid.database.Timeline;
 import mhandharbeni.illiyin.gopraymurid.database.helper.TimelineHelper;
 import mhandharbeni.illiyin.gopraymurid.service.intent.ServiceTimeline;
 import mhandharbeni.illiyin.gopraymurid.service.intent.UploadTimeline;
 import sexy.code.HttPizza;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Created by root on 12/05/17.
@@ -89,7 +96,7 @@ public class AddMengaji extends Fragment {
         tl.setImage("tanpa gambar");
         tl.setTempat(sTempat);
         tl.setBersama(sSurat+" "+sAyat);
-        tl.setPoint(1);
+        tl.setPoint(5);
         tl.setNominal(0);
         tl.setDate(getDate());
         tl.setJam(getTime());
@@ -105,10 +112,30 @@ public class AddMengaji extends Fragment {
             Intent intentTimeline = new Intent(getActivity().getApplicationContext(), ServiceTimeline.class);
             getActivity().startService(intentTimeline);
         }
-//        shareSocialMedia.shareTwitter("MESSAGE TWITTER", "http://developers.facebook.com/android");
-//        shareSocialMedia.shareFacebook("TITLE", "DESCRIPTION", "http://developers.facebook.com/android");
-        /*run service*/
-        getActivity().finish();
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(getActivity().getApplicationContext())
+                        .setSmallIcon(R.drawable.ic_logo)
+                        .setContentTitle("GoPray Point")
+                        .setContentText("Point Anda bertambah 5");
+
+        int mNotificationId = 042;
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+        new LovelyStandardDialog(getActivity())
+                .setTopColorRes(R.color.colorPrimary)
+                .setButtonsColorRes(R.color.colorAccent)
+                .setIcon(R.drawable.ic_logo)
+                .setTitle(R.string.app_name)
+                .setMessage("Point Anda Bertambah 5")
+                .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().finish();
+                    }
+                })
+                .show();
     }
     private boolean checkIsRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);

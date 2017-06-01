@@ -28,6 +28,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -49,6 +50,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 
+import me.zhanghai.android.materialprogressbar.HorizontalProgressDrawable;
+import me.zhanghai.android.materialprogressbar.IndeterminateHorizontalProgressDrawable;
+import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Meme;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Setting;
 import mhandharbeni.illiyin.gopraymurid.Fragment.Timeline;
@@ -89,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     ScrollView svSignup;
     private KeyboardWatcher keyboardWatcher;
     int width, height;
+
+    MaterialProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,12 +159,15 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
 
 
         setContentView(R.layout.activity_main);
+        mProgressBar = (MaterialProgressBar) findViewById(R.id.more_progress);
+        mProgressBar.setProgressDrawable(new HorizontalProgressDrawable(this));
+        mProgressBar.setVisibility(View.GONE);
         svLogin = (ScrollView) findViewById(R.id.svLogin);
         svSignup = (ScrollView) findViewById(R.id.svSignup);
         LinearLayout lrLogin = (LinearLayout) findViewById(R.id.lrLogin);
         LinearLayout lrSignup = (LinearLayout) findViewById(R.id.lrSignup);
-        lrLogin.setMinimumHeight(height+300);
-        lrSignup.setMinimumHeight(height+300);
+        lrLogin.setMinimumHeight(height+150);
+        lrSignup.setMinimumHeight(height+150);
 
 
         fontReplacer = new FontChangeCrawler(defaultFont);
@@ -178,7 +188,12 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
             }
         });
     }
-
+    public void showProgress(){
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+    public void stopProgress(){
+        mProgressBar.setVisibility(View.GONE);
+    }
 
     public void startServices(){
         if (!MainServices.serviceRunning){

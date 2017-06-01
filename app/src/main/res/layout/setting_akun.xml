@@ -1,75 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="25dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:src="@drawable/ic_logo"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_marginTop="15dp"
-        app:met_floatingLabel="normal"
-        android:textColor="@android:color/black"
-        android:enabled="false"
-        android:id="@+id/txtSEmail"
+    android:id="@+id/scAkun">
+    <RelativeLayout
+        android:paddingTop="25dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:id="@+id/rlAkun"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="text"
-        app:met_baseColor="@android:color/black"
-        android:layout_below="@+id/profile_image"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="match_parent">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        app:met_floatingLabel="normal"
-        android:textColor="@android:color/black"
-        android:id="@+id/txtSPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        app:met_baseColor="@android:color/black"
-        android:layout_below="@+id/txtSEmail"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/ic_logo"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        app:met_floatingLabel="normal"
-        android:textColor="@android:color/black"
-        android:id="@+id/txtSNama"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/nama"
-        android:inputType="text"
-        app:met_baseColor="@android:color/black"
-        android:layout_below="@+id/txtSPassword"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_marginTop="15dp"
+            app:met_floatingLabel="normal"
+            android:textColor="@android:color/black"
+            android:enabled="false"
+            android:id="@+id/txtSEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="text"
+            app:met_baseColor="@android:color/black"
+            android:layout_below="@+id/profile_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <ImageView
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:id="@+id/imageView2"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_above="@+id/txtSEmail"
-        android:layout_alignEnd="@+id/profile_image"
-        android:layout_alignRight="@+id/profile_image"
-        app:srcCompat="@drawable/ic_camera" />
-</RelativeLayout>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            app:met_floatingLabel="normal"
+            android:textColor="@android:color/black"
+            android:id="@+id/txtSPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            app:met_baseColor="@android:color/black"
+            android:layout_below="@+id/txtSEmail"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            app:met_floatingLabel="normal"
+            android:textColor="@android:color/black"
+            android:id="@+id/txtSNama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/nama"
+            android:inputType="text"
+            app:met_baseColor="@android:color/black"
+            android:layout_below="@+id/txtSPassword"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:id="@+id/imageView2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_above="@+id/txtSEmail"
+            android:layout_alignEnd="@+id/profile_image"
+            android:layout_alignRight="@+id/profile_image"
+            app:srcCompat="@drawable/ic_camera" />
+    </RelativeLayout>
+</ScrollView>

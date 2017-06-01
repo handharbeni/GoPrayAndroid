@@ -38,5 +38,14 @@
             android:layout_below="@+id/customTitle">
 
         </android.support.design.widget.TabLayout>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:layout_below="@id/MaterialTab"
+            android:id="@+id/more_progress"
+            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:indeterminate="true"
+            app:mpb_progressStyle="horizontal" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
