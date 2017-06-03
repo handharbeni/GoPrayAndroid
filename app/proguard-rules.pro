@@ -22,10 +22,27 @@
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
--renamesourcefileattribute SourceFile
+#-renamesourcefileattribute SourceFile
+-keepattributes SourceFile,LineNumberTable
+
+
 -keep public class * implements com.bumptech.glide.module.GlideModule
--keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
+-keep class com.squareup.okhttp.** {
+*;
 }
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+-keep class com.parse.*{ *; }
+-dontwarn com.parse.**
+-dontwarn com.squareup.picasso.**
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+-dontwarn okhttp.**
+-dontwarn okio.**
+-dontwarn com.squareup.picasso.**
+-dontwarn com.squareup.okhttp.internal.**
+#-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+#  **[] $VALUES;
+#  public *;
+#}
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
