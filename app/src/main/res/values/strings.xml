@@ -153,6 +153,12 @@
     <string-array name="versi">
         <item>Versi</item>
     </string-array>
+
+    <string-array name="chat">
+        <item></item>
+    </string-array>
+
+
     <string-array name="preferences">
         <!--<item>Lokasi</item>-->
         <item>Akun</item>
