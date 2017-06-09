@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Floating-ArcMenu-1.0.8.7">
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/2dff6d0c5e7e9efbc8d0e80be0bc7e4b5633bccb/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/2dff6d0c5e7e9efbc8d0e80be0bc7e4b5633bccb/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/efa6980972425318daeb2825a7afcfba98000bc4/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/efa6980972425318daeb2825a7afcfba98000bc4/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

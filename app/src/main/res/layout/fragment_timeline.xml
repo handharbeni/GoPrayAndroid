@@ -102,7 +102,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|bottom"
-        arc:mockup_opacity="@integer/rcv_animationDurationHide"
         app:menuNormalColor="@color/colorPrimary"
         app:menuRippleColor="@color/colorPrimary"
         arc:menuChildAnim="false"
