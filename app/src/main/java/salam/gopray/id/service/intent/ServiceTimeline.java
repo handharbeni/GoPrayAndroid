@@ -41,14 +41,10 @@ public class ServiceTimeline extends IntentService implements ConnectivityChange
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //init encrypting
         encryptedPreferences = new EncryptedPreferences.Builder(getBaseContext()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
-        //init encrypting
-        //httppizza
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         client = new HttPizza();
-        //httppizza
         endUri = getString(R.string.server)+"/"+getString(R.string.vServer)+"/users/self/timeline?access_token=";
         tHelper = new TimelineHelper(getBaseContext());
         tHelper2 = new TimelineHelper(getBaseContext());

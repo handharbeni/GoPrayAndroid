@@ -13,6 +13,7 @@ import java.util.TimerTask;
 
 import salam.gopray.id.MainActivity;
 import salam.gopray.id.service.intent.JadwalSholatService;
+import salam.gopray.id.service.intent.MessageParentService;
 import salam.gopray.id.service.intent.ProfilePictureService;
 import salam.gopray.id.service.intent.QuoteService;
 import salam.gopray.id.service.intent.ServiceTimeline;
@@ -25,8 +26,11 @@ import salam.gopray.id.service.intent.UploadTimeline;
 public class MainServices extends Service {
     public static Boolean serviceRunning = false;
     public static final long NOTIFY_INTERVAL = 5 * 1000;
+    public static final long NOTIFY_INTERVAL_JADWAL = 2592 * 1000; /*30 hari*/
     private Handler handler = new Handler();
+    private Handler handlerJadwal = new Handler();
     private Timer timer = null;
+    private Timer timerJadwal = null;
     public static final String
             ACTION_LOCATION_BROADCAST = MainActivity.class.getName();
 
@@ -37,8 +41,13 @@ public class MainServices extends Service {
         }
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 0, NOTIFY_INTERVAL);
-    }
 
+        if (timerJadwal != null) {
+            timerJadwal.cancel();
+        }
+        timerJadwal = new Timer();
+        timerJadwal.scheduleAtFixedRate(new TimeDisplayTimerTaskJadwal(), 0, NOTIFY_INTERVAL_JADWAL);
+    }
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -66,6 +75,21 @@ public class MainServices extends Service {
         }
         return false;
     }
+    class TimeDisplayTimerTaskJadwal extends TimerTask{
+
+        @Override
+        public void run() {
+            handlerJadwal.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(!checkIsRunning(JadwalSholatService.class)){
+                        Intent jss = new Intent(getBaseContext(), JadwalSholatService.class);
+                        startService(jss);
+                    }
+                }
+            });
+        }
+    }
     class TimeDisplayTimerTask extends TimerTask {
         @Override
         public void run() {
@@ -73,34 +97,24 @@ public class MainServices extends Service {
                 @Override
                 public void run() {
                     if (!checkIsRunning(ServiceTimeline.class)){
-                    /*TIMELINE SERVICE*/
                         Intent is = new Intent(getBaseContext(), ServiceTimeline.class);
                         startService(is);
-                    /*TIMELINE SERVICE*/
-                    }
-                    if(!checkIsRunning(JadwalSholatService.class)){
-                    /*JADWAL SHOLAT SERVICE*/
-                        Intent jss = new Intent(getBaseContext(), JadwalSholatService.class);
-                        startService(jss);
-                    /*JADWAL SHOLAT SERVICE*/
                     }
                     if(!checkIsRunning(UploadTimeline.class)){
-                    /*UPLOAD TIMELINE SERVICE*/
                         Intent uis = new Intent(getApplicationContext(), UploadTimeline.class);
                         startService(uis);
-                    /*UPLOAD TIMELINE SERVICE*/
                     }
                     if(!checkIsRunning(ProfilePictureService.class)){
-                    /*PROFILE PICTURE SERVICE*/
                         Intent pp = new Intent(getApplicationContext(), ProfilePictureService.class);
                         startService(pp);
-                    /*PROFILE PICTURE SERVICE*/
                     }
                     if(!checkIsRunning(QuoteService.class)){
-                    /*PROFILE PICTURE SERVICE*/
                         Intent pp = new Intent(getApplicationContext(), QuoteService.class);
                         startService(pp);
-                    /*PROFILE PICTURE SERVICE*/
+                    }
+                    if(!checkIsRunning(MessageParentService.class)){
+                        Intent mpp = new Intent(getApplicationContext(), MessageParentService.class);
+                        startService(mpp);
                     }
                 }
             });

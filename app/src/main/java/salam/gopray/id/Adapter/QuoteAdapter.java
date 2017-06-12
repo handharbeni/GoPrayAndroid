@@ -25,8 +25,6 @@ public class QuoteAdapter extends ArrayAdapter<QuoteModel> implements View.OnCli
     private ArrayList<QuoteModel> dataSet;
     Context mContext;
     private static class ViewHolder {
-        /*Line BOTTOM*/
-        ImageView lineBottom;
         ImageView txtImage;
         TextView txtTanggal;
 
@@ -51,7 +49,6 @@ public class QuoteAdapter extends ArrayAdapter<QuoteModel> implements View.OnCli
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.item_quote, parent, false);
-            viewHolder.lineBottom = (ImageView) convertView.findViewById(R.id.lineBottom);
             viewHolder.txtImage = (ImageView) convertView.findViewById(R.id.txtImage);
             viewHolder.txtTanggal = (TextView) convertView.findViewById(R.id.txtTanggalImage);
             result=convertView;
@@ -62,12 +59,6 @@ public class QuoteAdapter extends ArrayAdapter<QuoteModel> implements View.OnCli
         }
 
         lastPosition = position;
-
-        if(dataModel.getTl().equalsIgnoreCase("start")){
-            viewHolder.lineBottom.setVisibility(View.GONE);
-        }else if(dataModel.getTl().equalsIgnoreCase("content")){
-            viewHolder.lineBottom.setVisibility(View.VISIBLE);
-        }
 
         Glide.with(mContext)
                 .load(dataModel.getPath_meme())

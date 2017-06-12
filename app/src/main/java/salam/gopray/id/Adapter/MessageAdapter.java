@@ -94,7 +94,7 @@ public class MessageAdapter extends ArrayAdapter<MessageModel> {
         }
 
         Glide.with(mContext)
-                .load(dataModel.getPhoto())
+                .load(dataModel.getProfpict())
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .skipMemoryCache(false)
                 .into(viewHolder.photo_thumbnail);

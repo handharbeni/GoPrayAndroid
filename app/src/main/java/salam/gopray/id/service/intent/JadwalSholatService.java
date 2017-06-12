@@ -43,14 +43,10 @@ public class JadwalSholatService extends IntentService implements ConnectivityCh
         if (MainServices.serviceRunning == false){
             startService(new Intent(getApplicationContext(), MainServices.class));
         }
-        //init encrypting
         encryptedPreferences = new EncryptedPreferences.Builder(getBaseContext()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
-        //init encrypting
-        //httppizza
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         client = new HttPizza();
-        //httppizza
         endUri = getString(R.string.server)+"/"+getString(R.string.vServer)+"/master/jadwalsholat?access_token=";
         jHelper = new JadwalSholatHelper(getBaseContext());
         return super.onStartCommand(intent, flags, startId);
@@ -147,13 +143,11 @@ public class JadwalSholatService extends IntentService implements ConnectivityCh
     @Override
     public void onConnectionChange(ConnectivityEvent event) {
         if(event.getState().getValue() == ConnectivityState.CONNECTED){
-            // device has active internet connection
             encryptedPreferences.edit()
                     .putString("NETWORK", "1")
                     .apply();
         }
         else{
-            // there is no active internet connection on this device
             encryptedPreferences.edit()
                     .putString("NETWORK", "0")
                     .apply();

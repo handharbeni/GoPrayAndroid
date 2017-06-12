@@ -1,50 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:paddingTop="10dp"
-        android:paddingEnd="10dp"
         android:background="@drawable/shape_shadow"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:paddingRight="10dp"
-        android:paddingStart="10dp"
-        android:paddingBottom="10dp"
+        android:layout_height="wrap_content"
         android:id="@+id/relativeLayout"
-
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView1"
+        <com.dant.centersnapreyclerview.SnappingRecyclerView
+            android:id="@+id/snapRC"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true" >
-
-            <LinearLayout
-                android:id="@+id/ll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </ListView>
-            </LinearLayout>
-
-        </HorizontalScrollView>
+            android:layout_height="wrap_content"
+            app:orientation="horizontal"
+            app:anchor="start"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
 
     </RelativeLayout>
 
     <ListView
-        android:divider="@drawable/horizontal_line"
+        android:divider="@drawable/divider_message"
+        android:dividerHeight="0.5dp"
         android:id="@+id/listMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="snappy-recyclerview-1.0.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/4770578e9c726b3fc33520e8f5f2096c32233c2d/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/4770578e9c726b3fc33520e8f5f2096c32233c2d/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.dan-td/snappy-recyclerview/1.0.2/e8ecb6591e1f7f4fd3d59a387cfe42361a04042d/snappy-recyclerview-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

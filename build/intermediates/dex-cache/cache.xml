@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/root/.android/build-cache/eb8a41c74686c776617c80c11ede53e0992fc7f3/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="536228b2496030d983d01856aa56b4d71b57d0db">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/pre-dexed/debug/classes_f66a4ab83b16fe85808c1993319e53008e6b892f.jar" />
+    </item>
+
+</items>

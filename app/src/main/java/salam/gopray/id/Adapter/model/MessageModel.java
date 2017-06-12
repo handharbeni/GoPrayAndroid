@@ -6,17 +6,18 @@ package salam.gopray.id.Adapter.model;
 
 public class MessageModel {
     int id, type;
-    String photo, message, date, time;
+    String photo, message, date, time, profpict;
 
     /*1 : chat text; 2 : chat image*/
 
-    public MessageModel(int id, int type, String photo, String message, String date, String time) {
+    public MessageModel(int id, int type, String photo, String message, String date, String time, String profpict) {
         this.id = id;
         this.type = type;
         this.photo = photo;
         this.message = message;
         this.date = date;
         this.time = time;
+        this.profpict = profpict;
     }
 
     public int getId() {
@@ -65,5 +66,13 @@ public class MessageModel {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getProfpict() {
+        return profpict;
+    }
+
+    public void setProfpict(String profpict) {
+        this.profpict = profpict;
     }
 }

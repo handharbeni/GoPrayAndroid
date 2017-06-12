@@ -1,11 +1,16 @@
 package salam.gopray.id;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -15,10 +20,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.Space;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -27,6 +34,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -35,6 +43,7 @@ import android.widget.TextView;
 import com.azimolabs.keyboardwatcher.KeyboardWatcher;
 import com.golovin.fluentstackbar.FluentSnackbar;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
+import com.stephentuso.welcome.WelcomeHelper;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
@@ -47,6 +56,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 
 import me.zhanghai.android.materialprogressbar.HorizontalProgressDrawable;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
@@ -54,6 +64,7 @@ import salam.gopray.id.Fragment.Family;
 import salam.gopray.id.Fragment.Meme;
 import salam.gopray.id.Fragment.Setting;
 import salam.gopray.id.Fragment.Timeline;
+import salam.gopray.id.database.helper.MessageParentHelper;
 import salam.gopray.id.service.MainServices;
 import salam.gopray.id.service.TimeService;
 import salam.gopray.id.util.FontChangeCrawler;
@@ -93,10 +104,18 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     int width, height;
 
     MaterialProgressBar mProgressBar;
+    WelcomeHelper welcomeScreen;
+
+    MessageParentHelper mpHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        welcomeScreen = new WelcomeHelper(this, MyWelcomeActivity.class);
+        welcomeScreen.show(savedInstanceState);
+        mpHelper = new MessageParentHelper(getApplicationContext());
+        registerReceiver(this.receiver, new IntentFilter("UPDATE MESSAGE"));
+
         keyboardWatcher = new KeyboardWatcher(this);
         keyboardWatcher.setListener(this);
         Typeface defaultFont = Typeface.createFromAsset(getAssets(), "fonts/helvetica-normal.ttf");
@@ -225,6 +244,23 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                 break;
         }
     }
+    public void setBadgeOrtu(int count, boolean show){
+        View v = tabLayout.getTabAt(1).getCustomView();
+        ImageView badge = (ImageView) v.findViewById(R.id.tab_badge);
+        TextView txtBadge = (TextView) v.findViewById(R.id.tab_badge_text);
+        badge.setVisibility(View.GONE);
+        txtBadge.setVisibility(View.GONE);
+        if (count > 0){
+            if (show){
+                badge.setVisibility(View.VISIBLE);
+                txtBadge.setVisibility(View.VISIBLE);
+                txtBadge.setText(String.valueOf(count));
+            }else{
+                badge.setVisibility(View.GONE);
+                txtBadge.setVisibility(View.GONE);
+            }
+        }
+    }
     public void mainInit(){
         tabLayout = (TabLayout) findViewById(R.id.MaterialTab);
         tabLayout.removeAllTabs();
@@ -233,13 +269,19 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         final TabLayout.Tab meme = tabLayout.newTab();
         final TabLayout.Tab setting = tabLayout.newTab();
         timeline.setIcon(R.drawable.tab_timeline);
-        family.setIcon(R.drawable.tab_ortu);
+        family.setCustomView(R.layout.badge_tab_family);
         meme.setIcon(R.drawable.tab_meme);
         setting.setIcon(R.drawable.tab_setting);
+
+
         tabLayout.addTab(timeline, 0);
         tabLayout.addTab(family, 1);
         tabLayout.addTab(meme, 2);
         tabLayout.addTab(setting, 3);
+
+//        tabLayout.getTabAt(1).setCustomView(R.layout.badge_tab_family);
+
+
         tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.color.tab_selector));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.indicator));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -252,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                         break;
                     case 1:
                         icon = getResources().getDrawable(R.drawable.tab_ortu_actives);
+//                        setBadgeOrtu(10, true);
                         break;
                     case 2:
                         icon = getResources().getDrawable(R.drawable.tab_meme_actives);
@@ -272,6 +315,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                         break;
                     case 1:
                         icon = getResources().getDrawable(R.drawable.tab_ortu);
+//                        setBadgeOrtu(1, false);
                         break;
                     case 2:
                         icon = getResources().getDrawable(R.drawable.tab_meme);
@@ -645,4 +689,39 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        registerReceiver(this.receiver, new IntentFilter("UPDATE MESSAGE"));
+        super.onResume();
+    }
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras();
+            String mode = bundle.getString("MODE");
+            switch (mode){
+                case "UPDATE LIST":
+                    setBadgeOrtu(mpHelper.countNewMessage(), true);
+                    break;
+                default:
+                    break;
+            }
+
+
+        }
+    };
 }

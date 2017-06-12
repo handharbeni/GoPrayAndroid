@@ -18,21 +18,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoTitlex"
         tools:replace="android:theme">
-        <service android:name="salam.gopray.id.service.MainServices" />
-        <service android:name="salam.gopray.id.service.intent.ServiceTimeline" />
-        <service android:name="salam.gopray.id.service.intent.UploadTimeline" />
-        <service android:name="salam.gopray.id.service.intent.ProfilePictureService"/>
-        <service android:name="salam.gopray.id.service.intent.QuoteService"/>
+
         <activity android:name="salam.gopray.id.MainActivity" android:windowSoftInputMode="adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MyWelcomeActivity"
+            android:theme="@style/WelcomeScreenTheme"/>
+        <activity android:name=".MySplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="salam.gopray.id.Fragment.aktivitas.MainAktivitas" android:hardwareAccelerated="false"/>
         <activity android:name="salam.gopray.id.Fragment.setting.SettingAktivitas" android:hardwareAccelerated="false"/>
+
         <service
             android:name="salam.gopray.id.service.intent.JadwalSholatService"
             android:exported="false" />
@@ -40,6 +43,12 @@
             android:name="salam.gopray.id.service.TimeService"
             android:enabled="true"
             android:exported="true"/>
+        <service android:name="salam.gopray.id.service.MainServices" />
+        <service android:name="salam.gopray.id.service.intent.ServiceTimeline" />
+        <service android:name="salam.gopray.id.service.intent.UploadTimeline" />
+        <service android:name="salam.gopray.id.service.intent.ProfilePictureService"/>
+        <service android:name="salam.gopray.id.service.intent.QuoteService"/>
+        <service android:name=".service.intent.MessageParentService"/>
     </application>
 
 </manifest>
