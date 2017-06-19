@@ -5,15 +5,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -25,7 +24,6 @@ import android.support.v4.widget.Space;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -42,6 +40,14 @@ import android.widget.TextView;
 
 import com.azimolabs.keyboardwatcher.KeyboardWatcher;
 import com.golovin.fluentstackbar.FluentSnackbar;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.appindexing.FirebaseAppIndex;
+import com.google.firebase.appindexing.FirebaseUserActions;
+import com.google.firebase.appindexing.Indexable;
+import com.google.firebase.appindexing.builders.Actions;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 import com.stephentuso.welcome.WelcomeHelper;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
@@ -56,7 +62,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
 
 import me.zhanghai.android.materialprogressbar.HorizontalProgressDrawable;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
@@ -76,9 +81,11 @@ import sexy.code.RequestBody;
 import sexy.code.Response;
 
 public class MainActivity extends AppCompatActivity implements ConnectivityChangeListener, KeyboardWatcher.OnKeyboardToggleListener, ViewTreeObserver.OnGlobalLayoutListener {
+    private FirebaseAnalytics mFirebaseAnalytics;
+    private static String TAG = MainActivity.class.getSimpleName();
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
 
-
+    private static final String TITLE = TAG;
     TabLayout tabLayout;
 
     private FluentSnackbar mFluentSnackbar;
@@ -107,10 +114,10 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     WelcomeHelper welcomeScreen;
 
     MessageParentHelper mpHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         welcomeScreen = new WelcomeHelper(this, MyWelcomeActivity.class);
         welcomeScreen.show(savedInstanceState);
         mpHelper = new MessageParentHelper(getApplicationContext());
@@ -171,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         startServices();
         ConnectionBuddy.getInstance().clearNetworkCache(this);
         checkSession();
+        onNewIntent(getIntent());
     }
     private final void focusOnView(final View parent, final View v){
         parent.post(new Runnable() {
@@ -232,32 +240,38 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         switch (stat){
             case 1 :
                 signinLayout.setVisibility(View.VISIBLE);
+                /**/
+                sendScreen("SIGNIN");
                 signinInit();
                 break;
             case 2 :
+                sendScreen("SIGNUP");
                 signupLayout.setVisibility(View.VISIBLE);
                 signupinit();
                 break;
             case 3 :
+                sendScreen("MAIN SCREEN");
                 mainLayout.setVisibility(View.VISIBLE);
                 mainInit();
                 break;
         }
     }
     public void setBadgeOrtu(int count, boolean show){
-        View v = tabLayout.getTabAt(1).getCustomView();
-        ImageView badge = (ImageView) v.findViewById(R.id.tab_badge);
-        TextView txtBadge = (TextView) v.findViewById(R.id.tab_badge_text);
-        badge.setVisibility(View.GONE);
-        txtBadge.setVisibility(View.GONE);
-        if (count > 0){
-            if (show){
-                badge.setVisibility(View.VISIBLE);
-                txtBadge.setVisibility(View.VISIBLE);
-                txtBadge.setText(String.valueOf(count));
-            }else{
-                badge.setVisibility(View.GONE);
-                txtBadge.setVisibility(View.GONE);
+        if (tabLayout != null){
+            View v = tabLayout.getTabAt(1).getCustomView();
+            ImageView badge = (ImageView) v.findViewById(R.id.tab_badge);
+            TextView txtBadge = (TextView) v.findViewById(R.id.tab_badge_text);
+            badge.setVisibility(View.GONE);
+            txtBadge.setVisibility(View.GONE);
+            if (count > 0){
+                if (show){
+                    badge.setVisibility(View.VISIBLE);
+                    txtBadge.setVisibility(View.VISIBLE);
+                    txtBadge.setText(String.valueOf(count));
+                }else{
+                    badge.setVisibility(View.GONE);
+                    txtBadge.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -434,12 +448,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                             btnSignin.setText(getString(R.string.signin));
                             btnSignin.setEnabled(true);
                         }
-                    } catch (IOException e) {
+                    } catch (JSONException|IOException e) {
                         e.printStackTrace();
-                        btnSignin.setText(getString(R.string.signin));
-                        btnSignin.setEnabled(true);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        sendException(e);
                         btnSignin.setText(getString(R.string.signin));
                         btnSignin.setEnabled(true);
                     }
@@ -515,8 +526,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         if(encryptedPreferences.getString("NETWORK", "0").equalsIgnoreCase("1")){
             btnSignup.setText(getString(R.string.prosesDaftar));
             btnSignup.setEnabled(false);
-            // koneksi tersedia
-            // koneksi tersedia
             RequestBody formBody = new FormBody.Builder()
                     .add("nama", txtNama.getText().toString())
                     .add("email", txtEmail.getText().toString())
@@ -544,13 +553,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                             btnSignup.setText(getString(R.string.signup));
                             btnSignup.setEnabled(true);
                         }
-                    } catch (IOException e) {
+                    } catch (JSONException|IOException e) {
                         e.printStackTrace();
-                        showSnackBar(getString(R.string.signupFailed));
-                        btnSignup.setText(getString(R.string.signup));
-                        btnSignup.setEnabled(true);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        sendException(e);
                         showSnackBar(getString(R.string.signupFailed));
                         btnSignup.setText(getString(R.string.signup));
                         btnSignup.setEnabled(true);
@@ -603,12 +608,71 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     @Override
     public void onStart() {
         super.onStart();
+        sendScreen(TAG);
         ConnectionBuddy.getInstance().registerForConnectivityEvents(this, this);
+        final Uri BASE_URL = Uri.parse("https://gopray.id");
+        final String APP_URI = BASE_URL.buildUpon().build().toString();
+
+        Indexable articleToIndex = new Indexable.Builder()
+                .setName(TITLE)
+                .setUrl(APP_URI)
+                .build();
+
+        Task<Void> task = FirebaseAppIndex.getInstance().update(articleToIndex);
+        task.addOnSuccessListener(MainActivity.this, new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "App Indexing API: Successfully added " + TITLE + " to index");
+            }
+        });
+
+        task.addOnFailureListener(MainActivity.this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.e(TAG, "App Indexing API: Failed to add " + TITLE + " to index. " + exception.getMessage());
+            }
+        });
+        Task<Void> actionTask = FirebaseUserActions.getInstance().start(Actions.newView(TITLE,
+                APP_URI));
+
+        actionTask.addOnSuccessListener(MainActivity.this, new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "App Indexing API: Successfully started view action on ");
+            }
+        });
+        actionTask.addOnFailureListener(MainActivity.this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.e(TAG, "App Indexing API: Failed to start view action on "+TITLE
+                        + exception.getMessage());
+            }
+        });
     }
 
     @Override
     public void onStop() {
         ConnectionBuddy.getInstance().unregisterFromConnectivityEvents(this);
+        final Uri BASE_URL = Uri.parse("https://gopray.id");
+        final String APP_URI = BASE_URL.buildUpon().build().toString();
+
+        Task<Void> actionTask = FirebaseUserActions.getInstance().end(Actions.newView(TITLE,
+                APP_URI));
+
+        actionTask.addOnSuccessListener(MainActivity.this, new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "App Indexing API: Successfully ended view action on " + TITLE);
+            }
+        });
+
+        actionTask.addOnFailureListener(MainActivity.this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.e(TAG, "App Indexing API: Failed to end view action on " + TITLE + ". "
+                        + exception.getMessage());
+            }
+        });
         super.onStop();
     }
     public void showSoftKeyboard(View view) {
@@ -621,7 +685,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
 
     @Override
     public void onKeyboardShown(int keyboardSize) {
-        Log.d("KEYBOARD SHOWN", "onKeyboardShown: "+keyboardSize);
         svLogin.scrollTo(0, keyboardSize);
         for (int i = 0; i< keyboardSize;i++){
             Space space = new Space(this);
@@ -648,12 +711,10 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         }
     }
     public void initHeightSignin(){
-//        signinLayout.getViewTreeObserver().addOnGlobalLayoutListener(this);
         Rect r = new Rect();
         signinLayout.getWindowVisibleDisplayFrame(r);
         int screenHeight = signinLayout.getRootView().getHeight();
         int heightDifference = screenHeight - (r.bottom - r.top);
-        Log.d("Keyboard Size", "Size: " + heightDifference);
         resizeView(signinLayout, width, screenHeight + heightDifference);
 
     }
@@ -662,7 +723,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         signupLayout.getWindowVisibleDisplayFrame(r);
         int screenHeight = signinLayout.getRootView().getHeight();
         int heightDifference = screenHeight - (r.bottom - r.top);
-        Log.d("Keyboard Size", "Size: " + heightDifference);
         resizeView(signupLayout, width, screenHeight + heightDifference);
     }
     public void initHeightMain(){
@@ -670,7 +730,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         mainLayout.getWindowVisibleDisplayFrame(r);
         int screenHeight = signinLayout.getRootView().getHeight();
         int heightDifference = screenHeight - (r.bottom - r.top);
-        Log.d("Keyboard Size", "Size: " + heightDifference);
         resizeView(signupLayout, width, screenHeight + heightDifference);
     }
     @Override
@@ -679,7 +738,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         signinLayout.getWindowVisibleDisplayFrame(r);
         int screenHeight = signinLayout.getRootView().getHeight();
         int heightDifference = screenHeight - (r.bottom - r.top);
-        Log.d("Keyboard Size", "Size: " + heightDifference);
     }
     private void resizeView(View view, int newWidth, int newHeight) {
         try {
@@ -687,6 +745,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
             view.setLayoutParams(ctor.newInstance(newWidth, newHeight));
         } catch (Exception e) {
             e.printStackTrace();
+            sendException(e);
         }
     }
 
@@ -724,4 +783,50 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
 
         }
     };
+    protected void onNewIntent(Intent intent) {
+        String action = intent.getAction();
+        Uri data = intent.getData();
+        if (Intent.ACTION_VIEW.equals(action) && data != null) {
+        }
+    }
+
+    public void sendException(Exception e){
+        Bundle bundle = new Bundle();
+        bundle.putString("Exception", e.getMessage());
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        mFirebaseAnalytics.setMinimumSessionDuration(20000);
+        mFirebaseAnalytics.setSessionTimeoutDuration(500);
+        mFirebaseAnalytics.setUserId("1");
+        mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
+                encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
+//        ((TrackerApplication)this.getApplicationContext()).trackException(e);
+    }
+    public void sendScreen(String name){
+        Bundle bundle = new Bundle();
+        bundle.putString("Screen", name);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        mFirebaseAnalytics.setMinimumSessionDuration(20000);
+        mFirebaseAnalytics.setSessionTimeoutDuration(500);
+        mFirebaseAnalytics.setUserId("1");
+        mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
+                encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
+//        ((TrackerApplication)this.getApplicationContext()).trackScreenView(name);
+    }
+    public void sendEvent(String category, String action, String label){
+        Bundle bundle = new Bundle();
+        bundle.putString("EventCategory", category);
+        bundle.putString("EventAction", action);
+        bundle.putString("EventLabel", label);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        mFirebaseAnalytics.setMinimumSessionDuration(20000);
+        mFirebaseAnalytics.setSessionTimeoutDuration(500);
+        mFirebaseAnalytics.setUserId("1");
+        mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
+                encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
+
+//        ((TrackerApplication)this.getApplicationContext()).trackEvent(category, action, label);
+    }
 }

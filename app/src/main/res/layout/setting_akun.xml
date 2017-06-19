@@ -27,6 +27,7 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_marginTop="15dp"
             app:met_floatingLabel="normal"
+            app:met_baseColor="@android:color/black"
             android:textColor="@android:color/black"
             android:enabled="false"
             android:id="@+id/txtSEmail"
@@ -35,7 +36,6 @@
             android:ems="10"
             android:hint="@string/email"
             android:inputType="text"
-            app:met_baseColor="@android:color/black"
             android:layout_below="@+id/profile_image"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />

@@ -3,6 +3,7 @@ package salam.gopray.id.Fragment.aktivitas;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import java.util.Locale;
 import java.util.Random;
 
 import io.realm.RealmResults;
+import salam.gopray.id.MainActivity;
 import salam.gopray.id.R;
 import salam.gopray.id.database.JadwalSholat;
 import salam.gopray.id.database.Timeline;
@@ -318,8 +320,12 @@ public class AddSholat extends Fragment implements View.OnClickListener,Keyboard
             Intent intentTimeline = new Intent(getActivity().getApplicationContext(), ServiceTimeline.class);
             getActivity().startService(intentTimeline);
         }
+        Intent intentActivity = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity().getApplicationContext(), 0, intentActivity, 0);
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(getActivity().getApplicationContext())
+                        .setContentIntent(pendingIntent)
                         .setSmallIcon(R.drawable.ic_logo)
                         .setContentTitle("GoPray Point")
                         .setContentText("Point Anda bertambah "+points);
@@ -327,6 +333,7 @@ public class AddSholat extends Fragment implements View.OnClickListener,Keyboard
         int mNotificationId = 042;
         NotificationManager mNotifyMgr =
                 (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
+
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
         new LovelyStandardDialog(getActivity())
@@ -343,6 +350,13 @@ public class AddSholat extends Fragment implements View.OnClickListener,Keyboard
                 })
                 .show();
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainAktivitas)getActivity()).sendScreen(this.getClass().getName());
+    }
+
     private boolean checkIsRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager
@@ -381,6 +395,7 @@ public class AddSholat extends Fragment implements View.OnClickListener,Keyboard
             d1 = format.parse(time1);
             d2 = format.parse(time2);
         } catch (ParseException e) {
+            ((MainAktivitas)getActivity()).sendException(e);
             e.printStackTrace();
         }
         long diff = (d2.getTime() - d1.getTime());
@@ -493,6 +508,7 @@ public class AddSholat extends Fragment implements View.OnClickListener,Keyboard
         try {
             d1 = format.parse(time);
         } catch (ParseException e) {
+            ((MainAktivitas)getActivity()).sendException(e);
             e.printStackTrace();
         }
         return d1.getTime();

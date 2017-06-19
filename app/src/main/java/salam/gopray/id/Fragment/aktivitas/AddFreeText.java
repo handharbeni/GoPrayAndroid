@@ -19,4 +19,9 @@ public class AddFreeText extends Fragment {
         v = inflater.inflate(R.layout.fragment_family, container, false);
         return v;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainAktivitas)getActivity()).sendScreen(this.getClass().getName());
+    }
 }

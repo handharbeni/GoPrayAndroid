@@ -1,6 +1,7 @@
 package salam.gopray.id.Adapter.model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.Collections;
 import java.util.List;
 
+import salam.gopray.id.Fragment.family.AddFamilyActivity;
 import salam.gopray.id.R;
 
 /**
@@ -63,9 +65,25 @@ public class HorizontalParentAdapter extends RecyclerView.Adapter<HorizontalPare
                 .into(holder.photo_thumbnail);
         holder.txtName.setText(horizontalList.get(position).getNama());
         holder.txtGrade.setText(horizontalList.get(position).getGrade());
+        holder.photo_thumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.txtName.getText().toString().equalsIgnoreCase("tambah")){
+                    /*new activity*/
+                    Intent iAktivitas = new Intent(context, AddFamilyActivity.class);
+                    iAktivitas.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(iAktivitas);
+                }
+            }
+        });
     }
     @Override
     public int getItemCount() {
         return horizontalList.size();
+    }
+    public void swap(List<ParentModel> datas){
+        horizontalList.clear();
+        horizontalList.addAll(datas);
+        notifyDataSetChanged();
     }
 }

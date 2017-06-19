@@ -76,6 +76,11 @@ public class AddPuasa extends Fragment {
         getJadwal();
         return v;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainAktivitas)getActivity()).sendScreen(this.getClass().getName());
+    }
     public void getJadwal(){
         String tanggal = getDate();
         String jam = getTime();
@@ -96,6 +101,7 @@ public class AddPuasa extends Fragment {
         try {
             d1 = format.parse(time);
         } catch (ParseException e) {
+            ((MainAktivitas)getActivity()).sendException(e);
             e.printStackTrace();
         }
         return d1.getTime();

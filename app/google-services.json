@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "360775614686",
+    "firebase_url": "https://goprayapps.firebaseio.com",
+    "project_id": "goprayapps",
+    "storage_bucket": "goprayapps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360775614686:android:60b8dda8f0b6d339",
+        "android_client_info": {
+          "package_name": "salam.gopray.id"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360775614686-96mc3tsr8epuh4tvmvh2t4bmc8bjrcm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "salam.gopray.id",
+            "certificate_hash": "9c48758c69f69f16cdea960d8f558bb1431d8b22"
+          }
+        },
+        {
+          "client_id": "360775614686-6hkmi2hdksmhs6fh4oa4oi1iu02bsrvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4s0wTHB2xGCC-IO24WApr2vHJwqLG6HQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360775614686-6hkmi2hdksmhs6fh4oa4oi1iu02bsrvj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

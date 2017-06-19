@@ -5,15 +5,14 @@ import android.content.Context;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
-import salam.gopray.id.database.JadwalSholat;
+import io.realm.Sort;
 import salam.gopray.id.database.MessageParent;
-import salam.gopray.id.database.Timeline;
 
 /**
  * Created by root on 12/06/17.
  */
 
-public class MessageParentHelper  {
+public class MessageParentHelper {
     private static final String TAG = "MessageParentHelper";
 
     private Realm realm;
@@ -49,10 +48,9 @@ public class MessageParentHelper  {
         realm.commitTransaction();
     }
     public void updateStatus(int id, int status){
-        realm.beginTransaction();
         MessageParent mp = realm.where(MessageParent.class).equalTo("id", id).findFirst();
+        realm.beginTransaction();
         mp.setStatus(status);
-        realm.copyToRealmOrUpdate(mp);
         realm.commitTransaction();
     }
     public int countNewMessage(){
@@ -60,7 +58,11 @@ public class MessageParentHelper  {
         return mpResult.size();
     }
     public RealmResults<MessageParent> getMessageParent(int status){
-        realmResult = realm.where(MessageParent.class).equalTo("status", status).findAll();
+        realmResult = realm.where(MessageParent.class).equalTo("status", status).findAllSorted("id", Sort.DESCENDING);
+        return realmResult;
+    }
+    public RealmResults<MessageParent> getMessageParent(){
+        realmResult = realm.where(MessageParent.class).findAllSorted("id", Sort.DESCENDING);
         return realmResult;
     }
     public boolean checkDuplicate(int id){

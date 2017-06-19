@@ -10,6 +10,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.pddstudio.preferences.encrypted.EncryptedPreferences;
+
 import salam.gopray.id.R;
 
 /**
@@ -17,10 +20,17 @@ import salam.gopray.id.R;
  */
 
 public class MainAktivitas extends AppCompatActivity {
+    private static String TAG = MainAktivitas.class.getSimpleName();
+    public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
+
+    private FirebaseAnalytics mFirebaseAnalytics;
+    EncryptedPreferences encryptedPreferences;
     ImageView imageBack;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        encryptedPreferences = new EncryptedPreferences.Builder(this).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
             w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -66,5 +76,44 @@ public class MainAktivitas extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.FrameContainer, fragment);
         ft.commit();
+    }
+    public void sendException(Exception e){
+        Bundle bundle = new Bundle();
+        bundle.putString("Exception", e.getMessage());
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        mFirebaseAnalytics.setMinimumSessionDuration(20000);
+        mFirebaseAnalytics.setSessionTimeoutDuration(500);
+        mFirebaseAnalytics.setUserId("2");
+        mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
+                encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
+//        ((TrackerApplication)this.getApplicationContext()).trackException(e);
+    }
+    public void sendScreen(String name){
+        Bundle bundle = new Bundle();
+        bundle.putString("Screen", name);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        mFirebaseAnalytics.setMinimumSessionDuration(20000);
+        mFirebaseAnalytics.setSessionTimeoutDuration(500);
+        mFirebaseAnalytics.setUserId("2");
+        mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
+                encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
+//        ((TrackerApplication)this.getApplicationContext()).trackScreenView(name);
+    }
+    public void sendEvent(String category, String action, String label){
+        Bundle bundle = new Bundle();
+        bundle.putString("EventCategory", category);
+        bundle.putString("EventAction", action);
+        bundle.putString("EventLabel", label);
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        mFirebaseAnalytics.setMinimumSessionDuration(20000);
+        mFirebaseAnalytics.setSessionTimeoutDuration(500);
+        mFirebaseAnalytics.setUserId("2");
+        mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
+                encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
+
+//        ((TrackerApplication)this.getApplicationContext()).trackEvent(category, action, label);
     }
 }

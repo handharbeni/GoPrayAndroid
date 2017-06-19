@@ -13,6 +13,7 @@ import java.util.TimerTask;
 
 import salam.gopray.id.MainActivity;
 import salam.gopray.id.service.intent.JadwalSholatService;
+import salam.gopray.id.service.intent.MasterKerabatService;
 import salam.gopray.id.service.intent.MessageParentService;
 import salam.gopray.id.service.intent.ProfilePictureService;
 import salam.gopray.id.service.intent.QuoteService;
@@ -115,6 +116,10 @@ public class MainServices extends Service {
                     if(!checkIsRunning(MessageParentService.class)){
                         Intent mpp = new Intent(getApplicationContext(), MessageParentService.class);
                         startService(mpp);
+                    }
+                    if(!checkIsRunning(MasterKerabatService.class)){
+                        Intent mks = new Intent(getApplicationContext(), MasterKerabatService.class);
+                        startService(mks);
                     }
                 }
             });

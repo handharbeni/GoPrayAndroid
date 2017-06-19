@@ -67,6 +67,11 @@ public class AddMengaji extends Fragment {
         txtSurat.setAdapter(spinnerSurat);*/
         return v;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainAktivitas)getActivity()).sendScreen(this.getClass().getName());
+    }
     public void saveServer(){
         String sSurat = "Surat "+txtSurat.getSelectedItem().toString();
         String sAyat = txtAyat.getText().toString();

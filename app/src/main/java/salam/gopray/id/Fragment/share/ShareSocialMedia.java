@@ -6,14 +6,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 
+import java.io.File;
+
 //import com.facebook.CallbackManager;
 //import com.facebook.FacebookCallback;
 //import com.facebook.FacebookException;
 //import com.facebook.share.Sharer;
 //import com.facebook.share.model.ShareLinkContent;
 //import com.facebook.share.widget.ShareDialog;
-
-import java.io.File;
 
 /**
  * Created by root on 22/05/17.

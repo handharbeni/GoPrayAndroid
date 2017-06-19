@@ -50,13 +50,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import io.realm.RealmResults;
-import salam.gopray.id.Adapter.QuoteAdapter;
-import salam.gopray.id.Adapter.model.QuoteModel;
-import salam.gopray.id.MainActivity;
-import salam.gopray.id.R;
-import salam.gopray.id.database.Quote;
-import salam.gopray.id.database.helper.QuoteHelper;
-import salam.gopray.id.service.intent.QuoteService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -65,6 +58,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import salam.gopray.id.Adapter.QuoteAdapter;
+import salam.gopray.id.Adapter.model.QuoteModel;
+import salam.gopray.id.MainActivity;
+import salam.gopray.id.R;
+import salam.gopray.id.database.Quote;
+import salam.gopray.id.database.helper.QuoteHelper;
+import salam.gopray.id.service.intent.QuoteService;
 
 import static android.app.Activity.RESULT_OK;
 import static java.lang.Boolean.FALSE;
@@ -197,6 +197,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
             out.close();
             bmpUri = Uri.fromFile(file);
         } catch (IOException e) {
+            ((MainActivity)getActivity()).sendException(e);
             e.printStackTrace();
         }
         return bmpUri;
@@ -246,7 +247,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                ((MainActivity)getActivity()).sendException(e);
             }
 
             @Override
@@ -327,6 +328,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    ((MainActivity)getActivity()).sendException(e);
                     encryptedPreferences.edit().putString("imagepath", "nothing").apply();
                     encryptedPreferences.edit().putString("imagename", "nothing").apply();
                     encryptedPreferences.edit().putString("SUCCESS", "0").putString("MESSAGE", "GAGAL").apply();
@@ -348,6 +350,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
                         encryptedPreferences.edit().putString("imagename", "nothing").apply();
                         showMessage();
                     } catch (JSONException e) {
+                        ((MainActivity)getActivity()).sendException(e);
                         e.printStackTrace();
                     }
                 }
@@ -382,6 +385,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
                         }
                         showMessage();
                     } catch (JSONException e) {
+                        ((MainActivity)getActivity()).sendException(e);
                         e.printStackTrace();
                     }
                 }
@@ -481,6 +485,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
     @Override
     public void onStart() {
         super.onStart();
+        ((MainActivity)getActivity()).sendScreen(this.getClass().getName());
         getActivity().registerReceiver(this.receiver, new IntentFilter("QUOTE"));
     }
 

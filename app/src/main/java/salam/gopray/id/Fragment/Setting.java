@@ -64,6 +64,13 @@ public class Setting extends Fragment {
         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         return v;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainActivity)getActivity()).sendScreen(this.getClass().getName());
+    }
+
     public void settingProfile(int mode){
         Intent iAktivitas = new Intent(getActivity().getApplicationContext(), SettingAktivitas.class);
         iAktivitas.putExtra("MODE", mode);

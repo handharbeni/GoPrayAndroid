@@ -184,4 +184,7 @@
     <string name="mengunggah">Sedang Menunggah!!</string>
     <string name="font_name_helvetica_normal">helvetica-normal</string>
     <string name="font_name_source_sans_pro">SourceSansPro</string>
+    <string name="nohp">Nomor Telephone</string>
+    <string name="nama_kerabat">Nama Kerabat</string>
+    <string name="jenis_kerabat">Kerabat</string>
 </resources>

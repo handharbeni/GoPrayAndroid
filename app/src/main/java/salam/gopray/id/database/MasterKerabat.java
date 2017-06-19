@@ -1,10 +1,12 @@
 package salam.gopray.id.database;
 
+import io.realm.RealmObject;
+
 /**
  * Created by root on 25/04/17.
  */
 
-public class MasterKerabat {
+public class MasterKerabat extends RealmObject{
     public int id;
     public String kerabat;
     public String nama;

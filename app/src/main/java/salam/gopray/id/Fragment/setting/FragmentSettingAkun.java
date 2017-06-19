@@ -42,8 +42,6 @@ import java.io.File;
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import salam.gopray.id.R;
-import salam.gopray.id.service.intent.ProfilePictureService;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -52,6 +50,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import salam.gopray.id.R;
+import salam.gopray.id.service.intent.ProfilePictureService;
 
 import static android.app.Activity.RESULT_OK;
 

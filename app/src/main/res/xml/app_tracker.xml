@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="ga_sessionTimeout">300</integer>
+    <bool name="ga_autoActivityTracking">true</bool>
+    <string name="ga_trackingId">UA-101007004-1</string>
+    <!--<string name="ga_trackingId">UA-93933041-1</string>-->
+    <string name="ga_sampleFrequency">100.0</string>
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+    <screenName name="salam.gopray.id.MainActivity">Main Screen</screenName>
+<!--    <screenName name="salam.gopray.id.Fragment.Family">Pray Circle</screenName>
+    <screenName name="salam.gopray.id.Fragment.Meme">Pray Quote</screenName>
+    <screenName name="salam.gopray.id.Fragment.Timeline">Pray Timeline</screenName>
+    <screenName name="salam.gopray.id.Fragment.Setting">Pray Setting</screenName>
+    <screenName name="salam.gopray.id.Fragment.aktivitas.AddSholat">Tambah Sholat</screenName>
+    <screenName name="salam.gopray.id.Fragment.aktivitas.AddMengaji">Tambah Mengaji</screenName>
+    <screenName name="salam.gopray.id.Fragment.aktivitas.AddPuasa">Tambah Puasa</screenName>
+    <screenName name="salam.gopray.id.Fragment.aktivitas.AddSedekah">Tambah Sedekah</screenName>
+    <screenName name="salam.gopray.id.Fragment.aktivitas.AddFreeText">Tambah Status</screenName>
+    <screenName name="salam.gopray.id.Fragment.aktivitas.MainAktivitas">Tambah Aktivitas</screenName>-->
+</resources>

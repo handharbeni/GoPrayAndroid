@@ -532,6 +532,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         try {
             convertedDate = dateFormat.parse(date);
         } catch (ParseException e) {
+            ((MainActivity)getActivity()).sendException(e);
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -543,6 +544,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         try {
             convertedDate = dateFormat.parse(time);
         } catch (ParseException e) {
+            ((MainActivity)getActivity()).sendException(e);
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -633,6 +635,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         try {
             d1 = format.parse(time);
         } catch (ParseException e) {
+            ((MainActivity)getActivity()).sendException(e);
             e.printStackTrace();
         }
         return d1.getTime();
@@ -654,6 +657,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
             d1 = format.parse(time1);
             d2 = format.parse(time2);
         } catch (ParseException e) {
+            ((MainActivity)getActivity()).sendException(e);
             e.printStackTrace();
         }
 
@@ -670,6 +674,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        ((MainActivity)getActivity()).sendScreen(this.getClass().getName());
         getActivity().registerReceiver(this.receiver, new IntentFilter("UPDATE TIMELINE"));
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver((receiver),
                 new IntentFilter(MainServices.ACTION_LOCATION_BROADCAST)
@@ -759,6 +764,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
                         /*delete realm*/
                     }
                 } catch (IOException | JSONException e) {
+                    ((MainActivity)getActivity()).sendException(e);
                     e.printStackTrace();
                 }
             }

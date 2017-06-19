@@ -60,6 +60,11 @@ public class AddSedekah extends Fragment {
         });
         return v;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainAktivitas)getActivity()).sendScreen(this.getClass().getName());
+    }
     public void saveServer(){
         String sNominal = txtSedekah.getText().toString();
 
