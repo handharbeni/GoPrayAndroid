@@ -67,7 +67,7 @@ import sexy.code.Response;
 public class Timeline extends Fragment implements View.OnClickListener {
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
     private static final int[] ITEM_DRAWABLES = { R.drawable.timeline_sholat,
-            R.drawable.timeline_mengai, R.drawable.timeline_sedekah, R.drawable.timeline_puasa};
+            R.drawable.timeline_mengai, R.drawable.timeline_sedekah, R.drawable.timeline_puasa, R.drawable.timeline_meme};
 
     private String endUri;
     View v;
@@ -164,6 +164,9 @@ public class Timeline extends Fragment implements View.OnClickListener {
                             /*puasa*/
                             addAktivitas(3);
                             break;
+                        case 4 :
+                            addAktivitas(4);
+                            break;
                     }
                 }
             });
@@ -233,7 +236,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
             }
             dataModels.add(new TimelineModel(result.get(i).getId(),result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
                     namaIbadah, result.get(i).getBersama(), result.get(i).getTempat(),
-                    result.get(i).getDate()+"  "+result.get(i).getJam(), tl, String.valueOf(result.get(i).getNominal())));
+                    convertDates(result.get(i).getDate())+"  "+result.get(i).getJam(), tl, String.valueOf(result.get(i).getNominal())));
         }
     }
     public void addDataAdapter(){
@@ -293,7 +296,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
             }
             adapter.add(new TimelineModel(result.get(i).getId(),result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
                     namaIbadah, result.get(i).getBersama(), result.get(i).getTempat(),
-                    result.get(i).getDate()+"  "+result.get(i).getJam(), tl, String.valueOf(result.get(i).getNominal())));
+                    convertDates(result.get(i).getDate())+"  "+result.get(i).getJam(), tl, String.valueOf(result.get(i).getNominal())));
         }
     }
     public SpannableStringBuilder setTextWithSpan(String text, StyleSpan style) {
@@ -537,6 +540,18 @@ public class Timeline extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
         return convertedDate;
+    }
+    public String convertDates(String date){
+        SimpleDateFormat fromUser = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat myFormat = new SimpleDateFormat("dd MMM yyyy");
+        String reformattedStr = "";
+        try {
+
+            reformattedStr = myFormat.format(fromUser.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return reformattedStr;
     }
     public Date convertTime(String time){
         SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");

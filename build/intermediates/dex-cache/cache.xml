@@ -3,75 +3,129 @@
 
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/f1261b586b1423c129a7775e0a056f06bb0782db/output/jars/classes.jar"
+        jar="/root/.android/build-cache/c6b9be9ce007ecedbbe318855e698ab39a242f2a/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
-        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d67142432907ed89a1dca8736557a9cf4434a75b/classes.dex" />
+        sha1="0dae27c606b1c11a41d7d279b44a0680c47bd30a">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_fb8447933dd34f24e2545f7d3a9cd48cf092356c/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/a86b2b8ff12aef80bc2eba2793484f84e32dfcc2/output/jars/classes.jar"
+        jar="/root/.android/build-cache/0207383aeea8ed9b4f0866d292ebaf80d37796d0/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
-        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9a9ab4e7b8e220a934ba76036a3f83b530589142/classes.dex" />
+        sha1="39907d5c8f5902fffef30160ca7447c93b82405c">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c55b84ba58db7f2dbf6d308b2beb67af834cfef3/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/3799da5d282f226e84951f7834fb10e42896141d/output/jars/classes.jar"
+        jar="/root/.android/build-cache/42046061fa6c180692e101599a9b0f4e31c0c91d/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="6addaba208e21c6da776d0ca75b6b23a6ccd5499">
-        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c41880865f2463bc745126295df7a7b525b76cf1/classes.dex" />
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1a2f8ff69b09dafb4d3ebd17093ff913b2ad7f95/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/002647d0fae2d78b30b8e5d7d1e1a60cef176e4b/output/jars/classes.jar"
+        jar="/root/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/751f548c85fa49f330cecbb1875893f971b33c4e/gson-2.7.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
-        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d9601704f10f3961b83aa5da11eb2ef79133526a/classes.dex" />
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.7_c246be005a3d4eaf1ef0c541329bb90f5b52fc9a/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/6cc45b99559b8cd88dd06cb2deac986a860c239f/output/jars/classes.jar"
+        jar="/root/.android/build-cache/15cc0e1db4dea94ba7f649cc719cec801b323ac4/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="ae80d328a8548b4610ead6c624bab8c6a6984f5b">
-        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_3d47a7017423ec32fde680bb23c390f0d5a8b713/classes.dex" />
+        sha1="a70b7dfccc7fc58b5d8bae39e27a904f17b55c60">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_26b71fe9e8f9f6e40105c4ca432c3cf5f3fb53c4/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/6cc85aed246fd58939c1d5bc8d3cfbef4b6f538e/output/jars/classes.jar"
+        jar="/root/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.3.0/9e09011e9767bb76b5e27c9b8223476b93b14631/converter-gson-2.3.0.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="486371f97baad8e607f332f20fee1d3dd00a731a">
-        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_aa44f71a1a99f3e7f24f0f3c9707fccf3325222a/classes.dex" />
+        sha1="9e09011e9767bb76b5e27c9b8223476b93b14631">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/converter-gson-2.3.0_86930cba7d9d14e20916573be6071f5f0bcedbb8/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/3ef65d53be1bc151545c3caccc887b48088c7614/output/jars/classes.jar"
+        jar="/root/.android/build-cache/0b5692c30091806f84d603925877072e6a92fa4f/output/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="6116e0e7069de7fc259aac8e08b84f32c2038231">
-        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7775a039c13b157c4d69892a415f05b8e40b1b52/classes.dex" />
+        sha1="0e0e8918eb74e3ee9e82eef6430a4359b2b577d3">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d74a4248b94a21de965fca2e5291a42eeb56f438/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/458d4108c5f71a2bc0ce47c793479bd7d2ed9c7c/output/jars/classes.jar"
+        jar="/root/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.7.0/1477ec5caf8319ab4b51eb43553cd66aa86fdea5/okhttp-2.7.0.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="433f4d6aa5f21f19552afe0e6c5eff0fedba73ad">
-        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_06f6424a9b0f05254063dde45536e56e105c35ac/classes.dex" />
+        sha1="1477ec5caf8319ab4b51eb43553cd66aa86fdea5">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-2.7.0_1f04dc83c9045d406b4faede5372124f00d0c758/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.8.0/5a11f020cce2d11eb71ba916700600e18c4547e7/okhttp-3.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5a11f020cce2d11eb71ba916700600e18c4547e7">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.8.0_288b0c124594cba37fbfc175e85e4b51e771ac17/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.13.0_e7ea4e486c0a517743326a43c02b22b521807cd1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/.android/build-cache/df32b31bbcf44ba5b55f4b78d54151deaf0834a0/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_412f69b3bfab0120c8e7561d88c492c639a0e941/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.3.0/bcacde6a8ccedcc56c127403d26b76072fe6214d/retrofit-2.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bcacde6a8ccedcc56c127403d26b76072fe6214d">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-2.3.0_4e20a17ebfe41bde5a423223ac7dff4c6bf4785c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/.android/build-cache/ca8bb411d7345618e1159dae9dc271880dcda573/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="de29a39f9260f88151b1ef453140e71c76b6c415">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ec86611edaa3ae77ec7730b3d7345b55d37842d6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/.android/build-cache/b66af91de94f0f8dfea0b4896188f7ee662d8548/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="8531f2d46b35de75e6130f25830e0c2c0d6bb98c">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0a4383d51f9ab8e8756603fed81ed205e67466ab/classes.dex" />
     </item>
 
 </items>

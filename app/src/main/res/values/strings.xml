@@ -187,4 +187,9 @@
     <string name="nohp">Nomor Telephone</string>
     <string name="nama_kerabat">Nama Kerabat</string>
     <string name="jenis_kerabat">Kerabat</string>
+    <string name="captionfreetext">Apa yang kamu rasakan?</string>
+    <string-array name="tab_freetext">
+        <item>Free Text</item>
+        <item>Sticker</item>
+    </string-array>
 </resources>

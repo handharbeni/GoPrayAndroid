@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="onboarder-1.0.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/15cc0e1db4dea94ba7f649cc719cec801b323ac4/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/15cc0e1db4dea94ba7f649cc719cec801b323ac4/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.codemybrainsout.onboarding/onboarder/1.0.3/d0eacddba4a28d0d44a097b2918d88c0cae404d5/onboarder-1.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

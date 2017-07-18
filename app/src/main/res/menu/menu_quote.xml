@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/itemShareWa"
+        android:title="Share WhatsApp"/>
+    <item
+        android:id="@+id/itemShareFb"
+        android:title="Share Facebook"/>
+    <item
+        android:id="@+id/itemDelete"
+        android:title="Delete"/>
+</menu>

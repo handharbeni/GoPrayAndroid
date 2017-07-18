@@ -28,6 +28,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 import com.golovin.fluentstackbar.FluentSnackbar;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 import com.squareup.picasso.Picasso;
@@ -47,6 +50,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import io.realm.RealmResults;
@@ -65,6 +70,7 @@ import salam.gopray.id.R;
 import salam.gopray.id.database.Quote;
 import salam.gopray.id.database.helper.QuoteHelper;
 import salam.gopray.id.service.intent.QuoteService;
+import salam.gopray.id.util.ShareListener;
 
 import static android.app.Activity.RESULT_OK;
 import static java.lang.Boolean.FALSE;
@@ -74,7 +80,8 @@ import static java.lang.Boolean.TRUE;
  * Created by root on 19/04/17.
  */
 
-public class Meme extends Fragment  implements ConnectivityChangeListener {
+public class Meme extends Fragment  implements ConnectivityChangeListener, ShareListener {
+
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
     private static final int REQUEST_CODE_CHOOSE = 23;
     ListView listView;
@@ -89,8 +96,8 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
 
     ArrayList<QuoteModel> dataModels;
     QuoteHelper qHelper;
-    private static QuoteAdapter adapter;
     private FluentSnackbar mFluentSnackbar;
+    private static QuoteAdapter adapter;
     LovelyProgressDialog lovelyProgressDialog;
 
     @Override
@@ -143,8 +150,9 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
         Object item = adapter.getItem(info.position);
 
         menu.setHeaderTitle("Choose");
-        menu.add(0, adapter.getItem(info.position).getId(), 0, "Share");
-        menu.add(1, adapter.getItem(info.position).getId(), 0, "Delete");
+        menu.add(0, adapter.getItem(info.position).getId(), 0, "Share WhatsApp");
+        menu.add(1, adapter.getItem(info.position).getId(), 0, "Share Facebook");
+        menu.add(2, adapter.getItem(info.position).getId(), 0, "Delete");
 
     }
     @Override
@@ -152,30 +160,65 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
 
         if (item.getTitle() == "Delete") {
             dialogDelete(item.getItemId());
-        } else if (item.getTitle() == "Share") {
-            shareQuote(item.getItemId());
+        } else if (item.getTitle() == "Share WhatsApp") {
+            shareWhatsapp(item.getItemId());
+        } else if (item.getTitle() == "Share Facebook") {
+            shareFacebook(item.getItemId());
         } else {
             return false;
         }
         return true;
     }
 
-    public void shareQuote(int id){
+    public void shareWhatsapp(int id){
         String paths = qHelper.getUrlImage(id);
         if (!paths.equalsIgnoreCase("nothing")){
             Picasso.with(getActivity().getApplicationContext()).load(paths).into(new Target() {
                 @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                     Intent i = new Intent(Intent.ACTION_SEND);
                     i.setType("image/*");
+                    i.setPackage("com.whatsapp");
+                    i.putExtra(Intent.EXTRA_TEXT, "Hai, i send quote from GoPray Apps");
                     i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap));
-                    startActivity(Intent.createChooser(i, "Share Quote"));
+                    startActivity(i);
                 }
                 @Override public void onBitmapFailed(Drawable errorDrawable) { }
                 @Override public void onPrepareLoad(Drawable placeHolderDrawable) { }
             });
         }
     }
+    public void shareFacebook(int id){
+        String paths = qHelper.getUrlImage(id);
+        if (!paths.equalsIgnoreCase("nothing")){
+            Picasso.with(getActivity().getApplicationContext()).load(paths).into(new Target() {
+                @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Bitmap image = bitmap;
+                    SharePhoto photo = new SharePhoto.Builder()
+                            .setBitmap(image)
+                            .build();
+                    SharePhotoContent content = new SharePhotoContent.Builder()
+                            .addPhoto(photo)
+                            .build();
+                    ShareDialog shareDialog = new ShareDialog(getActivity());
+                    shareDialog.show(content, ShareDialog.Mode.AUTOMATIC);
+                }
+                @Override public void onBitmapFailed(Drawable errorDrawable) { }
+                @Override public void onPrepareLoad(Drawable placeHolderDrawable) { }
+            });
+        }
+    }
+    public String convertDate(String date){
+        SimpleDateFormat fromUser = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat myFormat = new SimpleDateFormat("dd MMM yyyy");
+        String reformattedStr = "";
+        try {
 
+            reformattedStr = myFormat.format(fromUser.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return reformattedStr;
+    }
     public void doUpload(){
         if(encryptedPreferences.getString("NETWORK","0").equalsIgnoreCase("1")){
             String text = txtText.getText().toString();
@@ -252,7 +295,6 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
                 reload(id);
             }
         });
@@ -433,7 +475,7 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
             z++;
             QuoteModel qm = new QuoteModel(result.get(i).getId(),
                                 result.get(i).getPath_meme(),
-                                result.get(i).getTanggal()+" "+result.get(i).getJam(),
+                                convertDate(result.get(i).getTanggal())+" "+result.get(i).getJam(),
                                 result.get(i).getJam(),
                                 tl);
             dataModels.add(qm);
@@ -453,14 +495,14 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
             z++;
             QuoteModel qm = new QuoteModel(result.get(i).getId(),
                     result.get(i).getPath_meme(),
-                    result.get(i).getTanggal()+" "+result.get(i).getJam(),
+                    convertDate(result.get(i).getTanggal())+" "+result.get(i).getJam(),
                     result.get(i).getJam(),
                     tl);
             adapter.add(qm);
         }
     }
     public void initAdapter(){
-        adapter= new QuoteAdapter(dataModels,getActivity().getApplicationContext());
+        adapter= new QuoteAdapter(dataModels,getActivity().getApplicationContext(), this);
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -530,4 +572,55 @@ public class Meme extends Fragment  implements ConnectivityChangeListener {
 
         }
     };
+
+    @Override
+    public void shareWa(int id) {
+        String paths = qHelper.getUrlImage(id);
+        if (!paths.equalsIgnoreCase("nothing")){
+            Picasso.with(getActivity().getApplicationContext()).load(paths).into(new Target() {
+                @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    i.setType("image/*");
+                    i.setPackage("com.whatsapp");
+                    i.putExtra(Intent.EXTRA_TEXT, "Hai, i send quote from GoPray Apps");
+                    i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap));
+                    startActivity(i);
+                }
+                @Override public void onBitmapFailed(Drawable errorDrawable) { }
+                @Override public void onPrepareLoad(Drawable placeHolderDrawable) { }
+            });
+        }
+    }
+
+    @Override
+    public void shareFb(int id) {
+        String paths = qHelper.getUrlImage(id);
+        if (!paths.equalsIgnoreCase("nothing")){
+            Picasso.with(getActivity().getApplicationContext()).load(paths).into(new Target() {
+                @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    Bitmap image = bitmap;
+                    SharePhoto photo = new SharePhoto.Builder()
+                            .setBitmap(image)
+                            .build();
+                    SharePhotoContent content = new SharePhotoContent.Builder()
+                            .addPhoto(photo)
+                            .build();
+                    ShareDialog shareDialog = new ShareDialog(getActivity());
+                    shareDialog.show(content, ShareDialog.Mode.AUTOMATIC);
+                }
+                @Override public void onBitmapFailed(Drawable errorDrawable) { }
+                @Override public void onPrepareLoad(Drawable placeHolderDrawable) { }
+            });
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        dialogDelete(id);
+    }
+
+    @Override
+    public void openContext(View v) {
+        getActivity().openContextMenu(v);
+    }
 }

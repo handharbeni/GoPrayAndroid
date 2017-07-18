@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="25dp"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
 
@@ -17,7 +18,7 @@
         app:srcCompat="@drawable/icon_quote" />
 
     <ImageView
-        android:minWidth="512dp"
+        android:minWidth="1024dp"
         android:scaleType="fitCenter"
         android:id="@+id/txtImage"
         android:layout_width="match_parent"
@@ -31,16 +32,40 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
+        android:layout_marginTop="25dp"
+        android:textAlignment="inherit"
         android:textColor="#999999"
-        android:layout_marginBottom="15dp"
         android:id="@+id/txtTanggalImage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_height="15dp"
         android:text="TextView"
         android:layout_below="@+id/txtImage"
-        android:layout_toRightOf="@+id/lineTop"
-        android:layout_toEndOf="@+id/lineTop"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp" />
+        android:layout_toRightOf="@+id/imageView4"
+        android:layout_toEndOf="@+id/imageView4"
+        android:layout_marginLeft="7dp"
+        android:layout_marginStart="7dp" />
+    <ImageView
+        android:layout_marginTop="25dp"
+        android:id="@+id/imageView4"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_below="@+id/txtImage"
+        android:layout_toEndOf="@+id/imgIcon"
+        android:layout_toRightOf="@+id/imgIcon"
+        android:src="@drawable/ic_time_grey"/>
+    <ImageView
+        android:id="@+id/imgMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/imgIcon"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:src="@drawable/ic_more_vert"
+        android:layout_above="@+id/txtImage" />
+
+
+
 </RelativeLayout>

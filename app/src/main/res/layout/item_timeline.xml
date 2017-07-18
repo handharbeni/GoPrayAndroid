@@ -126,14 +126,26 @@
                     android:layout_toRightOf="@+id/txtLabelTempat"
                     android:layout_toEndOf="@+id/txtLabelTempat" />
             </RelativeLayout>
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txtTanggalSholat"
+            <RelativeLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#999999"
-                android:textSize="12sp"
-                tools:text="24 JAN" />
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_time_grey"
+                    android:id="@+id/imageView3" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:gravity="center"
+                    android:id="@+id/txtTanggalSholat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:textColor="#999999"
+                    android:textSize="12sp"
+                    tools:text="24 JAN"
+                    android:layout_toRightOf="@+id/imageView3"
+                    android:layout_toEndOf="@+id/imageView3" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -206,14 +218,26 @@
                     android:layout_toRightOf="@+id/txtLabelTempatMengaji"
                     android:layout_toEndOf="@+id/txtLabelTempatMengaji" />
             </RelativeLayout>
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txtTanggalMengaji"
+            <RelativeLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/time"
-                android:textSize="12sp"
-                tools:text="24 JAN" />
-
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_time_grey"
+                    android:id="@+id/imageView3s" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:gravity="center"
+                    android:id="@+id/txtTanggalMengaji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:textColor="#999999"
+                    android:textSize="12sp"
+                    tools:text="24 JAN"
+                    android:layout_toRightOf="@+id/imageView3s"
+                    android:layout_toEndOf="@+id/imageView3s" />
+            </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>
@@ -274,14 +298,26 @@
                     android:layout_toRightOf="@+id/txtLabelTempatSedekah"
                     android:layout_toEndOf="@+id/txtLabelTempatSedekah" />
             </RelativeLayout>
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txtTanggalSedekah"
+            <RelativeLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/time"
-                android:textSize="12sp"
-                tools:text="24 JAN" />
-
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_time_grey"
+                    android:id="@+id/imageView3ss" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:gravity="center"
+                    android:id="@+id/txtTanggalSedekah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:textColor="#999999"
+                    android:textSize="12sp"
+                    tools:text="24 JAN"
+                    android:layout_toRightOf="@+id/imageView3ss"
+                    android:layout_toEndOf="@+id/imageView3ss" />
+            </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>
@@ -317,14 +353,26 @@
                 android:textColor="#262626"
                 tools:text="Mengaji Di" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txtTanggalDoa"
+            <RelativeLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/time"
-                android:textSize="12sp"
-                tools:text="24 JAN" />
-
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_time_grey"
+                    android:id="@+id/imageView3sss" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:gravity="center"
+                    android:id="@+id/txtTanggalDoa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:textColor="#999999"
+                    android:textSize="12sp"
+                    tools:text="24 JAN"
+                    android:layout_toRightOf="@+id/imageView3sss"
+                    android:layout_toEndOf="@+id/imageView3sss" />
+            </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>
@@ -360,14 +408,26 @@
                 android:textColor="#262626"
                 tools:text="@string/freetext" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txtTanggalPuasa"
+            <RelativeLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/time"
-                android:textSize="12sp"
-                tools:text="24 JAN" />
-
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_time_grey"
+                    android:id="@+id/imageView3ssss" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:gravity="center"
+                    android:id="@+id/txtTanggalPuasa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:textColor="#999999"
+                    android:textSize="12sp"
+                    tools:text="24 JAN"
+                    android:layout_toRightOf="@+id/imageView3ssss"
+                    android:layout_toEndOf="@+id/imageView3ssss" />
+            </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>
@@ -403,14 +463,26 @@
                 android:textColor="@color/time"
                 tools:text="@string/freetext" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txtTanggalFreeText"
+            <RelativeLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/time"
-                android:textSize="12sp"
-                tools:text="24 JAN" />
-
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_time_grey"
+                    android:id="@+id/imageView3sssss" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:gravity="center"
+                    android:id="@+id/txtTanggalFreeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:textColor="#999999"
+                    android:textSize="12sp"
+                    tools:text="24 JAN"
+                    android:layout_toRightOf="@+id/imageView3sssss"
+                    android:layout_toEndOf="@+id/imageView3sssss" />
+            </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>
@@ -448,14 +520,26 @@
                 android:layout_marginTop="5dp"
                 android:textColor="@color/time" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/txtTanggalStiker"
+            <RelativeLayout
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/time"
-                android:textSize="12sp"
-                tools:text="24 JAN" />
-
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_time_grey"
+                    android:id="@+id/imageView3ssssss" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:gravity="center"
+                    android:id="@+id/txtTanggalStiker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:textColor="#999999"
+                    android:textSize="12sp"
+                    tools:text="24 JAN"
+                    android:layout_toRightOf="@+id/imageView3ssssss"
+                    android:layout_toEndOf="@+id/imageView3ssssss" />
+            </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>

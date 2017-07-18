@@ -49,4 +49,15 @@
             android:layout_height="wrap_content"
             layout="@layout/register"/>
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/keyboards"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:background="#0000ff"/>
+    </RelativeLayout>
 </android.support.design.widget.AppBarLayout>

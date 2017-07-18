@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crash.FirebaseCrash;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 
 import salam.gopray.id.R;
@@ -64,9 +66,9 @@ public class MainAktivitas extends AppCompatActivity {
                 fragment = new AddPuasa();
                 break;
             case 4:
-                fragment = new AddSholat();
+                fragment = new AddFreeText();
                 break;
-            case 5:
+            default:
                 fragment = new AddSholat();
                 break;
         }
@@ -78,6 +80,9 @@ public class MainAktivitas extends AppCompatActivity {
         ft.commit();
     }
     public void sendException(Exception e){
+        FirebaseCrash.report(new Exception(e));
+        FirebaseCrash.logcat(Log.ERROR, TAG, "Crash caught");
+        FirebaseCrash.report(e);
         Bundle bundle = new Bundle();
         bundle.putString("Exception", e.getMessage());
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
@@ -87,7 +92,6 @@ public class MainAktivitas extends AppCompatActivity {
         mFirebaseAnalytics.setUserId("2");
         mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
                 encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
-//        ((TrackerApplication)this.getApplicationContext()).trackException(e);
     }
     public void sendScreen(String name){
         Bundle bundle = new Bundle();
@@ -99,7 +103,6 @@ public class MainAktivitas extends AppCompatActivity {
         mFirebaseAnalytics.setUserId("2");
         mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
                 encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
-//        ((TrackerApplication)this.getApplicationContext()).trackScreenView(name);
     }
     public void sendEvent(String category, String action, String label){
         Bundle bundle = new Bundle();
@@ -111,9 +114,11 @@ public class MainAktivitas extends AppCompatActivity {
         mFirebaseAnalytics.setMinimumSessionDuration(20000);
         mFirebaseAnalytics.setSessionTimeoutDuration(500);
         mFirebaseAnalytics.setUserId("2");
-        mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
-                encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
-
-//        ((TrackerApplication)this.getApplicationContext()).trackEvent(category, action, label);
+        mFirebaseAnalytics.setUserProperty("User",
+                encryptedPreferences.getUtils().decryptStringValue(
+                        encryptedPreferences.getString(KEY,
+                                getString(R.string.dummyToken))
+                )
+        );
     }
 }

@@ -30,7 +30,7 @@
             android:layout_marginTop="10dp"
             app:civ_border_width="0dp"
             app:civ_border_color="#FF000000"
-            android:src="@drawable/user_pratikshya" />
+            android:src="@drawable/met_ic_clear" />
 
         <ImageView
             android:layout_alignParentRight="true"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/vertical_line_chat1" />
+            android:src="@drawable/vertical_line_chat" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -165,11 +165,13 @@
                         android:textColor="#000" />
 
                     <ImageView
+                        android:minWidth="512dp"
+                        android:maxWidth="512dp"
                         android:id="@+id/txtImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:src="@drawable/picture" />
+                        android:src="@drawable/ic_logo" />
 
                 </LinearLayout>
             </RelativeLayout>

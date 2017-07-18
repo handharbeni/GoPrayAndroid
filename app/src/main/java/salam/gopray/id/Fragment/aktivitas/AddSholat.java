@@ -502,7 +502,7 @@ public class AddSholat extends Fragment implements View.OnClickListener,Keyboard
 
     }
     public long stringToTime(String time){
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
 
         Date d1 = null;
         try {

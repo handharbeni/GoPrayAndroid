@@ -87,6 +87,7 @@ public class MessageAdapter extends ArrayAdapter<MessageModel> {
             viewHolder.txtMessageImage.setText(dataModel.getMessage());
             Glide.with(mContext)
                     .load(dataModel.getPhoto())
+                    .placeholder(R.drawable.logo)
                     .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .skipMemoryCache(false)
                     .into(viewHolder.txtImage);
@@ -95,6 +96,7 @@ public class MessageAdapter extends ArrayAdapter<MessageModel> {
 
         Glide.with(mContext)
                 .load(dataModel.getProfpict())
+                .placeholder(R.drawable.logo)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .skipMemoryCache(false)
                 .into(viewHolder.photo_thumbnail);

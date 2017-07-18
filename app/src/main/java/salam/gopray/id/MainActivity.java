@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -20,7 +21,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.widget.Space;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -40,6 +40,12 @@ import android.widget.TextView;
 
 import com.azimolabs.keyboardwatcher.KeyboardWatcher;
 import com.golovin.fluentstackbar.FluentSnackbar;
+import com.google.android.gms.appinvite.AppInvite;
+import com.google.android.gms.appinvite.AppInviteInvitationResult;
+import com.google.android.gms.appinvite.AppInviteReferral;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -48,8 +54,9 @@ import com.google.firebase.appindexing.FirebaseAppIndex;
 import com.google.firebase.appindexing.FirebaseUserActions;
 import com.google.firebase.appindexing.Indexable;
 import com.google.firebase.appindexing.builders.Actions;
+import com.google.firebase.crash.FirebaseCrash;
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
-import com.stephentuso.welcome.WelcomeHelper;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 import com.zplesac.connectionbuddy.ConnectionBuddy;
 import com.zplesac.connectionbuddy.ConnectionBuddyConfiguration;
 import com.zplesac.connectionbuddy.interfaces.ConnectivityChangeListener;
@@ -61,7 +68,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import me.zhanghai.android.materialprogressbar.HorizontalProgressDrawable;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
@@ -73,6 +83,8 @@ import salam.gopray.id.database.helper.MessageParentHelper;
 import salam.gopray.id.service.MainServices;
 import salam.gopray.id.service.TimeService;
 import salam.gopray.id.util.FontChangeCrawler;
+import salam.gopray.id.util.KeyboardHeightObserver;
+import salam.gopray.id.util.KeyboardHeightProvider;
 import sexy.code.Callback;
 import sexy.code.FormBody;
 import sexy.code.HttPizza;
@@ -80,7 +92,8 @@ import sexy.code.Request;
 import sexy.code.RequestBody;
 import sexy.code.Response;
 
-public class MainActivity extends AppCompatActivity implements ConnectivityChangeListener, KeyboardWatcher.OnKeyboardToggleListener, ViewTreeObserver.OnGlobalLayoutListener {
+public class MainActivity extends AppCompatActivity implements ConnectivityChangeListener, KeyboardWatcher.OnKeyboardToggleListener, ViewTreeObserver.OnGlobalLayoutListener,KeyboardHeightObserver, GoogleApiClient.OnConnectionFailedListener {
+    private GoogleApiClient mGoogleApiClient;
     private FirebaseAnalytics mFirebaseAnalytics;
     private static String TAG = MainActivity.class.getSimpleName();
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
@@ -108,18 +121,28 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     ScrollView svLogin;
     ScrollView svSignup;
     private KeyboardWatcher keyboardWatcher;
-    int width, height;
+    int widthx, heightx;
 
     MaterialProgressBar mProgressBar;
-    WelcomeHelper welcomeScreen;
 
     MessageParentHelper mpHelper;
+    String endUriDelete;
+
+    private KeyboardHeightProvider keyboardHeightProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkDifferentTime();
+        encryptedPreferences = new EncryptedPreferences.Builder(this).withEncryptionPassword(getString(R.string.KeyPassword)).build();
+        endUriDelete = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/deletememe";
+        keyboardHeightProvider = new KeyboardHeightProvider(this);
+        initDeepLink();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        welcomeScreen = new WelcomeHelper(this, MyWelcomeActivity.class);
-        welcomeScreen.show(savedInstanceState);
+        if (encryptedPreferences.getString("WELCOME","0").equalsIgnoreCase("0")){
+            Intent i = new Intent(this, MyWelcomeActivity.class);
+            startActivity(i);
+        }
+
         mpHelper = new MessageParentHelper(getApplicationContext());
         registerReceiver(this.receiver, new IntentFilter("UPDATE MESSAGE"));
 
@@ -148,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
             w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-        encryptedPreferences = new EncryptedPreferences.Builder(this).withEncryptionPassword(getString(R.string.KeyPassword)).build();
+
         networkInspectorConfiguration = new ConnectionBuddyConfiguration.Builder(this).build();
         ConnectionBuddy.getInstance().init(networkInspectorConfiguration);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -158,18 +181,13 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         uriSignin = "users/self/login";
         uriSignup = "users/self/daftar";
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        width = displayMetrics.widthPixels;
-        height = displayMetrics.heightPixels;
+        widthx = displayMetrics.widthPixels;
+        heightx = displayMetrics.heightPixels;
         setContentView(R.layout.activity_main);
         mProgressBar = (MaterialProgressBar) findViewById(R.id.more_progress);
         mProgressBar.setProgressDrawable(new HorizontalProgressDrawable(this));
         mProgressBar.setVisibility(View.GONE);
-        svLogin = (ScrollView) findViewById(R.id.svLogin);
-        svSignup = (ScrollView) findViewById(R.id.svSignup);
-        LinearLayout lrLogin = (LinearLayout) findViewById(R.id.lrLogin);
-        LinearLayout lrSignup = (LinearLayout) findViewById(R.id.lrSignup);
-        lrLogin.setMinimumHeight(height+350);
-        lrSignup.setMinimumHeight(height+350);
+
         fontReplacer = new FontChangeCrawler(defaultFont);
         fontReplacer.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
@@ -283,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         final TabLayout.Tab meme = tabLayout.newTab();
         final TabLayout.Tab setting = tabLayout.newTab();
         timeline.setIcon(R.drawable.tab_timeline);
-        family.setCustomView(R.layout.badge_tab_family);
+//        family.setCustomView(R.layout.badge_tab_family);
         meme.setIcon(R.drawable.tab_meme);
         setting.setIcon(R.drawable.tab_setting);
 
@@ -293,7 +311,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         tabLayout.addTab(meme, 2);
         tabLayout.addTab(setting, 3);
 
-//        tabLayout.getTabAt(1).setCustomView(R.layout.badge_tab_family);
+        tabLayout.getTabAt(1).setCustomView(R.layout.badge_tab_family);
 
 
         tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.color.tab_selector));
@@ -329,7 +347,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                         break;
                     case 1:
                         icon = getResources().getDrawable(R.drawable.tab_ortu);
-//                        setBadgeOrtu(1, false);
+//                        setBadgeOrtu(1, true);
                         break;
                     case 2:
                         icon = getResources().getDrawable(R.drawable.tab_meme);
@@ -342,6 +360,12 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
             }
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+        View view = findViewById(R.id.mainLayout);
+        view.post(new Runnable() {
+            public void run() {
+                keyboardHeightProvider.start();
             }
         });
         tabLayout.getTabAt(0).isSelected();
@@ -366,7 +390,19 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         }
         changeFragment(fragment);
     }
+    public void checkDifferentTime(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+        Log.d("CURRENT","TIMEZONE :"+sdf.format(calendar.getTime()));
+
+        sdf.setTimeZone(TimeZone.getDefault());
+        Log.d("TIMEZONE", "TIMEZONE :"+ sdf.format(calendar.getTime()));
+    }
     public void signinInit(){
+        svLogin = (ScrollView) findViewById(R.id.svLogin);
         btnSignin = (Button) findViewById(R.id.btnSignin);
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
@@ -404,7 +440,12 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                 doSignin();
             }
         });
-
+        View view = findViewById(R.id.signinLayout);
+        view.post(new Runnable() {
+            public void run() {
+                keyboardHeightProvider.start();
+            }
+        });
     }
     public void doSignin(){
         getWindow().setSoftInputMode(
@@ -468,6 +509,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     }
 
     public void signupinit(){
+        svSignup = (ScrollView) findViewById(R.id.svSignup);
         btnSignup = (Button) findViewById(R.id.btnSignup);
 //        btnSignup.setText(getString(R.string.prosesDaftar));
         btnSignup.setEnabled(true);
@@ -518,6 +560,12 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                 doSignup();
             }
         });
+        View view = findViewById(R.id.signupLayout);
+        view.post(new Runnable() {
+            public void run() {
+                keyboardHeightProvider.start();
+            }
+        });
     }
     public void doSignup(){
         getWindow().setSoftInputMode(
@@ -542,7 +590,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
                         String responses = response.body().string();
                         JSONObject jsonObj = new JSONObject(responses);
                         Boolean returns = jsonObj.getBoolean("return");
-//                        Log.d("JSONOBJECT", "onResponse: "+jsonObj.getString("error_message"));
                         if(returns){
                             showSnackBar(getString(R.string.signupSuccess));
                             btnSignup.setText(getString(R.string.signin));
@@ -685,12 +732,11 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
 
     @Override
     public void onKeyboardShown(int keyboardSize) {
-        svLogin.scrollTo(0, keyboardSize);
-        for (int i = 0; i< keyboardSize;i++){
-            Space space = new Space(this);
-            svLogin.addView(space);
-        }
-        svLogin.notify();
+//        svLogin.scrollTo(0, keyboardSize);
+//        for (int i = 0; i< keyboardSize;i++){
+//            Space space = new Space(this);
+//        }
+//        svLogin.notify();
     }
 
     @Override
@@ -715,7 +761,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         signinLayout.getWindowVisibleDisplayFrame(r);
         int screenHeight = signinLayout.getRootView().getHeight();
         int heightDifference = screenHeight - (r.bottom - r.top);
-        resizeView(signinLayout, width, screenHeight + heightDifference);
 
     }
     public void initHeightSignup(){
@@ -723,14 +768,12 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         signupLayout.getWindowVisibleDisplayFrame(r);
         int screenHeight = signinLayout.getRootView().getHeight();
         int heightDifference = screenHeight - (r.bottom - r.top);
-        resizeView(signupLayout, width, screenHeight + heightDifference);
     }
     public void initHeightMain(){
         Rect r = new Rect();
         mainLayout.getWindowVisibleDisplayFrame(r);
         int screenHeight = signinLayout.getRootView().getHeight();
         int heightDifference = screenHeight - (r.bottom - r.top);
-        resizeView(signupLayout, width, screenHeight + heightDifference);
     }
     @Override
     public void onGlobalLayout() {
@@ -740,30 +783,32 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         int heightDifference = screenHeight - (r.bottom - r.top);
     }
     private void resizeView(View view, int newWidth, int newHeight) {
-        try {
-            Constructor<? extends ViewGroup.LayoutParams> ctor = view.getLayoutParams().getClass().getDeclaredConstructor(int.class, int.class);
-            view.setLayoutParams(ctor.newInstance(newWidth, newHeight));
-        } catch (Exception e) {
-            e.printStackTrace();
-            sendException(e);
-        }
+        android.view.ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.width = newWidth;
+        params.height = newHeight;
+        view.setLayoutParams(params);
+        view.requestLayout();
+        view.invalidate();
     }
 
     @Override
     protected void onDestroy() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        keyboardHeightProvider.close();
         super.onDestroy();
     }
 
     @Override
     protected void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        keyboardHeightProvider.setKeyboardHeightObserver(null);
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         registerReceiver(this.receiver, new IntentFilter("UPDATE MESSAGE"));
+        keyboardHeightProvider.setKeyboardHeightObserver(this);
         super.onResume();
     }
 
@@ -791,6 +836,9 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     }
 
     public void sendException(Exception e){
+        FirebaseCrash.report(new Exception(e));
+        FirebaseCrash.logcat(Log.ERROR, TAG, "Crash caught");
+        FirebaseCrash.report(e);
         Bundle bundle = new Bundle();
         bundle.putString("Exception", e.getMessage());
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
@@ -800,7 +848,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         mFirebaseAnalytics.setUserId("1");
         mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
                 encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
-//        ((TrackerApplication)this.getApplicationContext()).trackException(e);
     }
     public void sendScreen(String name){
         Bundle bundle = new Bundle();
@@ -810,9 +857,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         mFirebaseAnalytics.setMinimumSessionDuration(20000);
         mFirebaseAnalytics.setSessionTimeoutDuration(500);
         mFirebaseAnalytics.setUserId("1");
-        mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
-                encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
-//        ((TrackerApplication)this.getApplicationContext()).trackScreenView(name);
+        mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
     }
     public void sendEvent(String category, String action, String label){
         Bundle bundle = new Bundle();
@@ -826,7 +871,96 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         mFirebaseAnalytics.setUserId("1");
         mFirebaseAnalytics.setUserProperty("User", encryptedPreferences.getUtils().decryptStringValue(
                 encryptedPreferences.getString(KEY, getString(R.string.dummyToken))));
+    }
 
-//        ((TrackerApplication)this.getApplicationContext()).trackEvent(category, action, label);
+    @Override
+    public void onKeyboardHeightChanged(int height, int orientation) {
+
+        String or = orientation == Configuration.ORIENTATION_PORTRAIT ? "portrait" : "landscape";
+        Log.i(TAG, "onKeyboardHeightChanged in pixels: " + (height * 0.3) + " " + or);
+
+        View view = findViewById(R.id.keyboards);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)view .getLayoutParams();
+        params.height = height;
+        svLogin = (ScrollView) findViewById(R.id.svLogin);
+        svSignup = (ScrollView) findViewById(R.id.svSignup);
+        LinearLayout lrLogin = (LinearLayout) findViewById(R.id.lrLogin);
+        LinearLayout lrSignup = (LinearLayout) findViewById(R.id.lrSignup);
+        Double iHeight = height==0? 0 : (height*0.3)+150;
+        lrLogin.setMinimumHeight(heightx+iHeight.intValue());
+        lrSignup.setMinimumHeight(heightx+iHeight.intValue());
+
+        resizeView(lrLogin, widthx, heightx+iHeight.intValue());
+        resizeView(lrSignup, widthx, heightx+iHeight.intValue());
+        resizeView(mainLayout, widthx, heightx+iHeight.intValue());
+        focusOnView(svLogin, signinLayout);
+        focusOnView(svSignup, signupLayout);
+    }
+    public void dialogDelete(final int id){
+        new LovelyStandardDialog(this)
+                .setTopColorRes(R.color.colorPrimary)
+                .setButtonsColorRes(R.color.colorAccent)
+                .setTitle("HAPUS")
+                .setMessage("Hapus Post?"+String.valueOf(id))
+                .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                                /*HAPUS AKTIVITAS*/
+                        deleteTimeline(id);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
+    }
+    public void deleteTimeline(final int id){
+        final int idTemp;
+        idTemp = id;
+        String token = encryptedPreferences.getString(KEY, getString(R.string.dummyToken));
+        String decryptToken = encryptedPreferences.getUtils().decryptStringValue(token);
+        /*delete server*/
+        RequestBody formBody = new FormBody.Builder()
+                .add("access_token", decryptToken)
+                .add("id_meme", String.valueOf(id))
+                .build();
+        Request request = client.newRequest()
+                .url(endUriDelete)
+                .post(formBody)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onResponse(Response response) {
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+        /*delete server*/
+    }
+    public void initDeepLink(){
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(AppInvite.API)
+                .build();
+        boolean autoLaunchDeepLink = true;
+        AppInvite.AppInviteApi.getInvitation(mGoogleApiClient, this, autoLaunchDeepLink)
+                .setResultCallback(
+                        new ResultCallback<AppInviteInvitationResult>() {
+                            @Override
+                            public void onResult(@NonNull AppInviteInvitationResult result) {
+                                if (result.getStatus().isSuccess()) {
+                                    Intent intent = result.getInvitationIntent();
+                                    String deepLink = AppInviteReferral.getDeepLink(intent);
+                                } else {
+                                    Log.d(TAG, "getInvitation: no deep link found.");
+                                }
+                            }
+                        });
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
 }

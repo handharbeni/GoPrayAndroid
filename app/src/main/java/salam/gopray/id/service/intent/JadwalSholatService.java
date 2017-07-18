@@ -40,7 +40,7 @@ public class JadwalSholatService extends IntentService implements ConnectivityCh
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (MainServices.serviceRunning == false){
+        if (!MainServices.serviceRunning){
             startService(new Intent(getApplicationContext(), MainServices.class));
         }
         encryptedPreferences = new EncryptedPreferences.Builder(getBaseContext()).withEncryptionPassword(getString(R.string.KeyPassword)).build();

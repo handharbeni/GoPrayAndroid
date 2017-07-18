@@ -53,7 +53,7 @@ public class AddPuasa extends Fragment {
     TimelineHelper th;
     JadwalSholatHelper jsHelper;
 
-    String dSubuh,dDhuha,dDhuhur,dAshar,dMaghrib,dIsya;
+    String dSubuh,dDhuha,dDhuhur,dAshar,dMaghrib = null,dIsya;
     ShareSocialMedia shareSocialMedia;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -107,71 +107,74 @@ public class AddPuasa extends Fragment {
         return d1.getTime();
     }
     public void saveServer(){
-        long currentTime = stringToTime(getTime());
-        long maghribTime = stringToTime(dMaghrib);
-        Log.d("PUASA", "saveServer: "+currentTime);
-        Log.d("PUASA", "saveServer: "+maghribTime);
-        if (currentTime > maghribTime){
-            String sSurat = "Puasa "+txtPuasa.getSelectedItem().toString();
-            int iSurat = txtPuasa.getSelectedItemPosition()+1;
-            if (sSurat.equalsIgnoreCase("") || sSurat.isEmpty()){
-                sSurat = "";
-            }
+        if (dMaghrib != null){
+            long currentTime = stringToTime(getTime());
+            long maghribTime = stringToTime(dMaghrib);
+            if (currentTime >= maghribTime){
+                String sSurat = "Puasa "+txtPuasa.getSelectedItem().toString();
+                int iSurat = txtPuasa.getSelectedItemPosition()+1;
+                if (sSurat.equalsIgnoreCase("") || sSurat.isEmpty()){
+                    sSurat = "";
+                }
 
-            int rand = getRandId();
-            Timeline tl = new Timeline();
-            tl.setId(rand);
-            tl.setId_aktivitas(2);
-            tl.setId_ibadah(iSurat);
-            tl.setNama_aktivitas("Mengaji");
-            tl.setNama_ibadah(sSurat);
-            tl.setImage("nothing");
-            tl.setTempat("nothing");
-            tl.setBersama("nothing");
-            tl.setPoint(5);
-            tl.setNominal(0);
-            tl.setDate(getDate());
-            tl.setJam(getTime());
-            tl.setStatus(1);
+                int rand = getRandId();
+                Timeline tl = new Timeline();
+                tl.setId(rand);
+                tl.setId_aktivitas(2);
+                tl.setId_ibadah(iSurat);
+                tl.setNama_aktivitas("Mengaji");
+                tl.setNama_ibadah(sSurat);
+                tl.setImage("nothing");
+                tl.setTempat("nothing");
+                tl.setBersama("nothing");
+                tl.setPoint(5);
+                tl.setNominal(0);
+                tl.setDate(getDate());
+                tl.setJam(getTime());
+                tl.setStatus(1);
 
-            th.AddTimelineOffline(tl);
+                th.AddTimelineOffline(tl);
         /*run service*/
-            if(!checkIsRunning(UploadTimeline.class)){
-                Intent intenUpload = new Intent(getActivity().getApplicationContext(), UploadTimeline.class);
-                getActivity().startService(intenUpload);
+                if(!checkIsRunning(UploadTimeline.class)){
+                    Intent intenUpload = new Intent(getActivity().getApplicationContext(), UploadTimeline.class);
+                    getActivity().startService(intenUpload);
+                }
+                if(!checkIsRunning(ServiceTimeline.class)){
+                    Intent intentTimeline = new Intent(getActivity().getApplicationContext(), ServiceTimeline.class);
+                    getActivity().startService(intentTimeline);
+                }
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(getActivity().getApplicationContext())
+                                .setSmallIcon(R.drawable.ic_logo)
+                                .setContentTitle("GoPray Point")
+                                .setContentText("Point Anda bertambah 5");
+
+                int mNotificationId = 042;
+                NotificationManager mNotifyMgr =
+                        (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
+                mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+                new LovelyStandardDialog(getActivity())
+                        .setTopColorRes(R.color.colorPrimary)
+                        .setButtonsColorRes(R.color.colorAccent)
+                        .setIcon(R.drawable.ic_logo)
+                        .setTitle(R.string.app_name)
+                        .setMessage("Point Anda Bertambah 5")
+                        .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getActivity().finish();
+                            }
+                        })
+                        .show();
+
+            }else{
+                showSnackBar("Maaf, Belum waktunya berbuka");
             }
-            if(!checkIsRunning(ServiceTimeline.class)){
-                Intent intentTimeline = new Intent(getActivity().getApplicationContext(), ServiceTimeline.class);
-                getActivity().startService(intentTimeline);
-            }
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(getActivity().getApplicationContext())
-                            .setSmallIcon(R.drawable.ic_logo)
-                            .setContentTitle("GoPray Point")
-                            .setContentText("Point Anda bertambah 5");
-
-            int mNotificationId = 042;
-            NotificationManager mNotifyMgr =
-                    (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
-            mNotifyMgr.notify(mNotificationId, mBuilder.build());
-
-            new LovelyStandardDialog(getActivity())
-                    .setTopColorRes(R.color.colorPrimary)
-                    .setButtonsColorRes(R.color.colorAccent)
-                    .setIcon(R.drawable.ic_logo)
-                    .setTitle(R.string.app_name)
-                    .setMessage("Point Anda Bertambah 5")
-                    .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            getActivity().finish();
-                        }
-                    })
-                    .show();
-
         }else{
-            showSnackBar("Maaf, Belum waktunya berbuka");
+            showSnackBar("Mohon tunggu sebentar, sedang memperbarui jadwal,\nTerima kasih");
         }
+
     }
     public void showSnackBar(String message){
         mFluentSnackbar = FluentSnackbar.create(getActivity());
