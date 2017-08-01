@@ -73,6 +73,7 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         /*Stiker*/
         RelativeLayout itemStiker;
         ImageView txtStiker;
+        TextView txtFreeTextStiker;
         TextView txtTanggalStiker;
         /*Stiker*/
         ImageView icon;
@@ -161,6 +162,7 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             viewHolder.txtTanggalFreeText = (TextView) convertView.findViewById(R.id.txtTanggalFreeText);
 
             viewHolder.txtStiker = (ImageView) convertView.findViewById(R.id.txtStiker);
+            viewHolder.txtFreeTextStiker = (TextView) convertView.findViewById(R.id.txtFreeTextStiker);
 
             viewHolder.txtTanggalStiker = (TextView) convertView.findViewById(R.id.txtTanggalStiker);
 
@@ -254,10 +256,11 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
         }else if(dataModel.getType() == 5){
             /*freetext*/
             viewHolder.itemFreeText.setVisibility(View.VISIBLE);
-            viewHolder.txtFreeText.setText(dataModel.getKeterangan());
+            viewHolder.txtFreeText.setText(dataModel.getStiker());
             viewHolder.txtTanggalFreeText.setText(dataModel.getTanggal());
         }else if(dataModel.getType() == 6){
             /*stiker*/
+//            switch (dataModel.get)
             viewHolder.itemStiker.setVisibility(View.VISIBLE);
             Glide.with(mContext).load(dataModel.getStiker()).into(viewHolder.txtStiker);
             viewHolder.txtTanggalStiker.setText(dataModel.getTanggal());

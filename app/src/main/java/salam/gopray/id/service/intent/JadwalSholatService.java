@@ -103,9 +103,7 @@ public class JadwalSholatService extends IntentService implements ConnectivityCh
                         }else{
 
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
 

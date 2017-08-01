@@ -9,6 +9,7 @@ import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -68,9 +69,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import me.zhanghai.android.materialprogressbar.HorizontalProgressDrawable;
@@ -91,6 +94,8 @@ import sexy.code.HttPizza;
 import sexy.code.Request;
 import sexy.code.RequestBody;
 import sexy.code.Response;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class MainActivity extends AppCompatActivity implements ConnectivityChangeListener, KeyboardWatcher.OnKeyboardToggleListener, ViewTreeObserver.OnGlobalLayoutListener,KeyboardHeightObserver, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient mGoogleApiClient;
@@ -132,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkDifferentTime();
         encryptedPreferences = new EncryptedPreferences.Builder(this).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         endUriDelete = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/deletememe";
         keyboardHeightProvider = new KeyboardHeightProvider(this);
@@ -197,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         ConnectionBuddy.getInstance().clearNetworkCache(this);
         checkSession();
         onNewIntent(getIntent());
+        checkDifferentTime();
     }
     private final void focusOnView(final View parent, final View v){
         parent.post(new Runnable() {
@@ -391,15 +396,19 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         changeFragment(fragment);
     }
     public void checkDifferentTime(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Calendar localTime = Calendar.getInstance();
 
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-        Log.d("CURRENT","TIMEZONE :"+sdf.format(calendar.getTime()));
+        int hourx = localTime.get(Calendar.HOUR);
+        int minutex = localTime.get(Calendar.MINUTE);
+        int secondx = localTime.get(Calendar.SECOND);
+        Log.d(TAG, "checkDifferentTime: LOCAL "+String.valueOf(hourx+":"+minutex+":"+secondx));
 
-        sdf.setTimeZone(TimeZone.getDefault());
-        Log.d("TIMEZONE", "TIMEZONE :"+ sdf.format(calendar.getTime()));
+        Calendar germanyTime = new GregorianCalendar(TimeZone.getTimeZone("GMT+07:00"));
+        int hour = germanyTime.getTime().getHours();
+        int minute = germanyTime.getTime().getMinutes();
+        int second = germanyTime.getTime().getSeconds();
+        Log.d(TAG, "checkDifferentTime: GMT7 "+String.valueOf(hour+":"+minute+":"+second));
+
     }
     public void signinInit(){
         svLogin = (ScrollView) findViewById(R.id.svLogin);

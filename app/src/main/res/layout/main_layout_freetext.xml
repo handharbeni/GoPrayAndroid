@@ -20,7 +20,6 @@
         android:layout_below="@+id/customTitle">
     </android.support.design.widget.TabLayout>
     <FrameLayout
-        android:padding="10dp"
         android:id="@+id/container_freetext"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

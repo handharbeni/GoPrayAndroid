@@ -229,14 +229,27 @@ public class Timeline extends Fragment implements View.OnClickListener {
                 case 5:
                 case 6:
                     dr = R.drawable.timeline_meme;
+                    if (result.get(i).getId_ibadah() == 1){
+                        /*freetext*/
+                        namaIbadah = result.get(i).getImage();
+                    }else if(result.get(i).getId_ibadah() == 2){
+                        /*image*/
+                    }
                     break;
                 case 7:
                     dr = R.drawable.timeline_mengai;
                     break;
             }
-            dataModels.add(new TimelineModel(result.get(i).getId(),result.get(i).getId_aktivitas(), dr, result.get(i).getImage(),
-                    namaIbadah, result.get(i).getBersama(), result.get(i).getTempat(),
-                    convertDates(result.get(i).getDate())+"  "+result.get(i).getJam(), tl, String.valueOf(result.get(i).getNominal())));
+            dataModels.add(new TimelineModel(
+                    result.get(i).getId(),
+                    result.get(i).getId_aktivitas(),
+                    dr,
+                    result.get(i).getImage(),
+                    namaIbadah, result.get(i).getBersama(),
+                    result.get(i).getTempat(),
+                    convertDates(result.get(i).getDate())+"  "+result.get(i).getJam(),
+                    tl,
+                    String.valueOf(result.get(i).getNominal())));
         }
     }
     public void addDataAdapter(){

@@ -57,15 +57,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="/root/.android/build-cache/0b5692c30091806f84d603925877072e6a92fa4f/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0e0e8918eb74e3ee9e82eef6430a4359b2b577d3">
-        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d74a4248b94a21de965fca2e5291a42eeb56f438/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/root/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.7.0/1477ec5caf8319ab4b51eb43553cd66aa86fdea5/okhttp-2.7.0.jar"
         jumboMode="false"
         optimize="true"
@@ -90,6 +81,15 @@
         revision="25.0.2"
         sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
         <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.13.0_e7ea4e486c0a517743326a43c02b22b521807cd1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/root/.android/build-cache/098a0c35968d23d89dd4aeb9f64d1634b642c8ee/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="474cccf169297d49fff89fd35b7634a7a9d1031c">
+        <dex dex="/home/mhandharbeni/Documents/AndroidProject/GoPrayAndroid/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a71a02d07784d25d93e72fbc5581f96984fd6fe7/classes.dex" />
     </item>
     <item
         is-multidex="true"

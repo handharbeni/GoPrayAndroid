@@ -55,7 +55,7 @@
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
         android:id="@+id/itemSholat"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
@@ -491,7 +491,7 @@
         android:paddingBottom="10dp"
 
         android:id="@+id/itemStiker"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -510,7 +510,15 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
-            <android.support.v7.widget.AppCompatImageView
+            <TextView
+                android:visibility="gone"
+                android:text="Caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtFreeTextStiker"
+                android:layout_marginTop="5dp"/>
+            <ImageView
+                android:visibility="visible"
                 android:id="@+id/txtStiker"
                 android:background="@drawable/timeline_berdoa"
                 android:layout_width="100dp"

@@ -53,7 +53,7 @@ import static java.lang.Boolean.TRUE;
 
 public class AddSholat extends Fragment implements View.OnClickListener,KeyboardWatcher.OnKeyboardToggleListener, ViewTreeObserver.OnGlobalLayoutListener {
     public String STAT = "stat", KEY = "key", NAMA="nama", EMAIL= "email", PICTURE = "gambar";
-    String endUri;
+//    String endUri;
     View v;
     HttPizza client;
     EncryptedPreferences encryptedPreferences;
@@ -91,7 +91,7 @@ public class AddSholat extends Fragment implements View.OnClickListener,Keyboard
         jsHelper = new JadwalSholatHelper(getActivity().getApplicationContext());
         /*Timeline Helper*/
 
-        endUri = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/timeline";
+//        endUri = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/timeline";
         v = inflater.inflate(R.layout.tambah_sholat, container, false);
         rlTambahSholat = (RelativeLayout) v.findViewById(R.id.rlTambahSholat);
         scTambahSholat = (ScrollView) v.findViewById(R.id.scTambahSholat);
