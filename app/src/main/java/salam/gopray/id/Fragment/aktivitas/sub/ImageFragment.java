@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -67,6 +68,9 @@ public class ImageFragment extends Fragment implements KeyboardHeightObserver, E
     TransaksiStikerHelper transaksiStikerHelper;
     TimelineHelper th;
 
+    ScrollView svStiker;
+    RelativeLayout imageFreeTextLayout;
+
     int widthx, heightx;
     TabLayout tabLayout;
     ImageView txtImage;
@@ -84,11 +88,11 @@ public class ImageFragment extends Fragment implements KeyboardHeightObserver, E
         encryptedPreferences = new EncryptedPreferences.Builder(getActivity().getApplicationContext()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         encryptedPreferences.registerOnSharedPreferenceChangeListener(this);
 
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        widthx = displayMetrics.widthPixels;
-        heightx = displayMetrics.heightPixels;
-
         v = inflater.inflate(R.layout.image_fragment_freetext, container, false);
+
+        svStiker = (ScrollView) v.findViewById(R.id.svStiker);
+        imageFreeTextLayout = (RelativeLayout) v.findViewById(R.id.imageFreeTextLayout);
+
         initDataDummy();
         initTab();
 
@@ -115,14 +119,25 @@ public class ImageFragment extends Fragment implements KeyboardHeightObserver, E
         return v;
     }
     public void toggleStiker(){
-        toogleSoftboard();
         RelativeLayout layoutStiker = (RelativeLayout) v.findViewById(R.id.layoutStiker);
         if (layoutStiker.getVisibility() == View.GONE){
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            widthx = displayMetrics.widthPixels;
+            heightx = displayMetrics.heightPixels;
+
+            heightx += 250;
+            resizeView(imageFreeTextLayout, widthx, heightx);
             layoutStiker.setVisibility(View.VISIBLE);
             String id = String.valueOf("1");
             changeFragment(Integer.valueOf(id));
             tabLayout.setScrollPosition(0, 0f, true);
         }else{
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            widthx = displayMetrics.widthPixels;
+            heightx = displayMetrics.heightPixels;
+
+            heightx -= 250;
+            resizeView(imageFreeTextLayout, widthx, heightx);
             layoutStiker.setVisibility(View.GONE);
         }
     }
@@ -150,6 +165,26 @@ public class ImageFragment extends Fragment implements KeyboardHeightObserver, E
 
         String or = orientation == Configuration.ORIENTATION_PORTRAIT ? "portrait" : "landscape";
 
+        View view = v.findViewById(R.id.keyboards);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)view .getLayoutParams();
+        params.height = height;
+
+        Double iHeight = height==0? 0 : (height*0.3)+300;
+        svStiker.setMinimumHeight(heightx+iHeight.intValue());
+        imageFreeTextLayout.setMinimumHeight(heightx+iHeight.intValue());
+
+        resizeView(svStiker, widthx, heightx+iHeight.intValue());
+        resizeView(imageFreeTextLayout, widthx, heightx+iHeight.intValue());
+        focusOnView(svStiker, imageFreeTextLayout);
+
+    }
+    private final void focusOnView(final View parent, final View v){
+        parent.post(new Runnable() {
+            @Override
+            public void run() {
+                parent.scrollTo(0, v.getBottom());
+            }
+        });
     }
     private void resizeView(View view, int newWidth, int newHeight) {
         android.view.ViewGroup.LayoutParams params = view.getLayoutParams();

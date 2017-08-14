@@ -359,7 +359,7 @@ public class Timeline extends Fragment implements View.OnClickListener {
         String nama = encryptedPreferences.getString(NAMA, "");
         TextView txtRemainTime = (TextView) v.findViewById(R.id.txtRemainTime);
         ImageView imgTropi1 = (ImageView) v.findViewById(R.id.imgTropi1);
-        Glide.with(getActivity().getApplicationContext()).load("").into(imgTropi1);
+        Glide.with(getActivity().getApplicationContext()).load(R.drawable.bg_badge).into(imgTropi1);
         txtRemainTime.setText(nama);
         TextView txtPoint = (TextView) v.findViewById(R.id.txtPoint);
         RealmResults<salam.gopray.id.database.Timeline>

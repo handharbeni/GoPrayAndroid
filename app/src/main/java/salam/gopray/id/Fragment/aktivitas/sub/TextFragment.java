@@ -5,14 +5,18 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.pddstudio.preferences.encrypted.EncryptedPreferences;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
@@ -28,6 +32,7 @@ import salam.gopray.id.database.Timeline;
 import salam.gopray.id.database.helper.TimelineHelper;
 import salam.gopray.id.service.intent.ServiceTimeline;
 import salam.gopray.id.service.intent.UploadTimeline;
+import salam.gopray.id.util.KeyboardHeightObserver;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -35,7 +40,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  * Created by root on 19/06/17.
  */
 
-public class TextFragment extends Fragment {
+public class TextFragment extends Fragment implements KeyboardHeightObserver {
     View v;
     EncryptedPreferences encryptedPreferences;
 
@@ -46,9 +51,19 @@ public class TextFragment extends Fragment {
     Button btnPost;
     EditText txtStatus, txtBersama, txtTempat;
 
+    ScrollView svTextFreeText;
+    RelativeLayout rlMain;
+
+    int widthx, heightx;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.text_fragment_freetext, container, false);
+
+        svTextFreeText = (ScrollView) v.findViewById(R.id.svTextFreeText);
+        rlMain = (RelativeLayout) v.findViewById(R.id.rlMain);
+
         encryptedPreferences = new EncryptedPreferences.Builder(getActivity().getApplicationContext()).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         th = new TimelineHelper(getActivity().getApplicationContext());
 
@@ -63,6 +78,10 @@ public class TextFragment extends Fragment {
                 postFreeText();
             }
         });
+
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        widthx = displayMetrics.widthPixels;
+        heightx = displayMetrics.heightPixels;
 
         return v;
     }
@@ -163,5 +182,37 @@ public class TextFragment extends Fragment {
             }
         }
         return false;
+    }
+    private final void focusOnView(final View parent, final View v){
+        parent.post(new Runnable() {
+            @Override
+            public void run() {
+                parent.scrollTo(0, v.getBottom());
+            }
+        });
+    }
+    private void resizeView(View view, int newWidth, int newHeight) {
+        android.view.ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.width = newWidth;
+        params.height = newHeight;
+        view.setLayoutParams(params);
+        view.requestLayout();
+        view.invalidate();
+    }
+    @Override
+    public void onKeyboardHeightChanged(int height, int orientation) {
+        String or = orientation == Configuration.ORIENTATION_PORTRAIT ? "portrait" : "landscape";
+
+        View view = v.findViewById(R.id.keyboards);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)view .getLayoutParams();
+        params.height = height;
+
+        Double iHeight = height==0? 0 : (height*0.3)+300;
+        svTextFreeText.setMinimumHeight(heightx+iHeight.intValue());
+        rlMain.setMinimumHeight(heightx+iHeight.intValue());
+
+        resizeView(svTextFreeText, widthx, heightx+iHeight.intValue());
+        resizeView(rlMain, widthx, heightx+iHeight.intValue());
+        focusOnView(svTextFreeText, rlMain);
     }
 }

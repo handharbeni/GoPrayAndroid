@@ -59,4 +59,7 @@ public class JadwalSholatHelper {
             return false;
         }
     }
+    public void closeRealm(){
+        realm.close();
+    }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GoPray</string>
+    <string name="askaccount">Don\'t have account?</string>
+    <string name="asklogin">Already have account?</string>
+    <string name="bersama">With</string>
+    <string name="captionfreetext">What do you feel?</string>
+    <string name="email">Email</string>
+    <string name="freetext">Free Text</string>
+    <string name="hapus">Delete</string>
+    <string name="jenis_kerabat">Family</string>
+    <string name="loginFailed">Login Failed!</string>
+    <string name="mengaji">Read Quran</string>
+    <string name="mengunggah">Uploading</string>
+    <string name="nama">Name</string>
+    <string name="nama_kerabat">Family Name</string>
+    <string name="noConnection">No Connection</string>
+    <string name="nohp">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="passwordbaru">New Password</string>
+    <string name="passwordlama">Old Password</string>
+    <string name="prosesDaftar">Registering</string>
+    <string name="prosesLogin">Do Login</string>
+    <string name="prosesing">Loading</string>
+    <string name="save">Save</string>
+    <string name="sedekah">Charity</string>
+    <string name="selesai">Finish</string>
+    <string name="sholat">Pray</string>
+    <string name="signin">Login</string>
+    <string name="signup">Register</string>
+    <string name="signupFailed">Register Failed</string>
+    <string name="signupSuccess">Register Succeded</string>
+    <string name="tempat">at</string>
+    <string name="ulangipassword">Repeat Password</string>
+</resources>

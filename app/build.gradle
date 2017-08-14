@@ -9,8 +9,8 @@ android {
         applicationId "salam.gopray.id"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 7
-        versionName "5.1"
+        versionCode 8
+        versionName "5.34"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

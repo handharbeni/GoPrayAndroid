@@ -255,12 +255,27 @@ public class TimelineAdapter extends ArrayAdapter<TimelineModel> implements View
             viewHolder.txtTanggalDoa.setText(dataModel.getTanggal());
         }else if(dataModel.getType() == 5){
             /*freetext*/
+            SpannableStringBuilder bersamaBold = null, diBold = null, keteranganBold;
+            SpannableStringBuilder sbLengkap;
+            keteranganBold = setToBold(dataModel.getKeterangan(), dataModel.getStiker());
+            sbLengkap = new SpannableStringBuilder();
+            sbLengkap.append(keteranganBold);
+            if(dataModel.getBersama().equalsIgnoreCase("nothing") == false){
+                bersamaBold = setToBold(dataModel.getBersama(), dataModel.getBersama());
+                sbLengkap.append(" Bersama ");
+                sbLengkap.append(bersamaBold);
+            }
+            if (dataModel.getDi().equalsIgnoreCase("nothing") == false){
+                diBold = setToBold(dataModel.getDi(), dataModel.getDi());
+                sbLengkap.append(" di ");
+                sbLengkap.append(diBold);
+            }
+
             viewHolder.itemFreeText.setVisibility(View.VISIBLE);
-            viewHolder.txtFreeText.setText(dataModel.getStiker());
+            viewHolder.txtFreeText.setText(sbLengkap);
             viewHolder.txtTanggalFreeText.setText(dataModel.getTanggal());
+
         }else if(dataModel.getType() == 6){
-            /*stiker*/
-//            switch (dataModel.get)
             viewHolder.itemStiker.setVisibility(View.VISIBLE);
             Glide.with(mContext).load(dataModel.getStiker()).into(viewHolder.txtStiker);
             viewHolder.txtTanggalStiker.setText(dataModel.getTanggal());

@@ -886,7 +886,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     public void onKeyboardHeightChanged(int height, int orientation) {
 
         String or = orientation == Configuration.ORIENTATION_PORTRAIT ? "portrait" : "landscape";
-        Log.i(TAG, "onKeyboardHeightChanged in pixels: " + (height * 0.3) + " " + or);
 
         View view = findViewById(R.id.keyboards);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)view .getLayoutParams();

@@ -22,17 +22,14 @@ public class MyWelcomeActivity extends AhoyOnboarderActivity {
         encryptedPreferences = new EncryptedPreferences.Builder(this).withEncryptionPassword(getString(R.string.KeyPassword)).build();
         AhoyOnboarderCard ahoyOnboarderCard1 = new AhoyOnboarderCard("", "", R.drawable.ic_text1);
         AhoyOnboarderCard ahoyOnboarderCard2 = new AhoyOnboarderCard("", "", R.drawable.ic_text2);
-        AhoyOnboarderCard ahoyOnboarderCard3 = new AhoyOnboarderCard("", "", R.drawable.ic_text3);
 
         ahoyOnboarderCard1.setBackgroundColor(android.R.color.transparent);
         ahoyOnboarderCard2.setBackgroundColor(android.R.color.transparent);
-        ahoyOnboarderCard3.setBackgroundColor(android.R.color.transparent);
 
         List<AhoyOnboarderCard> pages = new ArrayList<>();
 
         pages.add(ahoyOnboarderCard1);
         pages.add(ahoyOnboarderCard2);
-        pages.add(ahoyOnboarderCard3);
 
         for (AhoyOnboarderCard page : pages) {
             page.setTitleColor(R.color.white);

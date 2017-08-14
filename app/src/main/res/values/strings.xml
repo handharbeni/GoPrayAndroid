@@ -7,11 +7,11 @@
     <string name="passwordbaru">Password Baru</string>
     <string name="ulangipassword">Ulangi Password Baru</string>
     <string name="noConnection">Tidak Ada Koneksi</string>
-    <string name="KeyPassword">SATULIMAKALI</string>
+    <string name="KeyPassword" translatable="false">SATULIMAKALI</string>
     <!--<string name="server">http://goprayapi.herokuapp.com</string>-->
     <!--<string name="server">http://192.168.1.20/GoPrayAPI</string>-->
-    <string name="server">http://103.27.207.92:88</string>
-    <string name="vServer"></string>
+    <string name="server" translatable="false">http://103.27.207.92:88</string>
+    <string name="vServer" translatable="false"></string>
     <string name="signin">Masuk</string>
     <string name="signup">Daftar</string>
     <string name="loginFailed">Login Gagal!!</string>
@@ -22,15 +22,15 @@
     <string name="askaccount">Belum Punya Akun?</string>
     <string name="asklogin">Sudah Punya Akun?</string>
     <string name="sholat">Sholat</string>
-    <string name="bersama">bersama</string>
+    <string name="bersama">Bersama</string>
     <string name="tempat">di</string>
     <string name="mengaji">Mengaji</string>
     <string name="sedekah">Sedekah</string>
     <string name="freetext">Free Text</string>
     <string name="save">Simpan</string>
-    <string name="dummyToken">8aa560b5efa8691dddcf4a11a69b3d1f98f01280bb6ef6efbd32ca39d9b8ac33</string>
-    <string name="dummyPicture">http://s3.amazonaws.com/37assets/svn/765-default-avatar.png</string>
-    <string name="facebook_app_id">217154788790940</string>
+    <string name="dummyToken" translatable="false">8aa560b5efa8691dddcf4a11a69b3d1f98f01280bb6ef6efbd32ca39d9b8ac33</string>
+    <string name="dummyPicture" translatable="false">http://s3.amazonaws.com/37assets/svn/765-default-avatar.png</string>
+    <string name="facebook_app_id" translatable="false">217154788790940</string>
     <array name="surat">
         <item>Al Fatihah</item>
         <item>Al Baqoroh</item>
@@ -150,7 +150,7 @@
         <item>Senin Kamis</item>
         <item>Sunnah</item>
     </array>
-    <string-array name="versi">
+    <string-array name="versi" translatable="false">
         <item>Versi</item>
     </string-array>
 
@@ -159,36 +159,36 @@
     </string-array>
 
 
-    <string-array name="preferences">
+    <string-array name="preferences" translatable="false">
         <!--<item>Lokasi</item>-->
         <item>Akun</item>
         <!--<item>Notifikasi</item>-->
         <!--<item>Sharing</item>-->
         <!--<item>Efek Suara</item>-->
     </string-array>
-    <string-array name="tentang">
+    <string-array name="tentang" translatable="false">
         <item>Akun</item>
         <item>Tentang</item>
         <item>Bantuan</item>
         <item>Logout</item>
     </string-array>
     <string name="hapus">Hapus</string>
-    <string name="about">GoPray adalah aplikasi untuk meningkatkan semangat dan menjaga konsistensi ibadah Anda. Memiliki fitur-fitur untuk merekam aktivitas ibadah, termasuk sholat, puasa, membaca Al Qur’an, dan sedekah, GoPray adalah teman ibadah harian Anda.\n\nCreate your praylist, and GoPray now!
+    <string name="about" translatable="false">GoPray adalah aplikasi untuk meningkatkan semangat dan menjaga konsistensi ibadah Anda. Memiliki fitur-fitur untuk merekam aktivitas ibadah, termasuk sholat, puasa, membaca Al Qur’an, dan sedekah, GoPray adalah teman ibadah harian Anda.\n\nCreate your praylist, and GoPray now!
     </string>
-    <string name="helpInfo">
+    <string name="helpInfo" translatable="false">
         Jangan Malu Bertanya \n \n Membutuhkan beberapa bantuan ? tentang update sholat, doa, sedekah, puasa, mengaji, orang terdekat.
         Silakan bertanya pada gopray.id
     </string>
     <string name="prosesing">Sedang Diproses..</string>
     <string name="selesai">Selesai!!</string>
     <string name="mengunggah">Sedang Menunggah!!</string>
-    <string name="font_name_helvetica_normal">helvetica-normal</string>
-    <string name="font_name_source_sans_pro">SourceSansPro</string>
+    <string name="font_name_helvetica_normal" translatable="false">helvetica-normal</string>
+    <string name="font_name_source_sans_pro" translatable="false">SourceSansPro</string>
     <string name="nohp">Nomor Telephone</string>
     <string name="nama_kerabat">Nama Kerabat</string>
     <string name="jenis_kerabat">Kerabat</string>
     <string name="captionfreetext">Apa yang kamu rasakan?</string>
-    <string-array name="tab_freetext">
+    <string-array name="tab_freetext" translatable="false">
         <item>Free Text</item>
         <item>Sticker</item>
     </string-array>
