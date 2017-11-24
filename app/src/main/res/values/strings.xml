@@ -192,4 +192,5 @@
         <item>Free Text</item>
         <item>Sticker</item>
     </string-array>
+    <string name="asset_statements" translatable="false">[{\n  \"relation\": [\"delegate_permission/common.handle_all_urls\"],\n  \"target\": {\n    \"namespace\": \"web\",\n    \"site\": \"https://gopray.id\",\n  }\n}]</string>
 </resources>

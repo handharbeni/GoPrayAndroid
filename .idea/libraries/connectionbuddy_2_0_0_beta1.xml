@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="connectionbuddy-2.0.0-beta1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/1000246cf8269d8ab96cd033559c9488dc2ac703/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/1000246cf8269d8ab96cd033559c9488dc2ac703/output/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/connectionbuddy-2.0.0-beta1.aar/02d4ab461bc04bc17156ae70ddeb4f11/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/connectionbuddy-2.0.0-beta1.aar/02d4ab461bc04bc17156ae70ddeb4f11/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

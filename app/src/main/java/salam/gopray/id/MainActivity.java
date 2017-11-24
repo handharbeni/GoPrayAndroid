@@ -138,11 +138,11 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         encryptedPreferences = new EncryptedPreferences.Builder(this).withEncryptionPassword(getString(R.string.KeyPassword)).build();
-        endUriDelete = getResources().getString(R.string.server)+"/"+getResources().getString(R.string.vServer)+"/"+"users/self/deletememe";
+        endUriDelete = getResources().getString(R.string.server) + "/" + getResources().getString(R.string.vServer) + "/" + "users/self/deletememe";
         keyboardHeightProvider = new KeyboardHeightProvider(this);
         initDeepLink();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        if (encryptedPreferences.getString("WELCOME","0").equalsIgnoreCase("0")){
+        if (encryptedPreferences.getString("WELCOME", "0").equalsIgnoreCase("0")) {
             Intent i = new Intent(this, MyWelcomeActivity.class);
             startActivity(i);
         }
@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         client = new HttPizza();
-        server = getString(R.string.server)+"/"+getString(R.string.vServer)+"/";
+        server = getString(R.string.server) + "/" + getString(R.string.vServer) + "/";
         uriSignin = "users/self/login";
         uriSignup = "users/self/daftar";
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         mProgressBar.setVisibility(View.GONE);
 
         fontReplacer = new FontChangeCrawler(defaultFont);
-        fontReplacer.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
+        fontReplacer.replaceFonts((ViewGroup) this.findViewById(android.R.id.content));
         mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         signinLayout = (RelativeLayout) findViewById(R.id.signinLayout);
         signupLayout = (RelativeLayout) findViewById(R.id.signupLayout);
@@ -202,6 +202,10 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
         checkSession();
         onNewIntent(getIntent());
         checkDifferentTime();
+        // ATTENTION: This was auto-generated to handle app links.
+        Intent appLinkIntent = getIntent();
+        String appLinkAction = appLinkIntent.getAction();
+        Uri appLinkData = appLinkIntent.getData();
     }
     private final void focusOnView(final View parent, final View v){
         parent.post(new Runnable() {

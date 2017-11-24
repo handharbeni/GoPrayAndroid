@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="onboarder-1.0.3">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/15cc0e1db4dea94ba7f649cc719cec801b323ac4/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/15cc0e1db4dea94ba7f649cc719cec801b323ac4/output/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/onboarder-1.0.3.aar/184c109c5ed25df69d3d7cef193a7a6b/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/onboarder-1.0.3.aar/184c109c5ed25df69d3d7cef193a7a6b/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
