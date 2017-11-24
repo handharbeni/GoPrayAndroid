@@ -17,6 +17,7 @@ import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.multidex.MultiDex;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -135,6 +136,11 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
 
     private KeyboardHeightProvider keyboardHeightProvider;
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         encryptedPreferences = new EncryptedPreferences.Builder(this).withEncryptionPassword(getString(R.string.KeyPassword)).build();
@@ -152,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityChang
 
         keyboardWatcher = new KeyboardWatcher(this);
         keyboardWatcher.setListener(this);
-        Typeface defaultFont = Typeface.createFromAsset(getAssets(), "fonts/helvetica-normal.ttf");
+        Typeface defaultFont = Typeface.createFromAsset(getAssets(), "fonts/helveticanormal.ttf");
         String[] permissions = new String[11];
         permissions[0] = Manifest.permission.CAMERA;
         permissions[1] = Manifest.permission.INTERNET;

@@ -10,7 +10,7 @@
     <string name="KeyPassword" translatable="false">SATULIMAKALI</string>
     <!--<string name="server">http://goprayapi.herokuapp.com</string>-->
     <!--<string name="server">http://192.168.1.20/GoPrayAPI</string>-->
-    <string name="server" translatable="false">http://103.27.207.92:88</string>
+    <string name="server" translatable="false">http://139.59.110.160:88</string>
     <string name="vServer" translatable="false"></string>
     <string name="signin">Masuk</string>
     <string name="signup">Daftar</string>

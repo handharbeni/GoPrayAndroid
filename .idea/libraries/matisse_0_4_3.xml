@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="matisse-0.4.3">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/matisse-0.4.3.aar/68fa2b2b1d022e1ad2b5dbd48166abbd/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/matisse-0.4.3.aar/68fa2b2b1d022e1ad2b5dbd48166abbd/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/matisse-0.4.3.aar/ded30e2553ae6d97bf48d618d97c950d/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/matisse-0.4.3.aar/ded30e2553ae6d97bf48d618d97c950d/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
